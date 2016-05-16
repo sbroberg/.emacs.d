@@ -32,12 +32,12 @@
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
     comment-dwim-2       ;; Better options for commenting using M-;
-    dtrt-indent
     ws-butler            ;; smartly removes trailing whitespace
     iedit                ;; Hit C-; to highlight & edit all occurrences of symbol
     volatile-highlights  ;; highlights changes from undo/replace/etc until keystroke
     clang-format         ;; Formats code using clang-format.  Requires installation of binary
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
+    helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
 
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching

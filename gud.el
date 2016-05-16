@@ -93,7 +93,7 @@ The symbol returned is `gud-<MINOR-MODE>-<SYM>'.
 If SOFT is non-nil, returns nil if the symbol doesn't already exist."
   (unless (or minor-mode gud-minor-mode) (error "Gud internal error"))
   (funcall (if soft 'intern-soft 'intern)
-       (format "gud-%s-%s" (or minor-mode gud-minor-mode) sym)))
+           (format "gud-%s-%s" (or minor-mode gud-minor-mode) sym)))
 
 (defun gud-val (sym &optional minor-mode)
   "Return the value of `gud-symbol' SYM.  Default to nil."
@@ -111,150 +111,150 @@ Used to grey out relevant toolbar icons.")
   "Go to relevant Emacs info node."
   (interactive)
   (let ((same-window-regexps same-window-regexps)
-    (display-buffer-reuse-frames t))
+        (display-buffer-reuse-frames t))
     (catch 'info-found
       (walk-windows
        '(lambda (window)
-      (if (eq (window-buffer window) (get-buffer "*info*"))
-          (progn
-        (setq same-window-regexps nil)
-        (throw 'info-found nil))))
+          (if (eq (window-buffer window) (get-buffer "*info*"))
+              (progn
+                (setq same-window-regexps nil)
+                (throw 'info-found nil))))
        nil 0)
       (select-frame (make-frame)))
     (if (memq gud-minor-mode '(gdbmi gdba))
-    (info "(emacs)GDB Graphical Interface")
+        (info "(emacs)GDB Graphical Interface")
       (info "(emacs)Debuggers"))))
 
 (defun gud-tool-bar-item-visible-no-fringe ()
   (not (or (eq (buffer-local-value 'major-mode (window-buffer)) 'speedbar-mode)
-       (and (memq gud-minor-mode '(gdbmi gdba))
-        (> (car (window-fringes)) 0)))))
+           (and (memq gud-minor-mode '(gdbmi gdba))
+                (> (car (window-fringes)) 0)))))
 
 (defun gud-stop-subjob ()
   (interactive)
   (with-current-buffer gud-comint-buffer
     (if (string-equal gud-target-name "emacs")
-    (comint-stop-subjob)
+        (comint-stop-subjob)
       (comint-interrupt-subjob))))
 
 (easy-mmode-defmap gud-menu-map
-  '(([help]     "Info" . gud-goto-info)
-    ([tooltips] menu-item "Show GUD tooltips" gud-tooltip-mode
-                  :enable (and (not emacs-basic-display)
-                   (display-graphic-p)
-                   (fboundp 'x-show-tip))
-          :visible (memq gud-minor-mode
-                '(lldb gdbmi gdba dbx sdb xdb pdb))
-              :button (:toggle . gud-tooltip-mode))
-    ([refresh]	"Refresh" . gud-refresh)
-    ([run]	menu-item "Run" gud-run
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode '(lldb gdbmi gdb dbx jdb)))
-    ([go]	menu-item (if gdb-active-process "Continue" "Run") gud-go
-          :visible (and (not gud-running)
-                (eq gud-minor-mode 'gdba)))
-    ([stop]	menu-item "Stop" gud-stop-subjob
-          :visible (or (not (memq gud-minor-mode '(gdba pdb)))
-                   (and gud-running
-                    (eq gud-minor-mode 'gdba))))
-    ([until]	menu-item "Continue to selection" gud-until
-                  :enable (not gud-running)
-          :visible (and (memq gud-minor-mode '(gdbmi gdba gdb perldb))
-                (gud-tool-bar-item-visible-no-fringe)))
-    ([remove]	menu-item "Remove Breakpoint" gud-remove
-                  :enable (not gud-running)
-          :visible (gud-tool-bar-item-visible-no-fringe))
-    ([tbreak]	menu-item "Temporary Breakpoint" gud-tbreak
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode
-                '(lldb gdbmi gdba gdb sdb xdb)))
-    ([break]	menu-item "Set Breakpoint" gud-break
-                  :enable (not gud-running)
-          :visible (gud-tool-bar-item-visible-no-fringe))
-    ([up]	menu-item "Up Stack" gud-up
-          :enable (not gud-running)
-          :visible (memq gud-minor-mode
-                 '(lldb gdbmi gdba gdb dbx xdb jdb pdb)))
-    ([down]	menu-item "Down Stack" gud-down
-          :enable (not gud-running)
-          :visible (memq gud-minor-mode
-                 '(lldb gdbmi gdba gdb dbx xdb jdb pdb)))
-    ([pp]	menu-item "Print S-expression" gud-pp
-                  :enable (and (not gud-running)
-                  gdb-active-process)
-          :visible (and (string-equal
-                 (buffer-local-value
-                  'gud-target-name gud-comint-buffer) "emacs")
-                (eq gud-minor-mode 'gdba)))
-    ([print*]	menu-item "Print Dereference" gud-pstar
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb)))
-    ([print]	menu-item "Print Expression" gud-print
-                  :enable (not gud-running))
-    ([watch]	menu-item "Watch Expression" gud-watch
-          :enable (not gud-running)
-          :visible (memq gud-minor-mode '(gdbmi gdba)))
-    ([finish]	menu-item "Finish Function" gud-finish
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode
-                 '(lldb gdbmi gdba gdb xdb jdb pdb)))
-    ([stepi]	menu-item "Step Instruction" gud-stepi
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb dbx)))
-    ([nexti]	menu-item "Next Instruction" gud-nexti
-                  :enable (not gud-running)
-          :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb dbx)))
-    ([step]	menu-item "Step Line" gud-step
-                  :enable (not gud-running))
-    ([next]	menu-item "Next Line" gud-next
-                  :enable (not gud-running))
-    ([cont]	menu-item "Continue" gud-cont
-                  :enable (not gud-running)
-          :visible (not (eq gud-minor-mode 'gdba))))
-  "Menu for `gud-mode'."
-  :name "Gud")
+                   '(([help]     "Info" . gud-goto-info)
+                     ([tooltips] menu-item "Show GUD tooltips" gud-tooltip-mode
+                      :enable (and (not emacs-basic-display)
+                                   (display-graphic-p)
+                                   (fboundp 'x-show-tip))
+                      :visible (memq gud-minor-mode
+                                     '(lldb gdbmi gdba dbx sdb xdb pdb))
+                      :button (:toggle . gud-tooltip-mode))
+                     ([refresh]	"Refresh" . gud-refresh)
+                     ([run]	menu-item "Run" gud-run
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode '(lldb gdbmi gdb dbx jdb)))
+                     ([go]	menu-item (if gdb-active-process "Continue" "Run") gud-go
+                      :visible (and (not gud-running)
+                                    (eq gud-minor-mode 'gdba)))
+                     ([stop]	menu-item "Stop" gud-stop-subjob
+                      :visible (or (not (memq gud-minor-mode '(gdba pdb)))
+                                   (and gud-running
+                                        (eq gud-minor-mode 'gdba))))
+                     ([until]	menu-item "Continue to selection" gud-until
+                      :enable (not gud-running)
+                      :visible (and (memq gud-minor-mode '(gdbmi gdba gdb perldb))
+                                    (gud-tool-bar-item-visible-no-fringe)))
+                     ([remove]	menu-item "Remove Breakpoint" gud-remove
+                      :enable (not gud-running)
+                      :visible (gud-tool-bar-item-visible-no-fringe))
+                     ([tbreak]	menu-item "Temporary Breakpoint" gud-tbreak
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode
+                                     '(lldb gdbmi gdba gdb sdb xdb)))
+                     ([break]	menu-item "Set Breakpoint" gud-break
+                      :enable (not gud-running)
+                      :visible (gud-tool-bar-item-visible-no-fringe))
+                     ([up]	menu-item "Up Stack" gud-up
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode
+                                     '(lldb gdbmi gdba gdb dbx xdb jdb pdb)))
+                     ([down]	menu-item "Down Stack" gud-down
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode
+                                     '(lldb gdbmi gdba gdb dbx xdb jdb pdb)))
+                     ([pp]	menu-item "Print S-expression" gud-pp
+                      :enable (and (not gud-running)
+                                   gdb-active-process)
+                      :visible (and (string-equal
+                                     (buffer-local-value
+                                      'gud-target-name gud-comint-buffer) "emacs")
+                                    (eq gud-minor-mode 'gdba)))
+                     ([print*]	menu-item "Print Dereference" gud-pstar
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb)))
+                     ([print]	menu-item "Print Expression" gud-print
+                      :enable (not gud-running))
+                     ([watch]	menu-item "Watch Expression" gud-watch
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode '(gdbmi gdba)))
+                     ([finish]	menu-item "Finish Function" gud-finish
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode
+                                     '(lldb gdbmi gdba gdb xdb jdb pdb)))
+                     ([stepi]	menu-item "Step Instruction" gud-stepi
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb dbx)))
+                     ([nexti]	menu-item "Next Instruction" gud-nexti
+                      :enable (not gud-running)
+                      :visible (memq gud-minor-mode '(lldb gdbmi gdba gdb dbx)))
+                     ([step]	menu-item "Step Line" gud-step
+                      :enable (not gud-running))
+                     ([next]	menu-item "Next Line" gud-next
+                      :enable (not gud-running))
+                     ([cont]	menu-item "Continue" gud-cont
+                      :enable (not gud-running)
+                      :visible (not (eq gud-minor-mode 'gdba))))
+                   "Menu for `gud-mode'."
+                   :name "Gud")
 
 (easy-mmode-defmap gud-minor-mode-map
-  (append
-     `(([menu-bar debug] . ("Gud" . ,gud-menu-map)))
-     ;; Get tool bar like functionality from the menu bar on a text only
-     ;; terminal.
-   (unless window-system
-     `(([menu-bar down]
-    . (,(propertize "down" 'face 'font-lock-doc-face) . gud-down))
-       ([menu-bar up]
-    . (,(propertize "up" 'face 'font-lock-doc-face) . gud-up))
-       ([menu-bar finish]
-    . (,(propertize "finish" 'face 'font-lock-doc-face) . gud-finish))
-       ([menu-bar step]
-    . (,(propertize "step" 'face 'font-lock-doc-face) . gud-step))
-       ([menu-bar next]
-    . (,(propertize "next" 'face 'font-lock-doc-face) . gud-next))
-       ([menu-bar until] menu-item
-    ,(propertize "until" 'face 'font-lock-doc-face) gud-until
-          :visible (memq gud-minor-mode '(gdbmi gdba gdb perldb)))
-       ([menu-bar cont] menu-item
-    ,(propertize "cont" 'face 'font-lock-doc-face) gud-cont
-    :visible (not (eq gud-minor-mode 'gdba)))
-       ([menu-bar run] menu-item
-    ,(propertize "run" 'face 'font-lock-doc-face) gud-run
-    :visible (memq gud-minor-mode '(gdbmi gdb dbx jdb)))
-       ([menu-bar go] menu-item
-    ,(propertize " go " 'face 'font-lock-doc-face) gud-go
-    :visible (and (not gud-running)
-              (eq gud-minor-mode 'gdba)))
-       ([menu-bar stop] menu-item
-    ,(propertize "stop" 'face 'font-lock-doc-face) gud-stop-subjob
-    :visible (or gud-running
-             (not (eq gud-minor-mode 'gdba))))
-       ([menu-bar print]
-    . (,(propertize "print" 'face 'font-lock-doc-face) . gud-print))
-       ([menu-bar tools] . undefined)
-       ([menu-bar buffer] . undefined)
-       ([menu-bar options] . undefined)
-       ([menu-bar edit] . undefined)
-       ([menu-bar file] . undefined))))
-  "Map used in visited files.")
+                   (append
+                    `(([menu-bar debug] . ("Gud" . ,gud-menu-map)))
+                    ;; Get tool bar like functionality from the menu bar on a text only
+                    ;; terminal.
+                    (unless window-system
+                      `(([menu-bar down]
+                         . (,(propertize "down" 'face 'font-lock-doc-face) . gud-down))
+                        ([menu-bar up]
+                         . (,(propertize "up" 'face 'font-lock-doc-face) . gud-up))
+                        ([menu-bar finish]
+                         . (,(propertize "finish" 'face 'font-lock-doc-face) . gud-finish))
+                        ([menu-bar step]
+                         . (,(propertize "step" 'face 'font-lock-doc-face) . gud-step))
+                        ([menu-bar next]
+                         . (,(propertize "next" 'face 'font-lock-doc-face) . gud-next))
+                        ([menu-bar until] menu-item
+                         ,(propertize "until" 'face 'font-lock-doc-face) gud-until
+                         :visible (memq gud-minor-mode '(gdbmi gdba gdb perldb)))
+                        ([menu-bar cont] menu-item
+                         ,(propertize "cont" 'face 'font-lock-doc-face) gud-cont
+                         :visible (not (eq gud-minor-mode 'gdba)))
+                        ([menu-bar run] menu-item
+                         ,(propertize "run" 'face 'font-lock-doc-face) gud-run
+                         :visible (memq gud-minor-mode '(gdbmi gdb dbx jdb)))
+                        ([menu-bar go] menu-item
+                         ,(propertize " go " 'face 'font-lock-doc-face) gud-go
+                         :visible (and (not gud-running)
+                                       (eq gud-minor-mode 'gdba)))
+                        ([menu-bar stop] menu-item
+                         ,(propertize "stop" 'face 'font-lock-doc-face) gud-stop-subjob
+                         :visible (or gud-running
+                                      (not (eq gud-minor-mode 'gdba))))
+                        ([menu-bar print]
+                         . (,(propertize "print" 'face 'font-lock-doc-face) . gud-print))
+                        ([menu-bar tools] . undefined)
+                        ([menu-bar buffer] . undefined)
+                        ([menu-bar options] . undefined)
+                        ([menu-bar edit] . undefined)
+                        ([menu-bar file] . undefined))))
+                   "Map used in visited files.")
 
 (let ((m (assq 'gud-minor-mode minor-mode-map-alist)))
   (if m (setcdr m gud-minor-mode-map)
@@ -268,41 +268,41 @@ Used to grey out relevant toolbar icons.")
 (defvar gud-tool-bar-map
   (if (display-graphic-p)
       (let ((map (make-sparse-keymap)))
-    (dolist (x '((gud-break . "gud/break")
-             (gud-remove . "gud/remove")
-             (gud-print . "gud/print")
-             (gud-pstar . "gud/pstar")
-             (gud-pp . "gud/pp")
-             (gud-watch . "gud/watch")
-             (gud-run . "gud/run")
-             (gud-go . "gud/go")
-             (gud-stop-subjob . "gud/stop")
-             (gud-cont . "gud/cont")
-             (gud-until . "gud/until")
-             (gud-next . "gud/next")
-             (gud-step . "gud/step")
-             (gud-finish . "gud/finish")
-             (gud-nexti . "gud/nexti")
-             (gud-stepi . "gud/stepi")
-             (gud-up . "gud/up")
-             (gud-down . "gud/down")
-             (gud-goto-info . "info"))
-           map)
-      (tool-bar-local-item-from-menu
-       (car x) (cdr x) map gud-minor-mode-map)))))
+        (dolist (x '((gud-break . "gud/break")
+                     (gud-remove . "gud/remove")
+                     (gud-print . "gud/print")
+                     (gud-pstar . "gud/pstar")
+                     (gud-pp . "gud/pp")
+                     (gud-watch . "gud/watch")
+                     (gud-run . "gud/run")
+                     (gud-go . "gud/go")
+                     (gud-stop-subjob . "gud/stop")
+                     (gud-cont . "gud/cont")
+                     (gud-until . "gud/until")
+                     (gud-next . "gud/next")
+                     (gud-step . "gud/step")
+                     (gud-finish . "gud/finish")
+                     (gud-nexti . "gud/nexti")
+                     (gud-stepi . "gud/stepi")
+                     (gud-up . "gud/up")
+                     (gud-down . "gud/down")
+                     (gud-goto-info . "info"))
+                   map)
+          (tool-bar-local-item-from-menu
+           (car x) (cdr x) map gud-minor-mode-map)))))
 
 (defun gud-file-name (f)
   "Transform a relative file name to an absolute file name.
 Uses `gud-<MINOR-MODE>-directories' to find the source files."
   (if (file-exists-p f) (expand-file-name f)
     (let ((directories (gud-val 'directories))
-      (result nil))
+          (result nil))
       (while directories
-    (let ((path (expand-file-name f (car directories))))
-      (if (file-exists-p path)
-          (setq result path
-            directories nil)))
-    (setq directories (cdr directories)))
+        (let ((path (expand-file-name f (car directories))))
+          (if (file-exists-p path)
+              (setq result path
+                    directories nil)))
+        (setq directories (cdr directories)))
       result)))
 
 (defun gud-find-file (file)
@@ -310,20 +310,20 @@ Uses `gud-<MINOR-MODE>-directories' to find the source files."
   (while (string-match "//+" file)
     (setq file (replace-match "/" t t file)))
   (let ((minor-mode gud-minor-mode)
-    (buf (funcall (or gud-find-file 'gud-file-name) file)))
+        (buf (funcall (or gud-find-file 'gud-file-name) file)))
     (when (stringp buf)
       (setq buf (and (file-readable-p buf) (find-file-noselect buf 'nowarn))))
     (when buf
       ;; Copy `gud-minor-mode' to the found buffer to turn on the menu.
       (with-current-buffer buf
-    (set (make-local-variable 'gud-minor-mode) minor-mode)
-    (set (make-local-variable 'tool-bar-map) gud-tool-bar-map)
-    (when (and gud-tooltip-mode
-           (memq gud-minor-mode '(gdbmi gdba)))
-      (make-local-variable 'gdb-define-alist)
-      (unless  gdb-define-alist (gdb-create-define-alist))
-      (add-hook 'after-save-hook 'gdb-create-define-alist nil t))
-    (make-local-variable 'gud-keep-buffer))
+        (set (make-local-variable 'gud-minor-mode) minor-mode)
+        (set (make-local-variable 'tool-bar-map) gud-tool-bar-map)
+        (when (and gud-tooltip-mode
+                   (memq gud-minor-mode '(gdbmi gdba)))
+          (make-local-variable 'gdb-define-alist)
+          (unless  gdb-define-alist (gdb-create-define-alist))
+          (add-hook 'after-save-hook 'gdb-create-define-alist nil t))
+        (make-local-variable 'gud-keep-buffer))
       buf)))
 
 ;; ======================================================================
@@ -366,9 +366,9 @@ we're in the GUD buffer)."
        ,@(if doc (list doc))
        (interactive "p")
        (if (not gud-running)
-     ,(if (stringp cmd)
-          `(gud-call ,cmd arg)
-        cmd)))
+           ,(if (stringp cmd)
+                `(gud-call ,cmd arg)
+              cmd)))
      ,(if key `(local-set-key ,(concat "\C-c" key) ',func))
      ,(if key `(global-set-key (vconcat gud-key-prefix ,key) ',func))))
 
@@ -422,7 +422,7 @@ The value t means that there is no stack, and we are in display-file mode.")
   "Display the data type of the watch expression element."
   (let ((var (nth (- (line-number-at-pos (point)) 2) gdb-var-list)))
     (if (nth 6 var)
-    (speedbar-message "%s: %s" (nth 6 var) (nth 3 var))
+        (speedbar-message "%s: %s" (nth 6 var) (nth 3 var))
       (speedbar-message "%s" (nth 3 var)))))
 
 (defun gud-install-speedbar-variables ()
@@ -439,8 +439,8 @@ The value t means that there is no stack, and we are in display-file mode.")
     (define-key gud-speedbar-key-map "p" 'gud-pp))
 
   (speedbar-add-expansion-list '("GUD" gud-speedbar-menu-items
-                 gud-speedbar-key-map
-                 gud-expansion-speedbar-buttons))
+                                 gud-speedbar-key-map
+                                 gud-expansion-speedbar-buttons))
 
   (add-to-list
    'speedbar-mode-functions-list
@@ -450,20 +450,20 @@ The value t means that there is no stack, and we are in display-file mode.")
 (defvar gud-speedbar-menu-items
   '(["Jump to stack frame" speedbar-edit-line
      :visible (not (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-            '(gdbmi gdba)))]
+                         '(gdbmi gdba)))]
     ["Edit value" speedbar-edit-line
      :visible (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-            '(gdbmi gdba))]
+                    '(gdbmi gdba))]
     ["Delete expression" gdb-var-delete
      :visible (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-            '(gdbmi gdba))]
+                    '(gdbmi gdba))]
     ["Auto raise frame" gdb-speedbar-auto-raise
      :style toggle :selected gdb-speedbar-auto-raise
      :visible (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-            '(gdbmi gdba))]
+                    '(gdbmi gdba))]
     ("Output Format"
      :visible (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-            '(gdbmi gdba))
+                    '(gdbmi gdba))
      ["Binary" (gdb-var-set-format "binary") t]
      ["Natural" (gdb-var-set-format  "natural") t]
      ["Hexadecimal" (gdb-var-set-format "hexadecimal") t]))
@@ -485,108 +485,108 @@ If the GUD BUFFER is not running a supported debugger, then turn
 off the specialized speedbar mode.  BUFFER is not used, but is
 required by the caller."
   (when (and gud-comint-buffer
-         ;; gud-comint-buffer might be killed
-         (buffer-name gud-comint-buffer))
+             ;; gud-comint-buffer might be killed
+             (buffer-name gud-comint-buffer))
     (let* ((minor-mode (with-current-buffer buffer gud-minor-mode))
-      (window (get-buffer-window (current-buffer) 0))
-      (start (window-start window))
-      (p (window-point window)))
+           (window (get-buffer-window (current-buffer) 0))
+           (start (window-start window))
+           (p (window-point window)))
       (cond
        ((memq minor-mode '(gdbmi gdba))
-    (erase-buffer)
-    (insert "Watch Expressions:\n")
-    (if gdb-speedbar-auto-raise
-        (raise-frame speedbar-frame))
-    (let ((var-list gdb-var-list) parent)
-      (while var-list
-        (let* (char (depth 0) (start 0) (var (car var-list))
-            (varnum (car var)) (expr (nth 1 var))
-            (type (if (nth 3 var) (nth 3 var) " "))
-            (value (nth 4 var)) (status (nth 5 var)))
-          (put-text-property
-           0 (length expr) 'face font-lock-variable-name-face expr)
-          (put-text-property
-           0 (length type) 'face font-lock-type-face type)
-          (while (string-match "\\." varnum start)
-        (setq depth (1+ depth)
-              start (1+ (match-beginning 0))))
-          (if (eq depth 0) (setq parent nil))
-          (if (or (equal (nth 2 var) "0")
-              (and (equal (nth 2 var) "1")
-               (string-match "char \\*$" type)))
-          (speedbar-make-tag-line
-           'bracket ?? nil nil
-           (concat expr "\t" value)
-           (if (or parent (eq status 'out-of-scope))
-               nil 'gdb-edit-value)
-           nil
-           (if gdb-show-changed-values
-               (or parent (case status
-                    (changed 'font-lock-warning-face)
-                    (out-of-scope 'shadow)
-                    (t t)))
-             t)
-           depth)
-        (if (eq status 'out-of-scope) (setq parent 'shadow))
-        (if (and (nth 1 var-list)
-             (string-match (concat varnum "\\.")
-                       (car (nth 1 var-list))))
-            (setq char ?-)
-          (setq char ?+))
-        (if (string-match "\\*$\\|\\*&$" type)
-            (speedbar-make-tag-line
-             'bracket char
-             'gdb-speedbar-expand-node varnum
-             (concat expr "\t" type "\t" value)
-             (if (or parent (eq status 'out-of-scope))
-             nil 'gdb-edit-value)
-             nil
-             (if gdb-show-changed-values
-             (or parent (case status
-                      (changed 'font-lock-warning-face)
-                      (out-of-scope 'shadow)
-                      (t t)))
-               t)
-             depth)
-          (speedbar-make-tag-line
-           'bracket char
-           'gdb-speedbar-expand-node varnum
-           (concat expr "\t" type)
-           nil nil
-           (if (and (or parent status) gdb-show-changed-values)
-               'shadow t)
-           depth))))
-        (setq var-list (cdr var-list)))))
+        (erase-buffer)
+        (insert "Watch Expressions:\n")
+        (if gdb-speedbar-auto-raise
+            (raise-frame speedbar-frame))
+        (let ((var-list gdb-var-list) parent)
+          (while var-list
+            (let* (char (depth 0) (start 0) (var (car var-list))
+                        (varnum (car var)) (expr (nth 1 var))
+                        (type (if (nth 3 var) (nth 3 var) " "))
+                        (value (nth 4 var)) (status (nth 5 var)))
+              (put-text-property
+               0 (length expr) 'face font-lock-variable-name-face expr)
+              (put-text-property
+               0 (length type) 'face font-lock-type-face type)
+              (while (string-match "\\." varnum start)
+                (setq depth (1+ depth)
+                      start (1+ (match-beginning 0))))
+              (if (eq depth 0) (setq parent nil))
+              (if (or (equal (nth 2 var) "0")
+                      (and (equal (nth 2 var) "1")
+                           (string-match "char \\*$" type)))
+                  (speedbar-make-tag-line
+                   'bracket ?? nil nil
+                   (concat expr "\t" value)
+                   (if (or parent (eq status 'out-of-scope))
+                       nil 'gdb-edit-value)
+                   nil
+                   (if gdb-show-changed-values
+                       (or parent (case status
+                                    (changed 'font-lock-warning-face)
+                                    (out-of-scope 'shadow)
+                                    (t t)))
+                     t)
+                   depth)
+                (if (eq status 'out-of-scope) (setq parent 'shadow))
+                (if (and (nth 1 var-list)
+                         (string-match (concat varnum "\\.")
+                                       (car (nth 1 var-list))))
+                    (setq char ?-)
+                  (setq char ?+))
+                (if (string-match "\\*$\\|\\*&$" type)
+                    (speedbar-make-tag-line
+                     'bracket char
+                     'gdb-speedbar-expand-node varnum
+                     (concat expr "\t" type "\t" value)
+                     (if (or parent (eq status 'out-of-scope))
+                         nil 'gdb-edit-value)
+                     nil
+                     (if gdb-show-changed-values
+                         (or parent (case status
+                                      (changed 'font-lock-warning-face)
+                                      (out-of-scope 'shadow)
+                                      (t t)))
+                       t)
+                     depth)
+                  (speedbar-make-tag-line
+                   'bracket char
+                   'gdb-speedbar-expand-node varnum
+                   (concat expr "\t" type)
+                   nil nil
+                   (if (and (or parent status) gdb-show-changed-values)
+                       'shadow t)
+                   depth))))
+            (setq var-list (cdr var-list)))))
        (t (unless (and (save-excursion
-             (goto-char (point-min))
-             (looking-at "Current Stack:"))
-               (equal gud-last-last-frame gud-last-speedbar-stackframe))
-        (let ((gud-frame-list
-        (cond ((eq minor-mode 'gdb)
-           (gud-gdb-get-stackframe buffer))
-          ;; Add more debuggers here!
-          (t (speedbar-remove-localized-speedbar-support buffer)
-             nil))))
-          (erase-buffer)
-          (if (not gud-frame-list)
-          (insert "No Stack frames\n")
-        (insert "Current Stack:\n"))
-          (dolist (frame gud-frame-list)
-        (insert (nth 1 frame) ":\n")
-        (if (= (length frame) 2)
-        (progn
-          (speedbar-insert-button (car frame)
-                      'speedbar-directory-face
-                      nil nil nil t))
-        (speedbar-insert-button
-         (car frame)
-         'speedbar-file-face
-         'speedbar-highlight-face
-         (cond ((memq minor-mode '(gdbmi gdba gdb))
-            'gud-gdb-goto-stackframe)
-               (t (error "Should never be here")))
-         frame t))))
-        (setq gud-last-speedbar-stackframe gud-last-last-frame))))
+                         (goto-char (point-min))
+                         (looking-at "Current Stack:"))
+                       (equal gud-last-last-frame gud-last-speedbar-stackframe))
+            (let ((gud-frame-list
+                   (cond ((eq minor-mode 'gdb)
+                          (gud-gdb-get-stackframe buffer))
+                         ;; Add more debuggers here!
+                         (t (speedbar-remove-localized-speedbar-support buffer)
+                            nil))))
+              (erase-buffer)
+              (if (not gud-frame-list)
+                  (insert "No Stack frames\n")
+                (insert "Current Stack:\n"))
+              (dolist (frame gud-frame-list)
+                (insert (nth 1 frame) ":\n")
+                (if (= (length frame) 2)
+                    (progn
+                      (speedbar-insert-button (car frame)
+                                              'speedbar-directory-face
+                                              nil nil nil t))
+                  (speedbar-insert-button
+                   (car frame)
+                   'speedbar-file-face
+                   'speedbar-highlight-face
+                   (cond ((memq minor-mode '(gdbmi gdba gdb))
+                          'gud-gdb-goto-stackframe)
+                         (t (error "Should never be here")))
+                   frame t))))
+            (setq gud-last-speedbar-stackframe gud-last-last-frame))))
       (set-window-start window start)
       (set-window-point window p))))
 
@@ -600,15 +600,15 @@ required by the caller."
 (defcustom gud-gud-gdb-command-name "gdb --fullname"
   "Default command to run an executable under GDB in text command mode.
 The option \"--fullname\" must be included in this value."
-   :type 'string
-   :group 'gud)
+  :type 'string
+  :group 'gud)
 
 (defvar gud-gdb-marker-regexp
   ;; This used to use path-separator instead of ":";
   ;; however, we found that on both Windows 32 and MSDOS
   ;; a colon is correct here.
   (concat "\032\032\\(.:?[^" ":" "\n]*\\)" ":"
-      "\\([0-9]*\\)" ":" ".*\n"))
+          "\\([0-9]*\\)" ":" ".*\n"))
 
 ;; There's no guarantee that Emacs will hand the filter the entire
 ;; marker at once; it could be broken up across several strings.  We
@@ -629,12 +629,12 @@ The option \"--fullname\" must be included in this value."
 
        ;; Extract the frame position from the marker.
        gud-last-frame (cons (match-string 1 gud-marker-acc)
-                (string-to-number (match-string 2 gud-marker-acc)))
+                            (string-to-number (match-string 2 gud-marker-acc)))
 
        ;; Append any text before the marker to the output we're going
        ;; to return - we don't include the marker in this text.
        output (concat output
-              (substring gud-marker-acc 0 (match-beginning 0)))
+                      (substring gud-marker-acc 0 (match-beginning 0)))
 
        ;; Set the accumulator to the remaining text.
        gud-marker-acc (substring gud-marker-acc (match-end 0))))
@@ -644,15 +644,15 @@ The option \"--fullname\" must be included in this value."
     (while (string-match "\n\032\032\\(.*\\)\n" gud-marker-acc)
       (let ((match (match-string 1 gud-marker-acc)))
 
-    (setq
-     ;; Append any text before the marker to the output we're going
-     ;; to return - we don't include the marker in this text.
-     output (concat output
-            (substring gud-marker-acc 0 (match-beginning 0)))
+        (setq
+         ;; Append any text before the marker to the output we're going
+         ;; to return - we don't include the marker in this text.
+         output (concat output
+                        (substring gud-marker-acc 0 (match-beginning 0)))
 
-     ;; Set the accumulator to the remaining text.
+         ;; Set the accumulator to the remaining text.
 
-     gud-marker-acc (substring gud-marker-acc (match-end 0)))))
+         gud-marker-acc (substring gud-marker-acc (match-end 0)))))
 
     ;; Does the remaining text look like it might end with the
     ;; beginning of another marker?  If it does, then keep it in
@@ -660,42 +660,42 @@ The option \"--fullname\" must be included in this value."
     ;; know the full marker regexp above failed, it's pretty simple to
     ;; test for marker starts.
     (if (string-match "\n\\(\032.*\\)?\\'" gud-marker-acc)
-    (progn
-      ;; Everything before the potential marker start can be output.
-      (setq output (concat output (substring gud-marker-acc
-                         0 (match-beginning 0))))
+        (progn
+          ;; Everything before the potential marker start can be output.
+          (setq output (concat output (substring gud-marker-acc
+                                                 0 (match-beginning 0))))
 
-      ;; Everything after, we save, to combine with later input.
-      (setq gud-marker-acc
-        (substring gud-marker-acc (match-beginning 0))))
+          ;; Everything after, we save, to combine with later input.
+          (setq gud-marker-acc
+                (substring gud-marker-acc (match-beginning 0))))
 
       (setq output (concat output gud-marker-acc)
-        gud-marker-acc ""))
+            gud-marker-acc ""))
 
     output))
 
 (easy-mmode-defmap gud-minibuffer-local-map
-  '(("\C-i" . comint-dynamic-complete-filename))
-  "Keymap for minibuffer prompting of gud startup command."
-  :inherit minibuffer-local-map)
+                   '(("\C-i" . comint-dynamic-complete-filename))
+                   "Keymap for minibuffer prompting of gud startup command."
+                   :inherit minibuffer-local-map)
 
 (defun gud-query-cmdline (minor-mode &optional init)
   (let* ((hist-sym (gud-symbol 'history nil minor-mode))
-     (cmd-name (gud-val 'command-name minor-mode)))
+         (cmd-name (gud-val 'command-name minor-mode)))
     (unless (boundp hist-sym) (set hist-sym nil))
     (read-from-minibuffer
      (format "Run %s (like this): " minor-mode)
      (or (car-safe (symbol-value hist-sym))
-     (concat (or cmd-name (symbol-name minor-mode))
-         " "
-         (or init
-             (let ((file nil))
-               (dolist (f (directory-files default-directory) file)
-             (if (and (file-executable-p f)
-                  (not (file-directory-p f))
-                  (or (not file)
-                      (file-newer-than-file-p f file)))
-                 (setq file f)))))))
+         (concat (or cmd-name (symbol-name minor-mode))
+                 " "
+                 (or init
+                     (let ((file nil))
+                       (dolist (f (directory-files default-directory) file)
+                         (if (and (file-executable-p f)
+                                  (not (file-directory-p f))
+                                  (or (not file)
+                                      (file-newer-than-file-p f file)))
+                             (setq file f)))))))
      gud-minibuffer-local-map nil
      hist-sym)))
 
@@ -713,9 +713,9 @@ directory and source-file directory for your debugger."
   (interactive (list (gud-query-cmdline 'gud-gdb)))
 
   (when (and gud-comint-buffer
-       (buffer-name gud-comint-buffer)
-       (get-buffer-process gud-comint-buffer)
-       (with-current-buffer gud-comint-buffer (eq gud-minor-mode 'gdba)))
+             (buffer-name gud-comint-buffer)
+             (get-buffer-process gud-comint-buffer)
+             (with-current-buffer gud-comint-buffer (eq gud-minor-mode 'gdba)))
     (gdb-restore-windows)
     (error
      "Multiple debugging requires restarting in text command mode"))
@@ -725,7 +725,7 @@ directory and source-file directory for your debugger."
 
   (gud-def gud-break  "break %f:%l"  "\C-b" "Set breakpoint at current line.")
   (gud-def gud-tbreak "tbreak %f:%l" "\C-t"
-       "Set temporary breakpoint at current line.")
+           "Set temporary breakpoint at current line.")
   (gud-def gud-remove "clear %f:%l" "\C-d" "Remove breakpoint at current line")
   (gud-def gud-step   "step %p"     "\C-s" "Step one source line with display.")
   (gud-def gud-stepi  "stepi %p"    "\C-i" "Step one instruction with display.")
@@ -734,14 +734,14 @@ directory and source-file directory for your debugger."
   (gud-def gud-cont   "cont"     "\C-r" "Continue with display.")
   (gud-def gud-finish "finish"   "\C-f" "Finish executing current function.")
   (gud-def gud-jump
-       (progn (gud-call "tbreak %f:%l") (gud-call "jump %f:%l"))
-       "\C-j" "Set execution address to current line.")
+           (progn (gud-call "tbreak %f:%l") (gud-call "jump %f:%l"))
+           "\C-j" "Set execution address to current line.")
 
   (gud-def gud-up     "up %p"     "<" "Up N stack frames (numeric arg).")
   (gud-def gud-down   "down %p"   ">" "Down N stack frames (numeric arg).")
   (gud-def gud-print  "print %e"  "\C-p" "Evaluate C expression at point.")
   (gud-def gud-pstar  "print* %e" nil
-       "Evaluate C dereferenced pointer expression at point.")
+           "Evaluate C dereferenced pointer expression at point.")
 
   ;; For debugging Emacs only.
   (gud-def gud-pv "pv1 %e"      "\C-v" "Print the value of the lisp variable.")
@@ -786,39 +786,39 @@ available with older versions of GDB."
     (let ((end (point)))
       (setq command (buffer-substring (comint-line-beginning-position) end))))
   (let* ((command-word
-      ;; Find the word break.  This match will always succeed.
-      (and (string-match "\\(\\`\\| \\)\\([^ ]*\\)\\'" command)
-           (substring command (match-beginning 2))))
-     (complete-list
-      (gud-gdb-run-command-fetch-lines (concat "complete " command)
-                       (current-buffer)
-                       ;; From string-match above.
-                       (match-beginning 2))))
+          ;; Find the word break.  This match will always succeed.
+          (and (string-match "\\(\\`\\| \\)\\([^ ]*\\)\\'" command)
+               (substring command (match-beginning 2))))
+         (complete-list
+          (gud-gdb-run-command-fetch-lines (concat "complete " command)
+                                           (current-buffer)
+                                           ;; From string-match above.
+                                           (match-beginning 2))))
     ;; Protect against old versions of GDB.
     (and complete-list
-     (string-match "^Undefined command: \"complete\"" (car complete-list))
-     (error "This version of GDB doesn't support the `complete' command"))
+         (string-match "^Undefined command: \"complete\"" (car complete-list))
+         (error "This version of GDB doesn't support the `complete' command"))
     ;; Sort the list like readline.
     (setq complete-list (sort complete-list (function string-lessp)))
     ;; Remove duplicates.
     (let ((first complete-list)
-      (second (cdr complete-list)))
+          (second (cdr complete-list)))
       (while second
-    (if (string-equal (car first) (car second))
-        (setcdr first (setq second (cdr second)))
-      (setq first second
-        second (cdr second)))))
+        (if (string-equal (car first) (car second))
+            (setcdr first (setq second (cdr second)))
+          (setq first second
+                second (cdr second)))))
     ;; Add a trailing single quote if there is a unique completion
     ;; and it contains an odd number of unquoted single quotes.
     (and (= (length complete-list) 1)
-     (let ((str (car complete-list))
-           (pos 0)
-           (count 0))
-       (while (string-match "\\([^'\\]\\|\\\\'\\)*'" str pos)
-         (setq count (1+ count)
-           pos (match-end 0)))
-       (and (= (mod count 2) 1)
-        (setq complete-list (list (concat str "'"))))))
+         (let ((str (car complete-list))
+               (pos 0)
+               (count 0))
+           (while (string-match "\\([^'\\]\\|\\\\'\\)*'" str pos)
+             (setq count (1+ count)
+                   pos (match-end 0)))
+           (and (= (mod count 2) 1)
+                (setq complete-list (list (concat str "'"))))))
     ;; Let comint handle the rest.
     (comint-dynamic-simple-complete command-word complete-list)))
 
@@ -832,12 +832,12 @@ It is passed through FILTER before we look at it."
   (setq string (concat gud-gdb-fetch-lines-string string))
   (while (string-match "\n" string)
     (push (substring string gud-gdb-fetch-lines-break (match-beginning 0))
-      gud-gdb-fetched-lines)
+          gud-gdb-fetched-lines)
     (setq string (substring string (match-end 0))))
   (if (string-match comint-prompt-regexp string)
       (progn
-    (setq gud-gdb-fetch-lines-in-progress nil)
-    string)
+        (setq gud-gdb-fetch-lines-in-progress nil)
+        string)
     (progn
       (setq gud-gdb-fetch-lines-string string)
       "")))
@@ -853,54 +853,54 @@ It is passed through FILTER before we look at it."
 (defvar gud-gdb-fetched-stack-frame nil
   "Stack frames we are fetching from GDB.")
 
-;(defun gud-gdb-get-scope-data (text token indent)
-;  ;; checkdoc-params: (indent)
-;  "Fetch data associated with a stack frame, and expand/contract it.
-;Data to do this is retrieved from TEXT and TOKEN."
-;  (let ((args nil) (scope nil))
-;    (gud-gdb-run-command-fetch-lines "info args")
-;
-;    (gud-gdb-run-command-fetch-lines "info local")
-;
-;    ))
+                                        ;(defun gud-gdb-get-scope-data (text token indent)
+                                        ;  ;; checkdoc-params: (indent)
+                                        ;  "Fetch data associated with a stack frame, and expand/contract it.
+                                        ;Data to do this is retrieved from TEXT and TOKEN."
+                                        ;  (let ((args nil) (scope nil))
+                                        ;    (gud-gdb-run-command-fetch-lines "info args")
+                                        ;
+                                        ;    (gud-gdb-run-command-fetch-lines "info local")
+                                        ;
+                                        ;    ))
 
 (defun gud-gdb-get-stackframe (buffer)
   "Extract the current stack frame out of the GUD GDB BUFFER."
   (let ((newlst nil)
-    (fetched-stack-frame-list
-     (gud-gdb-run-command-fetch-lines "server backtrace" buffer)))
+        (fetched-stack-frame-list
+         (gud-gdb-run-command-fetch-lines "server backtrace" buffer)))
     (if (and (car fetched-stack-frame-list)
-         (string-match "No stack" (car fetched-stack-frame-list)))
-    ;; Go into some other mode???
-    nil
+             (string-match "No stack" (car fetched-stack-frame-list)))
+        ;; Go into some other mode???
+        nil
       (dolist (e fetched-stack-frame-list)
-    (let ((name nil) (num nil))
-      (if (not (or
-            (string-match "^#\\([0-9]+\\) +[0-9a-fx]+ in \\([:0-9a-zA-Z_]+\\) (" e)
-            (string-match "^#\\([0-9]+\\) +\\([:0-9a-zA-Z_]+\\) (" e)))
-          (if (not (string-match
-            "at \\([-0-9a-zA-Z_.]+\\):\\([0-9]+\\)$" e))
-          nil
-        (setcar newlst
-            (list (nth 0 (car newlst))
-                  (nth 1 (car newlst))
-                  (match-string 1 e)
-                  (match-string 2 e))))
-        (setq num (match-string 1 e)
-          name (match-string 2 e))
-        (setq newlst
-          (cons
-           (if (string-match
-            "at \\([-0-9a-zA-Z_.]+\\):\\([0-9]+\\)$" e)
-               (list name num (match-string 1 e)
-                 (match-string 2 e))
-             (list name num))
-           newlst)))))
+        (let ((name nil) (num nil))
+          (if (not (or
+                    (string-match "^#\\([0-9]+\\) +[0-9a-fx]+ in \\([:0-9a-zA-Z_]+\\) (" e)
+                    (string-match "^#\\([0-9]+\\) +\\([:0-9a-zA-Z_]+\\) (" e)))
+              (if (not (string-match
+                        "at \\([-0-9a-zA-Z_.]+\\):\\([0-9]+\\)$" e))
+                  nil
+                (setcar newlst
+                        (list (nth 0 (car newlst))
+                              (nth 1 (car newlst))
+                              (match-string 1 e)
+                              (match-string 2 e))))
+            (setq num (match-string 1 e)
+                  name (match-string 2 e))
+            (setq newlst
+                  (cons
+                   (if (string-match
+                        "at \\([-0-9a-zA-Z_.]+\\):\\([0-9]+\\)$" e)
+                       (list name num (match-string 1 e)
+                             (match-string 2 e))
+                     (list name num))
+                   newlst)))))
       (nreverse newlst))))
 
-;(defun gud-gdb-selected-frame-info (buffer)
-;  "Learn GDB information for the currently selected stack frame in BUFFER."
-;  )
+                                        ;(defun gud-gdb-selected-frame-info (buffer)
+                                        ;  "Learn GDB information for the currently selected stack frame in BUFFER."
+                                        ;  )
 
 (defun gud-gdb-run-command-fetch-lines (command buffer &optional skip)
   "Run COMMAND, and return the list of lines it outputs.
@@ -908,26 +908,26 @@ BUFFER is the current buffer which may be the GUD buffer in which to run.
 SKIP is the number of chars to skip on each line, it defaults to 0."
   (with-current-buffer gud-comint-buffer
     (if (and (eq gud-comint-buffer buffer)
-         (save-excursion
-           (goto-char (point-max))
-           (forward-line 0)
-           (not (looking-at comint-prompt-regexp))))
-    nil
+             (save-excursion
+               (goto-char (point-max))
+               (forward-line 0)
+               (not (looking-at comint-prompt-regexp))))
+        nil
       ;; Much of this copied from GDB complete, but I'm grabbing the stack
       ;; frame instead.
       (let ((gud-gdb-fetch-lines-in-progress t)
-        (gud-gdb-fetched-lines nil)
-        (gud-gdb-fetch-lines-string nil)
-        (gud-gdb-fetch-lines-break (or skip 0))
-        (gud-marker-filter
-         `(lambda (string)
-        (gud-gdb-fetch-lines-filter string ',gud-marker-filter))))
-    ;; Issue the command to GDB.
-    (gud-basic-call command)
-    ;; Slurp the output.
-    (while gud-gdb-fetch-lines-in-progress
-      (accept-process-output (get-buffer-process gud-comint-buffer)))
-    (nreverse gud-gdb-fetched-lines)))))
+            (gud-gdb-fetched-lines nil)
+            (gud-gdb-fetch-lines-string nil)
+            (gud-gdb-fetch-lines-break (or skip 0))
+            (gud-marker-filter
+             `(lambda (string)
+                (gud-gdb-fetch-lines-filter string ',gud-marker-filter))))
+        ;; Issue the command to GDB.
+        (gud-basic-call command)
+        ;; Slurp the output.
+        (while gud-gdb-fetch-lines-in-progress
+          (accept-process-output (get-buffer-process gud-comint-buffer)))
+        (nreverse gud-gdb-fetched-lines)))))
 
 
 ;; ======================================================================
@@ -945,16 +945,16 @@ SKIP is the number of chars to skip on each line, it defaults to 0."
 
 (defun lldb-extract-breakpoint-id (string)
   ;; Search for "Breakpoint created: \\([^:\n]*\\):" pattern.
-  ;(message "gud-marker-acc string is: |%s|" string)
+                                        ;(message "gud-marker-acc string is: |%s|" string)
   (if (string-match "Breakpoint created: \\([^:\n]*\\):" string)
       (progn
         (setq gud-breakpoint-id (match-string 1 string))
         (message "breakpoint id: %s" gud-breakpoint-id)))
-)
+  )
 
 (defun gud-lldb-marker-filter (string)
   (setq gud-marker-acc
-    (if gud-marker-acc (concat gud-marker-acc string) string))
+        (if gud-marker-acc (concat gud-marker-acc string) string))
   (lldb-extract-breakpoint-id gud-marker-acc)
   (let (start)
     ;; Process all complete markers in this chunk
@@ -967,9 +967,9 @@ SKIP is the number of chars to skip on each line, it defaults to 0."
                           gud-marker-acc start)
             ;; (lldb) frame select -r 1
             ;; frame #1: 0x0000000100000e09 a.out`main + 25 at main.c:44
-            (string-match "^frame.* at \\([^:\n]*\\):\\([0-9]*\\)\n"
-                           gud-marker-acc start))
-      ;(message "gud-marker-acc matches our pattern....")
+            (string-match
+             "frame.* at \\([^:\n]*\\):\\([0-9]*\\)\n"
+             gud-marker-acc start))
       (setq gud-last-frame
             (cons (match-string 1 gud-marker-acc)
                   (string-to-number (match-string 2 gud-marker-acc)))
@@ -982,6 +982,7 @@ SKIP is the number of chars to skip on each line, it defaults to 0."
     ;; If we have an incomplete line, store it in gud-marker-acc.
     (setq gud-marker-acc (substring gud-marker-acc (or start 0))))
   string)
+;;          (substring gud-marker-acc (match-beginning 0))
 
 ;; Keeps track of whether the Python lldb_oneshot_break function definition has
 ;; been exec'ed.
@@ -1007,61 +1008,61 @@ and source-file directory for your debugger."
     (sit-for 1))
 
   (gud-def gud-listb  "breakpoint list"
-                      "l"    "List all breakpoints.")
+           "l"    "List all breakpoints.")
   (gud-def gud-bt     "thread backtrace"
-                      "b"    "Show stack for the current thread.")
+           "b"    "Show stack for the current thread.")
   (gud-def gud-bt-all "thread backtrace all"
-                      "B"    "Show stacks for all the threads.")
+           "B"    "Show stacks for all the threads.")
 
   (gud-def gud-break  "breakpoint set -f %f -l %l"
-                      "\C-b" "Set breakpoint at current line.")
+           "\C-b" "Set breakpoint at current line.")
   (gud-def gud-tbreak
-       (progn (gud-call "breakpoint set -f %f -l %l")
+           (progn (gud-call "breakpoint set -f %f -l %l")
                   (sit-for 1)
                   (if (not lldb-oneshot-break-defined)
                       (progn
                         ;; The "\\n"'s are required to escape the newline chars
                         ;; passed to the lldb process.
                         (gud-call (concat "script exec \"def lldb_oneshot_break(frame, bp_loc):\\n"
-                                                        "    target=frame.GetThread().GetProcess().GetTarget()\\n"
-                                                        "    bp=bp_loc.GetBreakpoint()\\n"
-                                                        "    print 'Deleting oneshot breakpoint:', bp\\n"
-                                                        "    target.BreakpointDelete(bp.GetID())\""))
+                                          "    target=frame.GetThread().GetProcess().GetTarget()\\n"
+                                          "    bp=bp_loc.GetBreakpoint()\\n"
+                                          "    print 'Deleting oneshot breakpoint:', bp\\n"
+                                          "    target.BreakpointDelete(bp.GetID())\""))
                         (sit-for 1)
                         ;; Set the flag since Python knows about the function def now.
                         (setq lldb-oneshot-break-defined t)))
                   (gud-call "breakpoint command add -p %b -o 'lldb_oneshot_break(frame, bp_loc)'"))
-                  "\C-t" "Set temporary breakpoint at current line.")
+           "\C-t" "Set temporary breakpoint at current line.")
   (gud-def gud-remove "breakpoint clear -f %f -l %l"
-                      "\C-d" "Remove breakpoint at current line")
+           "\C-d" "Remove breakpoint at current line")
   (gud-def gud-step   "thread step-in"
-                      "\C-s" "Step one source line with display.")
+           "\C-s" "Step one source line with display.")
   (gud-def gud-stepi  "thread step-inst"
-                      "\C-i" "Step one instruction with display.")
+           "\C-i" "Step one instruction with display.")
   (gud-def gud-next   "thread step-over"
-                      "\C-n" "Step one line (skip functions).")
+           "\C-n" "Step one line (skip functions).")
   (gud-def gud-nexti  "thread step-inst-over"
-                      nil    "Step one instruction (skip functions).")
+           nil    "Step one instruction (skip functions).")
   (gud-def gud-cont   "process continue"
-                      "\C-r" "Continue with display.")
+           "\C-r" "Continue with display.")
   (gud-def gud-finish "thread step-out"
-                      "\C-f" "Finish executing current function.")
+           "\C-f" "Finish executing current function.")
   (gud-def gud-up
            (progn (gud-call "frame select -r 1")
                   (sit-for 1))
-                      "<"    "Up 1 stack frame.")
+           "<"    "Up 1 stack frame.")
   (gud-def gud-down
            (progn (gud-call "frame select -r -1")
                   (sit-for 1))
-                      ">"    "Down 1 stack frame.")
+           ">"    "Down 1 stack frame.")
   (gud-def gud-print  "expression -- %e"
-                      "\C-p" "Evaluate C expression at point.")
+           "\C-p" "Evaluate C expression at point.")
   (gud-def gud-pstar  "expression -- *%e"
-                      nil    "Evaluate C dereferenced pointer expression at point.")
+           nil    "Evaluate C dereferenced pointer expression at point.")
   (gud-def gud-run    "run"
-                      "r"    "Run the program.")
+           "r"    "Run the program.")
   (gud-def gud-stop-subjob    "process kill"
-                      "s"    "Stop the program.")
+           "s"    "Stop the program.")
 
   (setq comint-prompt-regexp  "\\(^\\|\n\\)\\*")
   (setq paragraph-start comint-prompt-regexp)
@@ -1082,35 +1083,35 @@ and source-file directory for your debugger."
 
 (defun gud-sdb-marker-filter (string)
   (setq gud-marker-acc
-    (if gud-marker-acc (concat gud-marker-acc string) string))
+        (if gud-marker-acc (concat gud-marker-acc string) string))
   (let (start)
     ;; Process all complete markers in this chunk
     (while
-    (cond
-     ;; System V Release 3.2 uses this format
-     ((string-match "\\(^\\|\n\\)\\*?\\(0x\\w* in \\)?\\([^:\n]*\\):\\([0-9]*\\):.*\n"
-            gud-marker-acc start)
-      (setq gud-last-frame
-        (cons (match-string 3 gud-marker-acc)
-              (string-to-number (match-string 4 gud-marker-acc)))))
-     ;; System V Release 4.0 quite often clumps two lines together
-     ((string-match "^\\(BREAKPOINT\\|STEPPED\\) process [0-9]+ function [^ ]+ in \\(.+\\)\n\\([0-9]+\\):"
-            gud-marker-acc start)
-      (setq gud-sdb-lastfile (match-string 2 gud-marker-acc))
-      (setq gud-last-frame
-        (cons gud-sdb-lastfile
-              (string-to-number (match-string 3 gud-marker-acc)))))
-     ;; System V Release 4.0
-     ((string-match "^\\(BREAKPOINT\\|STEPPED\\) process [0-9]+ function [^ ]+ in \\(.+\\)\n"
-            gud-marker-acc start)
-      (setq gud-sdb-lastfile (match-string 2 gud-marker-acc)))
-     ((and gud-sdb-lastfile (string-match "^\\([0-9]+\\):"
-                          gud-marker-acc start))
-           (setq gud-last-frame
-             (cons gud-sdb-lastfile
-               (string-to-number (match-string 1 gud-marker-acc)))))
-     (t
-      (setq gud-sdb-lastfile nil)))
+        (cond
+         ;; System V Release 3.2 uses this format
+         ((string-match "\\(^\\|\n\\)\\*?\\(0x\\w* in \\)?\\([^:\n]*\\):\\([0-9]*\\):.*\n"
+                        gud-marker-acc start)
+          (setq gud-last-frame
+                (cons (match-string 3 gud-marker-acc)
+                      (string-to-number (match-string 4 gud-marker-acc)))))
+         ;; System V Release 4.0 quite often clumps two lines together
+         ((string-match "^\\(BREAKPOINT\\|STEPPED\\) process [0-9]+ function [^ ]+ in \\(.+\\)\n\\([0-9]+\\):"
+                        gud-marker-acc start)
+          (setq gud-sdb-lastfile (match-string 2 gud-marker-acc))
+          (setq gud-last-frame
+                (cons gud-sdb-lastfile
+                      (string-to-number (match-string 3 gud-marker-acc)))))
+         ;; System V Release 4.0
+         ((string-match "^\\(BREAKPOINT\\|STEPPED\\) process [0-9]+ function [^ ]+ in \\(.+\\)\n"
+                        gud-marker-acc start)
+          (setq gud-sdb-lastfile (match-string 2 gud-marker-acc)))
+         ((and gud-sdb-lastfile (string-match "^\\([0-9]+\\):"
+                                              gud-marker-acc start))
+          (setq gud-last-frame
+                (cons gud-sdb-lastfile
+                      (string-to-number (match-string 1 gud-marker-acc)))))
+         (t
+          (setq gud-sdb-lastfile nil)))
       (setq start (match-end 0)))
 
     ;; Search for the last incomplete line in this chunk
@@ -1133,9 +1134,9 @@ and source-file directory for your debugger."
 
   (if gud-sdb-needs-tags (require 'etags))
   (if (and gud-sdb-needs-tags
-       (not (and (boundp 'tags-file-name)
-             (stringp tags-file-name)
-             (file-exists-p tags-file-name))))
+           (not (and (boundp 'tags-file-name)
+                     (stringp tags-file-name)
+                     (file-exists-p tags-file-name))))
       (error "The sdb support requires a valid tags table to work"))
 
   (gud-common-init command-line nil 'gud-sdb-marker-filter 'gud-sdb-find-file)
@@ -1169,18 +1170,18 @@ will be known to dbx.
 The file names should be absolute, or relative to the directory
 containing the executable being debugged."
   :type '(choice (const :tag "Current Directory" nil)
-         (repeat :value ("")
-             directory))
+                 (repeat :value ("")
+                         directory))
   :group 'gud)
 
 (defun gud-dbx-massage-args (file args)
   (nconc (let ((directories gud-dbx-directories)
-           (result nil))
-       (while directories
-         (setq result (cons (car directories) (cons "-I" result)))
-         (setq directories (cdr directories)))
-       (nreverse result))
-     args))
+               (result nil))
+           (while directories
+             (setq result (cons (car directories) (cons "-I" result)))
+             (setq directories (cdr directories)))
+           (nreverse result))
+         args))
 
 (defun gud-dbx-marker-filter (string)
   (setq gud-marker-acc (if gud-marker-acc (concat gud-marker-acc string) string))
@@ -1188,15 +1189,15 @@ containing the executable being debugged."
   (let (start)
     ;; Process all complete markers in this chunk.
     (while (or (string-match
-        "stopped in .* at line \\([0-9]*\\) in file \"\\([^\"]*\\)\""
-        gud-marker-acc start)
-           (string-match
-        "signal .* in .* at line \\([0-9]*\\) in file \"\\([^\"]*\\)\""
-        gud-marker-acc start))
+                "stopped in .* at line \\([0-9]*\\) in file \"\\([^\"]*\\)\""
+                gud-marker-acc start)
+               (string-match
+                "signal .* in .* at line \\([0-9]*\\) in file \"\\([^\"]*\\)\""
+                gud-marker-acc start))
       (setq gud-last-frame
-        (cons (match-string 2 gud-marker-acc)
-          (string-to-number (match-string 1 gud-marker-acc)))
-        start (match-end 0)))
+            (cons (match-string 2 gud-marker-acc)
+                  (string-to-number (match-string 1 gud-marker-acc)))
+            start (match-end 0)))
 
     ;; Search for the last incomplete line in this chunk
     (while (string-match "\n" gud-marker-acc start)
@@ -1206,9 +1207,9 @@ containing the executable being debugged."
     ;; in the accumulator.  Otherwise, clear the accumulator to avoid an
     ;; unnecessary concat during the next call.
     (setq gud-marker-acc
-      (if (string-match "\\(stopped\\|signal\\)" gud-marker-acc start)
-          (substring gud-marker-acc (match-beginning 0))
-        nil)))
+          (if (string-match "\\(stopped\\|signal\\)" gud-marker-acc start)
+              (substring gud-marker-acc (match-beginning 0))
+            nil)))
   string)
 
 ;; Functions for Mips-style dbx.  Given the option `-emacs', documented in
@@ -1233,21 +1234,21 @@ containing the executable being debugged."
 
     ;; Process all the complete markers in this chunk.
     (while (string-match
-        ;; This is like th gdb marker but with an optional
-        ;; leading break point number like `[1] '
-        "[][ 0-9]*\032\032\\([^:\n]*\\):\\([0-9]*\\):.*\n"
-        gud-marker-acc)
+            ;; This is like th gdb marker but with an optional
+            ;; leading break point number like `[1] '
+            "[][ 0-9]*\032\032\\([^:\n]*\\):\\([0-9]*\\):.*\n"
+            gud-marker-acc)
       (setq
 
        ;; Extract the frame position from the marker.
        gud-last-frame
        (cons (match-string 1 gud-marker-acc)
-         (string-to-number (match-string 2 gud-marker-acc)))
+             (string-to-number (match-string 2 gud-marker-acc)))
 
        ;; Append any text before the marker to the output we're going
        ;; to return - we don't include the marker in this text.
        output (concat output
-              (substring gud-marker-acc 0 (match-beginning 0)))
+                      (substring gud-marker-acc 0 (match-beginning 0)))
 
        ;; Set the accumulator to the remaining text.
        gud-marker-acc (substring gud-marker-acc (match-end 0))))
@@ -1258,17 +1259,17 @@ containing the executable being debugged."
     ;; know the full marker regexp above failed, it's pretty simple to
     ;; test for marker starts.
     (if (string-match "[][ 0-9]*\032.*\\'" gud-marker-acc)
-    (progn
-      ;; Everything before the potential marker start can be output.
-      (setq output (concat output (substring gud-marker-acc
-                         0 (match-beginning 0))))
+        (progn
+          ;; Everything before the potential marker start can be output.
+          (setq output (concat output (substring gud-marker-acc
+                                                 0 (match-beginning 0))))
 
-      ;; Everything after, we save, to combine with later input.
-      (setq gud-marker-acc
-        (substring gud-marker-acc (match-beginning 0))))
+          ;; Everything after, we save, to combine with later input.
+          (setq gud-marker-acc
+                (substring gud-marker-acc (match-beginning 0))))
 
       (setq output (concat output gud-marker-acc)
-        gud-marker-acc ""))
+            gud-marker-acc ""))
 
     output))
 
@@ -1323,43 +1324,43 @@ whereby $stopformat=1 produces an output format compatible with
 (defun gud-irixdbx-marker-filter (string)
   (let (result (case-fold-search nil))
     (if (or (string-match comint-prompt-regexp string)
-        (string-match ".*\012" string))
-    (setq result (concat gud-marker-acc string)
-          gud-marker-acc "")
+            (string-match ".*\012" string))
+        (setq result (concat gud-marker-acc string)
+              gud-marker-acc "")
       (setq gud-marker-acc (concat gud-marker-acc string)))
     (if result
-    (cond
-     ;; look for breakpoint or signal indication e.g.:
-     ;; [2] Process  1267 (pplot) stopped at [params:338 ,0x400ec0]
-     ;; Process  1281 (pplot) stopped at [params:339 ,0x400ec8]
-     ;; Process  1270 (pplot) Floating point exception [._read._read:16 ,0x452188]
-     ((string-match
-       "^\\(\\[[0-9]+] \\)?Process +[0-9]+ ([^)]*) [^[]+\\[[^]\n]*]\n"
-       result)
-      ;; prod dbx into printing out the line number and file
-      ;; name in a form we can grok as below
-      (process-send-string (get-buffer-process gud-comint-buffer)
-                   "printf \"\032\032%1d:\",(int)$curline;file\n"))
-     ;; look for result of, say, "up" e.g.:
-     ;; .pplot.pplot(0x800) ["src/pplot.f":261, 0x400c7c]
-     ;; (this will also catch one of the lines printed by "where")
-     ((string-match
-       "^[^ ][^[]*\\[\"\\([^\"]+\\)\":\\([0-9]+\\), [^]]+]\n"
-       result)
-      (let ((file (match-string 1 result)))
-        (if (file-exists-p file)
-        (setq gud-last-frame
-              (cons (match-string 1 result)
-                (string-to-number (match-string 2 result))))))
-      result)
-     ((string-match			; kluged-up marker as above
-       "\032\032\\([0-9]*\\):\\(.*\\)\n" result)
-      (let ((file (gud-file-name (match-string 2 result))))
-        (if (and file (file-exists-p file))
-        (setq gud-last-frame
-              (cons file
-                (string-to-number (match-string 1 result))))))
-      (setq result (substring result 0 (match-beginning 0))))))
+        (cond
+         ;; look for breakpoint or signal indication e.g.:
+         ;; [2] Process  1267 (pplot) stopped at [params:338 ,0x400ec0]
+         ;; Process  1281 (pplot) stopped at [params:339 ,0x400ec8]
+         ;; Process  1270 (pplot) Floating point exception [._read._read:16 ,0x452188]
+         ((string-match
+           "^\\(\\[[0-9]+] \\)?Process +[0-9]+ ([^)]*) [^[]+\\[[^]\n]*]\n"
+           result)
+          ;; prod dbx into printing out the line number and file
+          ;; name in a form we can grok as below
+          (process-send-string (get-buffer-process gud-comint-buffer)
+                               "printf \"\032\032%1d:\",(int)$curline;file\n"))
+         ;; look for result of, say, "up" e.g.:
+         ;; .pplot.pplot(0x800) ["src/pplot.f":261, 0x400c7c]
+         ;; (this will also catch one of the lines printed by "where")
+         ((string-match
+           "^[^ ][^[]*\\[\"\\([^\"]+\\)\":\\([0-9]+\\), [^]]+]\n"
+           result)
+          (let ((file (match-string 1 result)))
+            (if (file-exists-p file)
+                (setq gud-last-frame
+                      (cons (match-string 1 result)
+                            (string-to-number (match-string 2 result))))))
+          result)
+         ((string-match			; kluged-up marker as above
+           "\032\032\\([0-9]*\\):\\(.*\\)\n" result)
+          (let ((file (gud-file-name (match-string 2 result))))
+            (if (and file (file-exists-p file))
+                (setq gud-last-frame
+                      (cons file
+                            (string-to-number (match-string 1 result))))))
+          (setq result (substring result 0 (match-beginning 0))))))
     (or result "")))
 
 (defvar gud-dgux-p (string-match "-dgux" system-configuration)
@@ -1386,17 +1387,17 @@ This was tested using R4.11.")
 
 (defun gud-dguxdbx-marker-filter (string)
   (setq gud-marker-acc (if gud-marker-acc
-               (concat gud-marker-acc string)
-             string))
+                           (concat gud-marker-acc string)
+                         string))
   (let ((re (concat "^\\(\\(([0-9]+) \\)?Stopped at\\|Frame [0-9]+,\\)"
-            " line \\([0-9]+\\), routine .*, file \\([^ \t\n]+\\)"))
-    start)
+                    " line \\([0-9]+\\), routine .*, file \\([^ \t\n]+\\)"))
+        start)
     ;; Process all complete markers in this chunk.
     (while (string-match re gud-marker-acc start)
       (setq gud-last-frame
-        (cons (match-string 4 gud-marker-acc)
-          (string-to-number (match-string 3 gud-marker-acc)))
-        start (match-end 0)))
+            (cons (match-string 4 gud-marker-acc)
+                  (string-to-number (match-string 3 gud-marker-acc)))
+            start (match-end 0)))
 
     ;; Search for the last incomplete line in this chunk
     (while (string-match "\n" gud-marker-acc start)
@@ -1406,9 +1407,9 @@ This was tested using R4.11.")
     ;; in the accumulator.  Otherwise, clear the accumulator to avoid an
     ;; unnecessary concat during the next call.
     (setq gud-marker-acc
-      (if (string-match "Stopped\\|Frame" gud-marker-acc start)
-          (substring gud-marker-acc (match-beginning 0))
-        nil)))
+          (if (string-match "Stopped\\|Frame" gud-marker-acc start)
+              (substring gud-marker-acc (match-beginning 0))
+            nil)))
   string)
 
 ;;;###autoload
@@ -1423,13 +1424,13 @@ and source-file directory for your debugger."
     (gud-common-init command-line nil 'gud-mipsdbx-marker-filter))
    (gud-irix-p
     (gud-common-init command-line 'gud-dbx-massage-args
-             'gud-irixdbx-marker-filter))
+                     'gud-irixdbx-marker-filter))
    (gud-dgux-p
     (gud-common-init command-line 'gud-dbx-massage-args
-             'gud-dguxdbx-marker-filter))
+                     'gud-dguxdbx-marker-filter))
    (t
     (gud-common-init command-line 'gud-dbx-massage-args
-             'gud-dbx-marker-filter)))
+                     'gud-dbx-marker-filter)))
 
   (set (make-local-variable 'gud-minor-mode) 'dbx)
 
@@ -1438,27 +1439,27 @@ and source-file directory for your debugger."
     (gud-def gud-up	"up %p"	  "<" "Up (numeric arg) stack frames.")
     (gud-def gud-down	"down %p" ">" "Down (numeric arg) stack frames.")
     (gud-def gud-break  "stop at \"%f\":%l"
-                  "\C-b" "Set breakpoint at current line.")
+             "\C-b" "Set breakpoint at current line.")
     (gud-def gud-finish "return"  "\C-f" "Finish executing current function."))
    (gud-irix-p
     (gud-def gud-break  "stop at \"%d%f\":%l"
-                  "\C-b" "Set breakpoint at current line.")
+             "\C-b" "Set breakpoint at current line.")
     (gud-def gud-finish "return"  "\C-f" "Finish executing current function.")
     (gud-def gud-up	"up %p; printf \"\032\032%1d:\",(int)$curline;file\n"
-         "<" "Up (numeric arg) stack frames.")
+             "<" "Up (numeric arg) stack frames.")
     (gud-def gud-down "down %p; printf \"\032\032%1d:\",(int)$curline;file\n"
-         ">" "Down (numeric arg) stack frames.")
+             ">" "Down (numeric arg) stack frames.")
     ;; Make dbx give out the source location info that we need.
     (process-send-string (get-buffer-process gud-comint-buffer)
-             "printf \"\032\032%1d:\",(int)$curline;file\n"))
+                         "printf \"\032\032%1d:\",(int)$curline;file\n"))
    (t
     (gud-def gud-up	"up %p"   "<" "Up (numeric arg) stack frames.")
     (gud-def gud-down	"down %p" ">" "Down (numeric arg) stack frames.")
     (gud-def gud-break "file \"%d%f\"\nstop at %l"
-                  "\C-b" "Set breakpoint at current line.")
+             "\C-b" "Set breakpoint at current line.")
     (if gud-dbx-use-stopformat-p
-    (process-send-string (get-buffer-process gud-comint-buffer)
-                 "set $stopformat=1\n"))))
+        (process-send-string (get-buffer-process gud-comint-buffer)
+                             "set $stopformat=1\n"))))
 
   (gud-def gud-remove "clear %l"  "\C-d" "Remove breakpoint at current line")
   (gud-def gud-step   "step %p"   "\C-s" "Step one line with display.")
@@ -1488,30 +1489,30 @@ will be known to xdb.
 The file names should be absolute, or relative to the directory
 containing the executable being debugged."
   :type '(choice (const :tag "Current Directory" nil)
-         (repeat :value ("")
-             directory))
+                 (repeat :value ("")
+                         directory))
   :group 'gud)
 
 (defun gud-xdb-massage-args (file args)
   (nconc (let ((directories gud-xdb-directories)
-           (result nil))
-       (while directories
-         (setq result (cons (car directories) (cons "-d" result)))
-         (setq directories (cdr directories)))
-       (nreverse result))
-     args))
+               (result nil))
+           (while directories
+             (setq result (cons (car directories) (cons "-d" result)))
+             (setq directories (cdr directories)))
+           (nreverse result))
+         args))
 
 ;; xdb does not print the lines all at once, so we have to accumulate them
 (defun gud-xdb-marker-filter (string)
   (let (result)
     (if (or (string-match comint-prompt-regexp string)
-        (string-match ".*\012" string))
-    (setq result (concat gud-marker-acc string)
-          gud-marker-acc "")
+            (string-match ".*\012" string))
+        (setq result (concat gud-marker-acc string)
+              gud-marker-acc "")
       (setq gud-marker-acc (concat gud-marker-acc string)))
     (if result
-    (if (or (string-match "\\([^\n \t:]+\\): [^:]+: \\([0-9]+\\)[: ]"
-                  result)
+        (if (or (string-match "\\([^\n \t:]+\\): [^:]+: \\([0-9]+\\)[: ]"
+                              result)
                 (string-match "[^: \t]+:[ \t]+\\([^:]+\\): [^:]+: \\([0-9]+\\):"
                               result))
             (let ((line (string-to-number (match-string 2 result)))
@@ -1531,12 +1532,12 @@ directories if your program contains sources from more than one directory."
   (interactive (list (gud-query-cmdline 'xdb)))
 
   (gud-common-init command-line 'gud-xdb-massage-args
-           'gud-xdb-marker-filter)
+                   'gud-xdb-marker-filter)
   (set (make-local-variable 'gud-minor-mode) 'xdb)
 
   (gud-def gud-break  "b %f:%l"    "\C-b" "Set breakpoint at current line.")
   (gud-def gud-tbreak "b %f:%l\\t" "\C-t"
-       "Set temporary breakpoint at current line.")
+           "Set temporary breakpoint at current line.")
   (gud-def gud-remove "db"         "\C-d" "Remove breakpoint at current line")
   (gud-def gud-step   "s %p"       "\C-s" "Step one line with display.")
   (gud-def gud-next   "S %p"       "\C-n" "Step one line (skip functions).")
@@ -1563,33 +1564,33 @@ into one that invokes an Emacs-enabled debugging session.
   ;; FIXME: what if the command is `make perldb' and doesn't accept those extra
   ;; arguments ?
   (let* ((new-args nil)
-     (seen-e nil)
-     (shift (lambda () (push (pop args) new-args))))
+         (seen-e nil)
+         (shift (lambda () (push (pop args) new-args))))
 
     ;; Pass all switches and -e scripts through.
     (while (and args
-        (string-match "^-" (car args))
-        (not (equal "-" (car args)))
-        (not (equal "--" (car args))))
+                (string-match "^-" (car args))
+                (not (equal "-" (car args)))
+                (not (equal "--" (car args))))
       (when (equal "-e" (car args))
-    ;; -e goes with the next arg, so shift one extra.
-    (or (funcall shift)
-        ;; -e as the last arg is an error in Perl.
-        (error "No code specified for -e"))
-    (setq seen-e t))
+        ;; -e goes with the next arg, so shift one extra.
+        (or (funcall shift)
+            ;; -e as the last arg is an error in Perl.
+            (error "No code specified for -e"))
+        (setq seen-e t))
       (funcall shift))
 
     (unless seen-e
       (if (or (not args)
-          (string-match "^-" (car args)))
-      (error "Can't use stdin as the script to debug"))
+              (string-match "^-" (car args)))
+          (error "Can't use stdin as the script to debug"))
       ;; This is the program name.
       (funcall shift))
 
     ;; If -e specified, make sure there is a -- so -emacs is not taken
     ;; as -e macs.
     (if (and args (equal "--" (car args)))
-    (funcall shift)
+        (funcall shift)
       (and seen-e (push "--" new-args)))
 
     (push "-emacs" new-args)
@@ -1610,18 +1611,18 @@ into one that invokes an Emacs-enabled debugging session.
 
     ;; Process all the complete markers in this chunk.
     (while (string-match "\032\032\\(\\([a-zA-Z]:\\)?[^:\n]*\\):\\([0-9]*\\):.*\n"
-             gud-marker-acc)
+                         gud-marker-acc)
       (setq
 
        ;; Extract the frame position from the marker.
        gud-last-frame
        (cons (match-string 1 gud-marker-acc)
-         (string-to-number (match-string 3 gud-marker-acc)))
+             (string-to-number (match-string 3 gud-marker-acc)))
 
        ;; Append any text before the marker to the output we're going
        ;; to return - we don't include the marker in this text.
        output (concat output
-              (substring gud-marker-acc 0 (match-beginning 0)))
+                      (substring gud-marker-acc 0 (match-beginning 0)))
 
        ;; Set the accumulator to the remaining text.
        gud-marker-acc (substring gud-marker-acc (match-end 0))))
@@ -1632,17 +1633,17 @@ into one that invokes an Emacs-enabled debugging session.
     ;; know the full marker regexp above failed, it's pretty simple to
     ;; test for marker starts.
     (if (string-match "\032.*\\'" gud-marker-acc)
-    (progn
-      ;; Everything before the potential marker start can be output.
-      (setq output (concat output (substring gud-marker-acc
-                         0 (match-beginning 0))))
+        (progn
+          ;; Everything before the potential marker start can be output.
+          (setq output (concat output (substring gud-marker-acc
+                                                 0 (match-beginning 0))))
 
-      ;; Everything after, we save, to combine with later input.
-      (setq gud-marker-acc
-        (substring gud-marker-acc (match-beginning 0))))
+          ;; Everything after, we save, to combine with later input.
+          (setq gud-marker-acc
+                (substring gud-marker-acc (match-beginning 0))))
 
       (setq output (concat output gud-marker-acc)
-        gud-marker-acc ""))
+            gud-marker-acc ""))
 
     output))
 
@@ -1658,10 +1659,10 @@ The directory containing FILE becomes the initial working directory
 and source-file directory for your debugger."
   (interactive
    (list (gud-query-cmdline 'perldb
-                (concat (or (buffer-file-name) "-e 0") " "))))
+                            (concat (or (buffer-file-name) "-e 0") " "))))
 
   (gud-common-init command-line 'gud-perldb-massage-args
-           'gud-perldb-marker-filter)
+                   'gud-perldb-marker-filter)
   (set (make-local-variable 'gud-minor-mode) 'perldb)
 
   (gud-def gud-break  "b %l"         "\C-b" "Set breakpoint at current line.")
@@ -1669,9 +1670,9 @@ and source-file directory for your debugger."
   (gud-def gud-step   "s"            "\C-s" "Step one source line with display.")
   (gud-def gud-next   "n"            "\C-n" "Step one line (skip functions).")
   (gud-def gud-cont   "c"            "\C-r" "Continue with display.")
-;  (gud-def gud-finish "finish"       "\C-f" "Finish executing current function.")
-;  (gud-def gud-up     "up %p"        "<" "Up N stack frames (numeric arg).")
-;  (gud-def gud-down   "down %p"      ">" "Down N stack frames (numeric arg).")
+                                        ;  (gud-def gud-finish "finish"       "\C-f" "Finish executing current function.")
+                                        ;  (gud-def gud-up     "up %p"        "<" "Up N stack frames (numeric arg).")
+                                        ;  (gud-def gud-down   "down %p"      ">" "Down N stack frames (numeric arg).")
   (gud-def gud-print  "p %e"          "\C-p" "Evaluate perl expression at point.")
   (gud-def gud-until  "c %l"          "\C-u" "Continue to current line.")
 
@@ -1713,20 +1714,20 @@ and source-file directory for your debugger."
        ;; Extract the frame position from the marker.
        gud-last-frame
        (let ((file (match-string gud-pdb-marker-regexp-file-group
-                 gud-marker-acc))
-         (line (string-to-number
-            (match-string gud-pdb-marker-regexp-line-group
-                  gud-marker-acc))))
-     (if (string-equal file "<string>")
-         gud-last-frame
-       (cons file line)))
+                                 gud-marker-acc))
+             (line (string-to-number
+                    (match-string gud-pdb-marker-regexp-line-group
+                                  gud-marker-acc))))
+         (if (string-equal file "<string>")
+             gud-last-frame
+           (cons file line)))
 
        ;; Output everything instead of the below
        output (concat output (substring gud-marker-acc 0 (match-end 0)))
-;;	  ;; Append any text before the marker to the output we're going
-;;	  ;; to return - we don't include the marker in this text.
-;;	  output (concat output
-;;		      (substring gud-marker-acc 0 (match-beginning 0)))
+       ;;	  ;; Append any text before the marker to the output we're going
+       ;;	  ;; to return - we don't include the marker in this text.
+       ;;	  output (concat output
+       ;;		      (substring gud-marker-acc 0 (match-beginning 0)))
 
        ;; Set the accumulator to the remaining text.
        gud-marker-acc (substring gud-marker-acc (match-end 0))))
@@ -1737,17 +1738,17 @@ and source-file directory for your debugger."
     ;; know the full marker regexp above failed, it's pretty simple to
     ;; test for marker starts.
     (if (string-match gud-pdb-marker-regexp-start gud-marker-acc)
-    (progn
-      ;; Everything before the potential marker start can be output.
-      (setq output (concat output (substring gud-marker-acc
-                         0 (match-beginning 0))))
+        (progn
+          ;; Everything before the potential marker start can be output.
+          (setq output (concat output (substring gud-marker-acc
+                                                 0 (match-beginning 0))))
 
-      ;; Everything after, we save, to combine with later input.
-      (setq gud-marker-acc
-        (substring gud-marker-acc (match-beginning 0))))
+          ;; Everything after, we save, to combine with later input.
+          (setq gud-marker-acc
+                (substring gud-marker-acc (match-beginning 0))))
 
       (setq output (concat output gud-marker-acc)
-        gud-marker-acc ""))
+            gud-marker-acc ""))
 
     output))
 
@@ -1964,9 +1965,9 @@ PATH gives the directories in which to search for files with
 extension EXTN.  Normally EXTN is given as the regular expression
  \"\\.java$\" ."
   (apply 'nconc (mapcar (lambda (d)
-              (when (file-directory-p d)
-                (directory-files d t extn nil)))
-            path)))
+                          (when (file-directory-p d)
+                            (directory-files d t extn nil)))
+                        path)))
 
 ;; Move point past whitespace.
 (defun gud-jdb-skip-whitespace ()
@@ -1982,14 +1983,14 @@ extension EXTN.  Normally EXTN is given as the regular expression
   (catch 'break
     (while (not (eobp))
       (if (eq (following-char) ?*)
-      (progn
-        (forward-char)
-        (if (not (eobp))
-        (if (eq (following-char) ?/)
-            (progn
-              (forward-char)
-              (throw 'break nil)))))
-    (forward-char)))))
+          (progn
+            (forward-char)
+            (if (not (eobp))
+                (if (eq (following-char) ?/)
+                    (progn
+                      (forward-char)
+                      (throw 'break nil)))))
+        (forward-char)))))
 
 ;; Move point past any number of consecutive whitespace chars and/or comments.
 (defun gud-jdb-skip-whitespace-and-comments ()
@@ -1998,11 +1999,11 @@ extension EXTN.  Normally EXTN is given as the regular expression
     (while t
       (cond
        ((looking-at "//")
-    (gud-jdb-skip-single-line-comment)
-    (gud-jdb-skip-whitespace))
+        (gud-jdb-skip-single-line-comment)
+        (gud-jdb-skip-whitespace))
        ((looking-at "/\\*")
-    (gud-jdb-skip-traditional-or-documentation-comment)
-    (gud-jdb-skip-whitespace))
+        (gud-jdb-skip-traditional-or-documentation-comment)
+        (gud-jdb-skip-whitespace))
        (t (throw 'done nil))))))
 
 ;; Move point past things that are id-like.  The intent is to skip regular
@@ -2015,9 +2016,9 @@ extension EXTN.  Normally EXTN is given as the regular expression
 (defun gud-jdb-skip-string-literal ()
   (forward-char)
   (while (not (cond
-           ((eq (following-char) ?\\)
-        (forward-char))
-           ((eq (following-char) ?\042))))
+               ((eq (following-char) ?\\)
+                (forward-char))
+               ((eq (following-char) ?\042))))
     (forward-char))
   (forward-char))
 
@@ -2026,9 +2027,9 @@ extension EXTN.  Normally EXTN is given as the regular expression
   (forward-char)
   (while
       (progn
-    (if (eq (following-char) ?\\)
-        (forward-char 2))
-    (not (eq (following-char) ?\')))
+        (if (eq (following-char) ?\\)
+            (forward-char 2))
+        (not (eq (following-char) ?\')))
     (forward-char))
   (forward-char))
 
@@ -2062,19 +2063,19 @@ extension EXTN.  Normally EXTN is given as the regular expression
     (while (not (eq open-level 0))
       (cond
        ((looking-at "//")
-    (gud-jdb-skip-single-line-comment))
+        (gud-jdb-skip-single-line-comment))
        ((looking-at "/\\*")
-    (gud-jdb-skip-traditional-or-documentation-comment))
+        (gud-jdb-skip-traditional-or-documentation-comment))
        ((eq (following-char) ?\042)
-    (gud-jdb-skip-string-literal))
+        (gud-jdb-skip-string-literal))
        ((eq (following-char) ?\')
-    (gud-jdb-skip-character-literal))
+        (gud-jdb-skip-character-literal))
        ((eq (following-char) ?{)
-    (setq open-level (+ open-level 1))
-    (forward-char))
+        (setq open-level (+ open-level 1))
+        (forward-char))
        ((eq (following-char) ?})
-    (setq open-level (- open-level 1))
-    (forward-char))
+        (setq open-level (- open-level 1))
+        (forward-char))
        (t (forward-char))))))
 
 ;; Find the package and class definitions in Java source file FILE.  Assumes
@@ -2087,73 +2088,73 @@ extension EXTN.  Normally EXTN is given as the regular expression
     (goto-char 0)
     (catch 'abort
       (let ((p ""))
-    (while (progn
-         (gud-jdb-skip-whitespace)
-         (not (eobp)))
-      (cond
+        (while (progn
+                 (gud-jdb-skip-whitespace)
+                 (not (eobp)))
+          (cond
 
-       ;; Any number of semi's following a block is legal.  Move point
-       ;; past them.  Note that comments and whitespace may be
-       ;; interspersed as well.
-       ((eq (following-char) ?\073)
-        (forward-char))
+           ;; Any number of semi's following a block is legal.  Move point
+           ;; past them.  Note that comments and whitespace may be
+           ;; interspersed as well.
+           ((eq (following-char) ?\073)
+            (forward-char))
 
-       ;; Move point past a single line comment.
-       ((looking-at "//")
-        (gud-jdb-skip-single-line-comment))
+           ;; Move point past a single line comment.
+           ((looking-at "//")
+            (gud-jdb-skip-single-line-comment))
 
-       ;; Move point past a traditional or documentation comment.
-       ((looking-at "/\\*")
-        (gud-jdb-skip-traditional-or-documentation-comment))
+           ;; Move point past a traditional or documentation comment.
+           ((looking-at "/\\*")
+            (gud-jdb-skip-traditional-or-documentation-comment))
 
-       ;; Move point past a package statement, but save the PackageName.
-       ((looking-at "package")
-        (forward-char 7)
-        (gud-jdb-skip-whitespace-and-comments)
-        (let ((s (point)))
-          (gud-jdb-skip-id-ish-thing)
-          (setq p (concat (buffer-substring s (point)) "."))
-          (gud-jdb-skip-whitespace-and-comments)
-          (if (eq (following-char) ?\073)
-          (forward-char))))
+           ;; Move point past a package statement, but save the PackageName.
+           ((looking-at "package")
+            (forward-char 7)
+            (gud-jdb-skip-whitespace-and-comments)
+            (let ((s (point)))
+              (gud-jdb-skip-id-ish-thing)
+              (setq p (concat (buffer-substring s (point)) "."))
+              (gud-jdb-skip-whitespace-and-comments)
+              (if (eq (following-char) ?\073)
+                  (forward-char))))
 
-       ;; Move point past an import statement.
-       ((looking-at "import")
-        (forward-char 6)
-        (gud-jdb-skip-whitespace-and-comments)
-        (gud-jdb-skip-id-ish-thing)
-        (gud-jdb-skip-whitespace-and-comments)
-        (if (eq (following-char) ?\073)
-        (forward-char)))
+           ;; Move point past an import statement.
+           ((looking-at "import")
+            (forward-char 6)
+            (gud-jdb-skip-whitespace-and-comments)
+            (gud-jdb-skip-id-ish-thing)
+            (gud-jdb-skip-whitespace-and-comments)
+            (if (eq (following-char) ?\073)
+                (forward-char)))
 
-       ;; Move point past the various kinds of ClassModifiers.
-       ((looking-at "public")
-        (forward-char 6))
-       ((looking-at "abstract")
-        (forward-char 8))
-       ((looking-at "final")
-        (forward-char 5))
+           ;; Move point past the various kinds of ClassModifiers.
+           ((looking-at "public")
+            (forward-char 6))
+           ((looking-at "abstract")
+            (forward-char 8))
+           ((looking-at "final")
+            (forward-char 5))
 
-       ;; Move point past a ClassDeclaraction, but save the class
-       ;; Identifier.
-       ((looking-at "class")
-        (forward-char 5)
-        (gud-jdb-skip-whitespace-and-comments)
-        (let ((s (point)))
-          (gud-jdb-skip-id-ish-thing)
-          (setq
-           l (nconc l (list (concat p (buffer-substring s (point)))))))
-        (gud-jdb-skip-block))
+           ;; Move point past a ClassDeclaraction, but save the class
+           ;; Identifier.
+           ((looking-at "class")
+            (forward-char 5)
+            (gud-jdb-skip-whitespace-and-comments)
+            (let ((s (point)))
+              (gud-jdb-skip-id-ish-thing)
+              (setq
+               l (nconc l (list (concat p (buffer-substring s (point)))))))
+            (gud-jdb-skip-block))
 
-       ;; Move point past an interface statement.
-       ((looking-at "interface")
-        (forward-char 9)
-        (gud-jdb-skip-block))
+           ;; Move point past an interface statement.
+           ((looking-at "interface")
+            (forward-char 9)
+            (gud-jdb-skip-block))
 
-       ;; Anything else means the input is invalid.
-       (t
-        (message "Error parsing file %s." file)
-        (throw 'abort nil))))))
+           ;; Anything else means the input is invalid.
+           (t
+            (message "Error parsing file %s." file)
+            (throw 'abort nil))))))
     l))
 
 (defun gud-jdb-build-class-source-alist-for-file (file)
@@ -2171,8 +2172,8 @@ extension EXTN.  Normally EXTN is given as the regular expression
       (apply
        'nconc
        (mapcar
-    'gud-jdb-build-class-source-alist-for-file
-    sources))
+        'gud-jdb-build-class-source-alist-for-file
+        sources))
     (kill-buffer gud-jdb-analysis-buffer)
     (setq gud-jdb-analysis-buffer nil)))
 
@@ -2191,33 +2192,33 @@ extension EXTN.  Normally EXTN is given as the regular expression
   (if args
       (let (massaged-args user-error)
 
-    (while (and args (not user-error))
-      (cond
-       ((setq user-error (string-match "-classpath$" (car args))))
-       ((setq user-error (string-match "-sourcepath$" (car args))))
-       ((string-match "-classpath\\(.+\\)" (car args))
-        (setq massaged-args
-          (append massaged-args
-              (list "-classpath"
-                (setq gud-jdb-classpath-string
-                      (match-string 1 (car args)))))))
-       ((string-match "-sourcepath\\(.+\\)" (car args))
-        (setq massaged-args
-          (append massaged-args
-              (list "-sourcepath"
-                (setq gud-jdb-sourcepath
-                      (match-string 1 (car args)))))))
-       (t (setq massaged-args (append massaged-args (list (car args))))))
-      (setq args (cdr args)))
+        (while (and args (not user-error))
+          (cond
+           ((setq user-error (string-match "-classpath$" (car args))))
+           ((setq user-error (string-match "-sourcepath$" (car args))))
+           ((string-match "-classpath\\(.+\\)" (car args))
+            (setq massaged-args
+                  (append massaged-args
+                          (list "-classpath"
+                                (setq gud-jdb-classpath-string
+                                      (match-string 1 (car args)))))))
+           ((string-match "-sourcepath\\(.+\\)" (car args))
+            (setq massaged-args
+                  (append massaged-args
+                          (list "-sourcepath"
+                                (setq gud-jdb-sourcepath
+                                      (match-string 1 (car args)))))))
+           (t (setq massaged-args (append massaged-args (list (car args))))))
+          (setq args (cdr args)))
 
-    ;; By this point the current directory is all screwed up.  Maybe we
-    ;; could fix things and re-invoke gud-common-init, but for now I think
-    ;; issueing the error is good enough.
-    (if user-error
-        (progn
-          (kill-buffer (current-buffer))
-          (error "Error: Omit whitespace between '-classpath or -sourcepath' and its value")))
-    massaged-args)))
+        ;; By this point the current directory is all screwed up.  Maybe we
+        ;; could fix things and re-invoke gud-common-init, but for now I think
+        ;; issueing the error is good enough.
+        (if user-error
+            (progn
+              (kill-buffer (current-buffer))
+              (error "Error: Omit whitespace between '-classpath or -sourcepath' and its value")))
+        massaged-args)))
 
 ;; Search for an association with P, a fully qualified class name, in
 ;; gud-jdb-class-source-alist.  The asssociation gives the fully
@@ -2234,28 +2235,28 @@ Convert P from jdb's output, converted to a pathname
 relative to a classpath directory."
   (save-match-data
     (let
-      (;; Replace dots with slashes and append ".java" to generate file
-       ;; name relative to classpath
-       (filename
-    (concat
-     (mapconcat 'identity
-            (split-string
-             ;; Eliminate any subclass references in the class
-             ;; name string. These start with a "$"
-             ((lambda (x)
-            (if (string-match "$.*" x)
-                (replace-match "" t t x) p))
-              p)
-             "\\.") "/")
-     ".java"))
-       (cplist (append gud-jdb-sourcepath gud-jdb-classpath))
-       found-file)
-    (while (and cplist
-        (not (setq found-file
-               (file-readable-p
-                (concat (car cplist) "/" filename)))))
-      (setq cplist (cdr cplist)))
-    (if found-file (concat (car cplist) "/" filename)))))
+        (;; Replace dots with slashes and append ".java" to generate file
+         ;; name relative to classpath
+         (filename
+          (concat
+           (mapconcat 'identity
+                      (split-string
+                       ;; Eliminate any subclass references in the class
+                       ;; name string. These start with a "$"
+                       ((lambda (x)
+                          (if (string-match "$.*" x)
+                              (replace-match "" t t x) p))
+                        p)
+                       "\\.") "/")
+           ".java"))
+         (cplist (append gud-jdb-sourcepath gud-jdb-classpath))
+         found-file)
+      (while (and cplist
+                  (not (setq found-file
+                             (file-readable-p
+                              (concat (car cplist) "/" filename)))))
+        (setq cplist (cdr cplist)))
+      (if found-file (concat (car cplist) "/" filename)))))
 
 (defun gud-jdb-find-source (string)
   "Alias for function used to locate source files.
@@ -2267,11 +2268,11 @@ during jdb initialization depending on the value of
 (defun gud-jdb-parse-classpath-string (string)
   "Parse the classpath list and convert each item to an absolute pathname."
   (mapcar (lambda (s) (if (string-match "[/\\]$" s)
-              (replace-match "" nil nil s) s))
-      (mapcar 'file-truename
-          (split-string
-           string
-           (concat "[ \t\n\r,\"" path-separator "]+")))))
+                          (replace-match "" nil nil s) s))
+          (mapcar 'file-truename
+                  (split-string
+                   string
+                   (concat "[ \t\n\r,\"" path-separator "]+")))))
 
 ;; See comentary for other debugger's marker filters - there you will find
 ;; important notes about STRING.
@@ -2279,21 +2280,21 @@ during jdb initialization depending on the value of
 
   ;; Build up the accumulator.
   (setq gud-marker-acc
-    (if gud-marker-acc
-        (concat gud-marker-acc string)
-      string))
+        (if gud-marker-acc
+            (concat gud-marker-acc string)
+          string))
 
   ;; Look for classpath information until gud-jdb-classpath-string is found
   ;; (interactive, multiple settings of classpath from jdb
   ;;  not supported/followed)
   (if (and gud-jdb-use-classpath
-       (not gud-jdb-classpath-string)
-       (or (string-match "classpath:[ \t[]+\\([^]]+\\)" gud-marker-acc)
-           (string-match "-classpath[ \t\"]+\\([^ \"]+\\)" gud-marker-acc)))
+           (not gud-jdb-classpath-string)
+           (or (string-match "classpath:[ \t[]+\\([^]]+\\)" gud-marker-acc)
+               (string-match "-classpath[ \t\"]+\\([^ \"]+\\)" gud-marker-acc)))
       (setq gud-jdb-classpath
-        (gud-jdb-parse-classpath-string
-         (setq gud-jdb-classpath-string
-           (match-string 1 gud-marker-acc)))))
+            (gud-jdb-parse-classpath-string
+             (setq gud-jdb-classpath-string
+                   (match-string 1 gud-marker-acc)))))
 
   ;; We process STRING from left to right.  Each time through the
   ;; following loop we process at most one marker. After we've found a
@@ -2302,29 +2303,29 @@ during jdb initialization depending on the value of
     ;; Process each complete marker in the input.
     (while
 
-    ;; Do we see a marker?
-    (string-match
-     ;; jdb puts out a string of the following form when it
-     ;; hits a breakpoint:
-     ;;
-     ;;	<fully-qualified-class><method> (<class>:<line-number>)
-     ;;
-     ;; <fully-qualified-class>'s are composed of Java ID's
-     ;; separated by periods.  <method> and <class> are
-     ;; also Java ID's.  <method> begins with a period and
-     ;; may contain less-than and greater-than (constructors,
-     ;; for instance, are called <init> in the symbol table.)
-     ;; Java ID's begin with a letter followed by letters
-     ;; and/or digits.  The set of letters includes underscore
-     ;; and dollar sign.
-     ;;
-     ;; The first group matches <fully-qualified-class>,
-     ;; the second group matches <class> and the third group
-     ;; matches <line-number>.  We don't care about using
-     ;; <method> so we don't "group" it.
-     ;;
-     ;; FIXME: Java ID's are UNICODE strings, this matches ASCII
-     ;; ID's only.
+        ;; Do we see a marker?
+        (string-match
+         ;; jdb puts out a string of the following form when it
+         ;; hits a breakpoint:
+         ;;
+         ;;	<fully-qualified-class><method> (<class>:<line-number>)
+         ;;
+         ;; <fully-qualified-class>'s are composed of Java ID's
+         ;; separated by periods.  <method> and <class> are
+         ;; also Java ID's.  <method> begins with a period and
+         ;; may contain less-than and greater-than (constructors,
+         ;; for instance, are called <init> in the symbol table.)
+         ;; Java ID's begin with a letter followed by letters
+         ;; and/or digits.  The set of letters includes underscore
+         ;; and dollar sign.
+         ;;
+         ;; The first group matches <fully-qualified-class>,
+         ;; the second group matches <class> and the third group
+         ;; matches <line-number>.  We don't care about using
+         ;; <method> so we don't "group" it.
+         ;;
+         ;; FIXME: Java ID's are UNICODE strings, this matches ASCII
+         ;; ID's only.
          ;;
          ;; The ".," in the last square-bracket are necessary because
          ;; of Sun's total disrespect for backwards compatibility in
@@ -2332,9 +2333,9 @@ during jdb initialization depending on the value of
          ;; print line numbers using LOCALE, inserting a comma or a
          ;; period at the thousands positions (how ingenious!).
 
-     "\\(\\[[0-9]+] \\)*\\([a-zA-Z0-9.$_]+\\)\\.[a-zA-Z0-9$_<>(),]+ \
+         "\\(\\[[0-9]+] \\)*\\([a-zA-Z0-9.$_]+\\)\\.[a-zA-Z0-9$_<>(),]+ \
 \\(([a-zA-Z0-9.$_]+:\\|line=\\)\\([0-9.,]+\\)"
-     gud-marker-acc)
+         gud-marker-acc)
 
       ;; A good marker is one that:
       ;; 1) does not have a "[n] " prefix (not part of a stack backtrace)
@@ -2345,39 +2346,39 @@ during jdb initialization depending on the value of
       ;;
       ;;     (<file-name> . <line-number>) .
       (if (if (match-beginning 1)
-          (let (n)
-        (setq n (string-to-number (substring
-                    gud-marker-acc
-                    (1+ (match-beginning 1))
-                    (- (match-end 1) 2))))
-        (if (< n gud-jdb-lowest-stack-level)
-            (progn (setq gud-jdb-lowest-stack-level n) t)))
-        t)
-      (if (setq file-found
-            (gud-jdb-find-source (match-string 2 gud-marker-acc)))
-          (setq gud-last-frame
-            (cons file-found
-              (string-to-number
-               (let
+              (let (n)
+                (setq n (string-to-number (substring
+                                           gud-marker-acc
+                                           (1+ (match-beginning 1))
+                                           (- (match-end 1) 2))))
+                (if (< n gud-jdb-lowest-stack-level)
+                    (progn (setq gud-jdb-lowest-stack-level n) t)))
+            t)
+          (if (setq file-found
+                    (gud-jdb-find-source (match-string 2 gud-marker-acc)))
+              (setq gud-last-frame
+                    (cons file-found
+                          (string-to-number
+                           (let
                                ((numstr (match-string 4 gud-marker-acc)))
                              (if (string-match "[.,]" numstr)
                                  (replace-match "" nil nil numstr)
                                numstr)))))
-        (message "Could not find source file.")))
+            (message "Could not find source file.")))
 
       ;; Set the accumulator to the remaining text.
       (setq gud-marker-acc (substring gud-marker-acc (match-end 0))))
 
     (if (string-match comint-prompt-regexp gud-marker-acc)
-    (setq gud-jdb-lowest-stack-level 999)))
+        (setq gud-jdb-lowest-stack-level 999)))
 
   ;; Do not allow gud-marker-acc to grow without bound. If the source
   ;; file information is not within the last 3/4
   ;; gud-marker-acc-max-length characters, well,...
   (if (> (length gud-marker-acc) gud-marker-acc-max-length)
       (setq gud-marker-acc
-        (substring gud-marker-acc
-               (- (/ (* gud-marker-acc-max-length 3) 4)))))
+            (substring gud-marker-acc
+                       (- (/ (* gud-marker-acc-max-length 3) 4)))))
 
   ;; We don't filter any debugger output so just return what we were given.
   string)
@@ -2408,22 +2409,22 @@ gud, see `gud-mode'."
   (setq gud-jdb-classpath-string (getenv "CLASSPATH"))
   (if gud-jdb-classpath-string
       (setq gud-jdb-classpath
-        (gud-jdb-parse-classpath-string gud-jdb-classpath-string)))
+            (gud-jdb-parse-classpath-string gud-jdb-classpath-string)))
   (setq gud-jdb-classpath-string nil)	; prepare for next
 
   (gud-common-init command-line 'gud-jdb-massage-args
-           'gud-jdb-marker-filter)
+                   'gud-jdb-marker-filter)
   (set (make-local-variable 'gud-minor-mode) 'jdb)
 
   ;; If a -classpath option was provided, set gud-jdb-classpath
   (if gud-jdb-classpath-string
       (setq gud-jdb-classpath
-        (gud-jdb-parse-classpath-string gud-jdb-classpath-string)))
+            (gud-jdb-parse-classpath-string gud-jdb-classpath-string)))
   (setq gud-jdb-classpath-string nil)	; prepare for next
   ;; If a -sourcepath option was provided, parse it
   (if gud-jdb-sourcepath
       (setq gud-jdb-sourcepath
-        (gud-jdb-parse-classpath-string gud-jdb-sourcepath)))
+            (gud-jdb-parse-classpath-string gud-jdb-sourcepath)))
 
   (gud-def gud-break  "stop at %c:%l" "\C-b" "Set breakpoint at current line.")
   (gud-def gud-remove "clear %c:%l"   "\C-d" "Remove breakpoint at current line")
@@ -2444,18 +2445,18 @@ gud, see `gud-mode'."
   (if gud-jdb-use-classpath
       ;; Get the classpath information from the debugger
       (progn
-    (if (string-match "-attach" command-line)
-        (gud-call "classpath"))
-    (fset 'gud-jdb-find-source
-          'gud-jdb-find-source-using-classpath))
+        (if (string-match "-attach" command-line)
+            (gud-call "classpath"))
+        (fset 'gud-jdb-find-source
+              'gud-jdb-find-source-using-classpath))
 
     ;; Else create and bind the class/source association list as well
     ;; as the source file list.
     (setq gud-jdb-class-source-alist
-      (gud-jdb-build-class-source-alist
-       (setq gud-jdb-source-files
-         (gud-jdb-build-source-files-list gud-jdb-directories
-                          "\\.java$"))))
+          (gud-jdb-build-class-source-alist
+           (setq gud-jdb-source-files
+                 (gud-jdb-build-source-files-list gud-jdb-directories
+                                                  "\\.java$"))))
     (fset 'gud-jdb-find-source 'gud-jdb-find-source-file)))
 
 ;;
@@ -2592,33 +2593,33 @@ comint mode, which see."
 ;; The other three args specify the values to use
 ;; for local variables in the debugger buffer.
 (defun gud-common-init (command-line massage-args marker-filter
-                     &optional find-file)
+                                     &optional find-file)
   (let* ((words (split-string-and-unquote command-line))
-     (program (car words))
-     (dir default-directory)
-     ;; Extract the file name from WORDS
-     ;; and put t in its place.
-     ;; Later on we will put the modified file name arg back there.
-     (file-word (let ((w (cdr words)))
-              (while (and w (= ?- (aref (car w) 0)))
-            (setq w (cdr w)))
-              (and w
-               (prog1 (car w)
-                 (setcar w t)))))
-     (file-subst
-      (and file-word (substitute-in-file-name file-word)))
-     (args (cdr words))
-     ;; If a directory was specified, expand the file name.
-     ;; Otherwise, don't expand it, so GDB can use the PATH.
-     ;; A file name without directory is literally valid
-     ;; only if the file exists in ., and in that case,
-     ;; omitting the expansion here has no visible effect.
-     (file (and file-word
-            (if (file-name-directory file-subst)
-            (expand-file-name file-subst)
-              file-subst)))
-     (filepart (and file-word (concat "-" (file-name-nondirectory file))))
-     (existing-buffer (get-buffer (concat "*gud" filepart "*"))))
+         (program (car words))
+         (dir default-directory)
+         ;; Extract the file name from WORDS
+         ;; and put t in its place.
+         ;; Later on we will put the modified file name arg back there.
+         (file-word (let ((w (cdr words)))
+                      (while (and w (= ?- (aref (car w) 0)))
+                        (setq w (cdr w)))
+                      (and w
+                           (prog1 (car w)
+                             (setcar w t)))))
+         (file-subst
+          (and file-word (substitute-in-file-name file-word)))
+         (args (cdr words))
+         ;; If a directory was specified, expand the file name.
+         ;; Otherwise, don't expand it, so GDB can use the PATH.
+         ;; A file name without directory is literally valid
+         ;; only if the file exists in ., and in that case,
+         ;; omitting the expansion here has no visible effect.
+         (file (and file-word
+                    (if (file-name-directory file-subst)
+                        (expand-file-name file-subst)
+                      file-subst)))
+         (filepart (and file-word (concat "-" (file-name-nondirectory file))))
+         (existing-buffer (get-buffer (concat "*gud" filepart "*"))))
     (pop-to-buffer (concat "*gud" filepart "*"))
     (when (and existing-buffer (get-buffer-process existing-buffer))
       (error "This program is already being debugged"))
@@ -2626,28 +2627,28 @@ comint mode, which see."
     (setq default-directory dir)
     ;; Set default-directory to the file's directory.
     (and file-word
-     gud-chdir-before-run
-     ;; Don't set default-directory if no directory was specified.
-     ;; In that case, either the file is found in the current directory,
-     ;; in which case this setq is a no-op,
-     ;; or it is found by searching PATH,
-     ;; in which case we don't know what directory it was found in.
-     (file-name-directory file)
-     (setq default-directory (file-name-directory file)))
+         gud-chdir-before-run
+         ;; Don't set default-directory if no directory was specified.
+         ;; In that case, either the file is found in the current directory,
+         ;; in which case this setq is a no-op,
+         ;; or it is found by searching PATH,
+         ;; in which case we don't know what directory it was found in.
+         (file-name-directory file)
+         (setq default-directory (file-name-directory file)))
     (or (bolp) (newline))
     (insert "Current directory is " default-directory "\n")
     ;; Put the substituted and expanded file name back in its place.
     (let ((w args))
       (while (and w (not (eq (car w) t)))
-    (setq w (cdr w)))
+        (setq w (cdr w)))
       (if w
-      (setcar w file)))
+          (setcar w file)))
     (apply 'make-comint (concat "gud" filepart) program nil
-       (if massage-args (funcall massage-args file args) args))
+           (if massage-args (funcall massage-args file args) args))
     ;; Since comint clobbered the mode, we don't set it until now.
     (gud-mode)
     (set (make-local-variable 'gud-target-name)
-     (and file-word (file-name-nondirectory file))))
+         (and file-word (file-name-nondirectory file))))
   (set (make-local-variable 'gud-marker-filter) marker-filter)
   (if find-file (set (make-local-variable 'gud-find-file) find-file))
   (setq gud-last-last-frame nil)
@@ -2672,61 +2673,61 @@ It is saved for when this flag is not set.")
   ;; Here's where the actual buffer insertion is done
   (let (output process-window)
     (if (buffer-name (process-buffer proc))
-    (if gud-filter-defer-flag
-        ;; If we can't process any text now,
-        ;; save it for later.
-        (setq gud-filter-pending-text
-          (concat (or gud-filter-pending-text "") string))
+        (if gud-filter-defer-flag
+            ;; If we can't process any text now,
+            ;; save it for later.
+            (setq gud-filter-pending-text
+                  (concat (or gud-filter-pending-text "") string))
 
-      ;; If we have to ask a question during the processing,
-      ;; defer any additional text that comes from the debugger
-      ;; during that time.
-      (let ((gud-filter-defer-flag t))
-        ;; Process now any text we previously saved up.
-        (if gud-filter-pending-text
-        (setq string (concat gud-filter-pending-text string)
-              gud-filter-pending-text nil))
+          ;; If we have to ask a question during the processing,
+          ;; defer any additional text that comes from the debugger
+          ;; during that time.
+          (let ((gud-filter-defer-flag t))
+            ;; Process now any text we previously saved up.
+            (if gud-filter-pending-text
+                (setq string (concat gud-filter-pending-text string)
+                      gud-filter-pending-text nil))
 
-        (with-current-buffer (process-buffer proc)
-          ;; If we have been so requested, delete the debugger prompt.
-          (save-restriction
-        (widen)
-        (if (marker-buffer gud-delete-prompt-marker)
-            (let ((inhibit-read-only t))
-              (delete-region (process-mark proc)
-                     gud-delete-prompt-marker)
-              (comint-update-fence)
-              (set-marker gud-delete-prompt-marker nil)))
-        ;; Save the process output, checking for source file markers.
-        (setq output (gud-marker-filter string))
-        ;; Check for a filename-and-line number.
-        ;; Don't display the specified file
-        ;; unless (1) point is at or after the position where output appears
-        ;; and (2) this buffer is on the screen.
-        (setq process-window
-              (and gud-last-frame
-               (>= (point) (process-mark proc))
-               (get-buffer-window (current-buffer)))))
+            (with-current-buffer (process-buffer proc)
+              ;; If we have been so requested, delete the debugger prompt.
+              (save-restriction
+                (widen)
+                (if (marker-buffer gud-delete-prompt-marker)
+                    (let ((inhibit-read-only t))
+                      (delete-region (process-mark proc)
+                                     gud-delete-prompt-marker)
+                      (comint-update-fence)
+                      (set-marker gud-delete-prompt-marker nil)))
+                ;; Save the process output, checking for source file markers.
+                (setq output (gud-marker-filter string))
+                ;; Check for a filename-and-line number.
+                ;; Don't display the specified file
+                ;; unless (1) point is at or after the position where output appears
+                ;; and (2) this buffer is on the screen.
+                (setq process-window
+                      (and gud-last-frame
+                           (>= (point) (process-mark proc))
+                           (get-buffer-window (current-buffer)))))
 
-          ;; Let the comint filter do the actual insertion.
-          ;; That lets us inherit various comint features.
-          (comint-output-filter proc output))
+              ;; Let the comint filter do the actual insertion.
+              ;; That lets us inherit various comint features.
+              (comint-output-filter proc output))
 
-        ;; Put the arrow on the source line.
-        ;; This must be outside of the save-excursion
-        ;; in case the source file is our current buffer.
-        (if process-window
-        (with-selected-window process-window
-          (gud-display-frame))
-          ;; We have to be in the proper buffer, (process-buffer proc),
-          ;; but not in a save-excursion, because that would restore point.
-          (with-current-buffer (process-buffer proc)
-        (gud-display-frame))))
+            ;; Put the arrow on the source line.
+            ;; This must be outside of the save-excursion
+            ;; in case the source file is our current buffer.
+            (if process-window
+                (with-selected-window process-window
+                  (gud-display-frame))
+              ;; We have to be in the proper buffer, (process-buffer proc),
+              ;; but not in a save-excursion, because that would restore point.
+              (with-current-buffer (process-buffer proc)
+                (gud-display-frame))))
 
-      ;; If we deferred text that arrived during this processing,
-      ;; handle it now.
-      (if gud-filter-pending-text
-          (gud-filter proc ""))))))
+          ;; If we deferred text that arrived during this processing,
+          ;; handle it now.
+          (if gud-filter-pending-text
+              (gud-filter proc ""))))))
 
 (defvar gud-minor-mode-type nil)
 (defvar gud-overlay-arrow-position nil)
@@ -2734,48 +2735,48 @@ It is saved for when this flag is not set.")
 
 (defun gud-sentinel (proc msg)
   (cond ((null (buffer-name (process-buffer proc)))
-     ;; buffer killed
-     ;; Stop displaying an arrow in a source file.
-     (setq gud-overlay-arrow-position nil)
-     (set-process-buffer proc nil)
-     (if (and (boundp 'speedbar-frame)
-          (string-equal speedbar-initial-expansion-list-name "GUD"))
-         (speedbar-change-initial-expansion-list
-          speedbar-previously-used-expansion-list-name))
-     (if (memq gud-minor-mode-type '(gdbmi gdba))
-         (gdb-reset)
-       (gud-reset)))
-    ((memq (process-status proc) '(signal exit))
-     ;; Stop displaying an arrow in a source file.
-     (setq gud-overlay-arrow-position nil)
-     (if (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-           '(gdba gdbmi))
-         (gdb-reset)
-       (gud-reset))
-     (let* ((obuf (current-buffer)))
-       ;; save-excursion isn't the right thing if
-       ;;  process-buffer is current-buffer
-       (unwind-protect
-           (progn
-         ;; Write something in the GUD buffer and hack its mode line,
-         (set-buffer (process-buffer proc))
-         ;; Fix the mode line.
-         (setq mode-line-process
-               (concat ":"
-                   (symbol-name (process-status proc))))
-         (force-mode-line-update)
-         (if (eobp)
-             (insert ?\n mode-name " " msg)
-           (save-excursion
-             (goto-char (point-max))
-             (insert ?\n mode-name " " msg)))
-         ;; If buffer and mode line will show that the process
-         ;; is dead, we can delete it now.  Otherwise it
-         ;; will stay around until M-x list-processes.
-         (delete-process proc))
-         ;; Restore old buffer, but don't restore old point
-         ;; if obuf is the gud buffer.
-         (set-buffer obuf))))))
+         ;; buffer killed
+         ;; Stop displaying an arrow in a source file.
+         (setq gud-overlay-arrow-position nil)
+         (set-process-buffer proc nil)
+         (if (and (boundp 'speedbar-frame)
+                  (string-equal speedbar-initial-expansion-list-name "GUD"))
+             (speedbar-change-initial-expansion-list
+              speedbar-previously-used-expansion-list-name))
+         (if (memq gud-minor-mode-type '(gdbmi gdba))
+             (gdb-reset)
+           (gud-reset)))
+        ((memq (process-status proc) '(signal exit))
+         ;; Stop displaying an arrow in a source file.
+         (setq gud-overlay-arrow-position nil)
+         (if (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
+                   '(gdba gdbmi))
+             (gdb-reset)
+           (gud-reset))
+         (let* ((obuf (current-buffer)))
+           ;; save-excursion isn't the right thing if
+           ;;  process-buffer is current-buffer
+           (unwind-protect
+               (progn
+                 ;; Write something in the GUD buffer and hack its mode line,
+                 (set-buffer (process-buffer proc))
+                 ;; Fix the mode line.
+                 (setq mode-line-process
+                       (concat ":"
+                               (symbol-name (process-status proc))))
+                 (force-mode-line-update)
+                 (if (eobp)
+                     (insert ?\n mode-name " " msg)
+                   (save-excursion
+                     (goto-char (point-max))
+                     (insert ?\n mode-name " " msg)))
+                 ;; If buffer and mode line will show that the process
+                 ;; is dead, we can delete it now.  Otherwise it
+                 ;; will stay around until M-x list-processes.
+                 (delete-process proc))
+             ;; Restore old buffer, but don't restore old point
+             ;; if obuf is the gud buffer.
+             (set-buffer obuf))))))
 
 (defun gud-kill-buffer-hook ()
   (setq gud-minor-mode-type gud-minor-mode)
@@ -2787,9 +2788,9 @@ It is saved for when this flag is not set.")
   (dolist (buffer (buffer-list))
     (unless (eq buffer gud-comint-buffer)
       (with-current-buffer buffer
-    (when gud-minor-mode
-      (setq gud-minor-mode nil)
-      (kill-local-variable 'tool-bar-map))))))
+        (when gud-minor-mode
+          (setq gud-minor-mode nil)
+          (kill-local-variable 'tool-bar-map))))))
 
 (defun gud-display-frame ()
   "Find and obey the last filename-and-line marker from the debugger.
@@ -2799,7 +2800,7 @@ Obeying it means displaying in another window the specified file and line."
     (gud-set-buffer)
     (gud-display-line (car gud-last-frame) (cdr gud-last-frame))
     (setq gud-last-last-frame gud-last-frame
-      gud-last-frame nil)))
+          gud-last-frame nil)))
 
 ;; Make sure the file named TRUE-FILE is in a buffer that appears on the screen
 ;; and that its line LINE is visible.
@@ -2810,49 +2811,49 @@ Obeying it means displaying in another window the specified file and line."
 
 (defun gud-display-line (true-file line)
   (let* ((last-nonmenu-event t)	 ; Prevent use of dialog box for questions.
-     (buffer
-      (with-current-buffer gud-comint-buffer
-        (gud-find-file true-file)))
-     (window (and buffer
-              (or (get-buffer-window buffer)
-              (if (memq gud-minor-mode '(gdbmi gdba))
-                  (or (if (get-buffer-window buffer 0)
-                      (display-buffer buffer nil 0))
-                  (unless (gdb-display-source-buffer buffer)
-                    (gdb-display-buffer buffer nil))))
-              (display-buffer buffer))))
-     (pos))
+         (buffer
+          (with-current-buffer gud-comint-buffer
+            (gud-find-file true-file)))
+         (window (and buffer
+                      (or (get-buffer-window buffer)
+                          (if (memq gud-minor-mode '(gdbmi gdba))
+                              (or (if (get-buffer-window buffer 0)
+                                      (display-buffer buffer nil 0))
+                                  (unless (gdb-display-source-buffer buffer)
+                                    (gdb-display-buffer buffer nil))))
+                          (display-buffer buffer))))
+         (pos))
     (if buffer
-    (progn
-      (with-current-buffer buffer
-        (unless (or (verify-visited-file-modtime buffer) gud-keep-buffer)
-          (if (yes-or-no-p
-               (format "File %s changed on disk.  Reread from disk? "
-                   (buffer-name)))
-              (revert-buffer t t)
-            (setq gud-keep-buffer t)))
-        (save-restriction
-          (widen)
-          (goto-line line)
-          (setq pos (point))
-          (or gud-overlay-arrow-position
-          (setq gud-overlay-arrow-position (make-marker)))
-          (set-marker gud-overlay-arrow-position (point) (current-buffer))
-          ;; If they turned on hl-line, move the hl-line highlight to
-          ;; the arrow's line.
-          (when (featurep 'hl-line)
-        (cond
-         (global-hl-line-mode
-          (global-hl-line-highlight))
-         ((and hl-line-mode hl-line-sticky-flag)
-          (hl-line-highlight)))))
-        (cond ((or (< pos (point-min)) (> pos (point-max)))
-           (widen)
-           (goto-char pos))))
-      (when window
-        (set-window-point window gud-overlay-arrow-position)
-        (if (memq gud-minor-mode '(gdbmi gdba))
-        (setq gdb-source-window window)))))))
+        (progn
+          (with-current-buffer buffer
+            (unless (or (verify-visited-file-modtime buffer) gud-keep-buffer)
+              (if (yes-or-no-p
+                   (format "File %s changed on disk.  Reread from disk? "
+                           (buffer-name)))
+                  (revert-buffer t t)
+                (setq gud-keep-buffer t)))
+            (save-restriction
+              (widen)
+              (goto-line line)
+              (setq pos (point))
+              (or gud-overlay-arrow-position
+                  (setq gud-overlay-arrow-position (make-marker)))
+              (set-marker gud-overlay-arrow-position (point) (current-buffer))
+              ;; If they turned on hl-line, move the hl-line highlight to
+              ;; the arrow's line.
+              (when (featurep 'hl-line)
+                (cond
+                 (global-hl-line-mode
+                  (global-hl-line-highlight))
+                 ((and hl-line-mode hl-line-sticky-flag)
+                  (hl-line-highlight)))))
+            (cond ((or (< pos (point-min)) (> pos (point-max)))
+                   (widen)
+                   (goto-char pos))))
+          (when window
+            (set-window-point window gud-overlay-arrow-position)
+            (if (memq gud-minor-mode '(gdbmi gdba))
+                (setq gdb-source-window window)))))))
 
 ;; The gud-call function must do the right thing whether its invoking
 ;; keystroke is from the GUD buffer itself (via major-mode binding)
@@ -2861,56 +2862,56 @@ Obeying it means displaying in another window the specified file and line."
 
 (defun gud-format-command (str arg)
   (let ((insource (not (eq (current-buffer) gud-comint-buffer)))
-    (frame (or gud-last-frame gud-last-last-frame))
-    result)
+        (frame (or gud-last-frame gud-last-last-frame))
+        result)
     (while (and str
-        (let ((case-fold-search nil))
-          (string-match "\\([^%]*\\)%\\([abdefFlpc]\\)" str)))
+                (let ((case-fold-search nil))
+                  (string-match "\\([^%]*\\)%\\([abdefFlpc]\\)" str)))
       (let ((key (string-to-char (match-string 2 str)))
-        subst)
-    (cond
-     ((eq key ?f)
-      (setq subst (file-name-nondirectory (if insource
-                          (buffer-file-name)
-                        (car frame)))))
-     ((eq key ?F)
-      (setq subst (file-name-sans-extension
-               (file-name-nondirectory (if insource
-                           (buffer-file-name)
-                         (car frame))))))
-     ((eq key ?d)
-      (setq subst (file-name-directory (if insource
-                           (buffer-file-name)
-                         (car frame)))))
-     ((eq key ?l)
-      (setq subst (int-to-string
-               (if insource
-               (save-restriction
-                 (widen)
-                 (+ (count-lines (point-min) (point))
-                (if (bolp) 1 0)))
-             (cdr frame)))))
-     ((eq key ?e)
-      (setq subst (gud-find-expr)))
-     ((eq key ?a)
-      (setq subst (gud-read-address)))
-     ((eq key ?b)
-      (setq subst gud-breakpoint-id))
-     ((eq key ?c)
-      (setq subst
+            subst)
+        (cond
+         ((eq key ?f)
+          (setq subst (file-name-nondirectory (if insource
+                                                  (buffer-file-name)
+                                                (car frame)))))
+         ((eq key ?F)
+          (setq subst (file-name-sans-extension
+                       (file-name-nondirectory (if insource
+                                                   (buffer-file-name)
+                                                 (car frame))))))
+         ((eq key ?d)
+          (setq subst (file-name-directory (if insource
+                                               (buffer-file-name)
+                                             (car frame)))))
+         ((eq key ?l)
+          (setq subst (int-to-string
+                       (if insource
+                           (save-restriction
+                             (widen)
+                             (+ (count-lines (point-min) (point))
+                                (if (bolp) 1 0)))
+                         (cdr frame)))))
+         ((eq key ?e)
+          (setq subst (gud-find-expr)))
+         ((eq key ?a)
+          (setq subst (gud-read-address)))
+         ((eq key ?b)
+          (setq subst gud-breakpoint-id))
+         ((eq key ?c)
+          (setq subst
                 (gud-find-class
                  (if insource
-                      (buffer-file-name)
-                    (car frame))
+                     (buffer-file-name)
+                   (car frame))
                  (if insource
-                      (save-restriction
-                        (widen)
-                        (+ (count-lines (point-min) (point))
-                           (if (bolp) 1 0)))
-                    (cdr frame)))))
-     ((eq key ?p)
-      (setq subst (if arg (int-to-string arg)))))
-    (setq result (concat result (match-string 1 str) subst)))
+                     (save-restriction
+                       (widen)
+                       (+ (count-lines (point-min) (point))
+                          (if (bolp) 1 0)))
+                   (cdr frame)))))
+         ((eq key ?p)
+          (setq subst (if arg (int-to-string arg)))))
+        (setq result (concat result (match-string 1 str) subst)))
       (setq str (substring str (match-end 2))))
     ;; There might be text left in STR when the loop ends.
     (concat result str)))
@@ -2920,20 +2921,20 @@ Obeying it means displaying in another window the specified file and line."
   (save-match-data
     (save-excursion
       (let ((pt (point)) found begin)
-    (setq found (if (search-backward "0x" (- pt 7) t) (point)))
-    (cond
-     (found (forward-char 2)
-        (buffer-substring found
-                  (progn (re-search-forward "[^0-9a-f]")
-                     (forward-char -1)
-                     (point))))
-     (t (setq begin (progn (re-search-backward "[^0-9]")
-                   (forward-char 1)
-                   (point)))
-        (forward-char 1)
-        (re-search-forward "[^0-9]")
-        (forward-char -1)
-        (buffer-substring begin (point))))))))
+        (setq found (if (search-backward "0x" (- pt 7) t) (point)))
+        (cond
+         (found (forward-char 2)
+                (buffer-substring found
+                                  (progn (re-search-forward "[^0-9a-f]")
+                                         (forward-char -1)
+                                         (point))))
+         (t (setq begin (progn (re-search-backward "[^0-9]")
+                               (forward-char 1)
+                               (point)))
+            (forward-char 1)
+            (re-search-forward "[^0-9]")
+            (forward-char -1)
+            (buffer-substring begin (point))))))))
 
 (defun gud-call (fmt &optional arg)
   (let ((msg (gud-format-command fmt arg)))
@@ -2951,17 +2952,17 @@ Obeying it means displaying in another window the specified file and line."
     (save-excursion
       (set-buffer gud-comint-buffer)
       (save-restriction
-    (widen)
-    (if (marker-position gud-delete-prompt-marker)
-        ;; We get here when printing an expression.
-        (goto-char gud-delete-prompt-marker)
-      (goto-char (process-mark proc))
-      (forward-line 0))
-    (if (looking-at comint-prompt-regexp)
-        (set-marker gud-delete-prompt-marker (point)))
-    (if (memq gud-minor-mode '(gdbmi gdba))
-        (apply comint-input-sender (list proc command))
-      (process-send-string proc (concat command "\n")))))))
+        (widen)
+        (if (marker-position gud-delete-prompt-marker)
+            ;; We get here when printing an expression.
+            (goto-char gud-delete-prompt-marker)
+          (goto-char (process-mark proc))
+          (forward-line 0))
+        (if (looking-at comint-prompt-regexp)
+            (set-marker gud-delete-prompt-marker (point)))
+        (if (memq gud-minor-mode '(gdbmi gdba))
+            (apply comint-input-sender (list proc command))
+          (process-send-string proc (concat command "\n")))))))
 
 (defun gud-refresh (&optional arg)
   "Fix up a possibly garbled display, and redraw the arrow."
@@ -2978,21 +2979,21 @@ Obeying it means displaying in another window the specified file and line."
 
 (defun gud-find-expr (&rest args)
   (let ((expr (if (and transient-mark-mode mark-active)
-          (buffer-substring (region-beginning) (region-end))
-        (apply gud-find-expr-function args))))
+                  (buffer-substring (region-beginning) (region-end))
+                (apply gud-find-expr-function args))))
     (save-match-data
       (if (string-match "\n" expr)
-      (error "Expression must not include a newline"))
+          (error "Expression must not include a newline"))
       (with-current-buffer gud-comint-buffer
-    (save-excursion
-      (goto-char (process-mark (get-buffer-process gud-comint-buffer)))
-      (forward-line 0)
-      (when (looking-at comint-prompt-regexp)
-        (set-marker gud-delete-prompt-marker (point))
-        (set-marker-insertion-type gud-delete-prompt-marker t))
-      (unless (eq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-              'jdb)
-          (insert (concat  expr " = "))))))
+        (save-excursion
+          (goto-char (process-mark (get-buffer-process gud-comint-buffer)))
+          (forward-line 0)
+          (when (looking-at comint-prompt-regexp)
+            (set-marker gud-delete-prompt-marker (point))
+            (set-marker-insertion-type gud-delete-prompt-marker t))
+          (unless (eq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
+                      'jdb)
+            (insert (concat  expr " = "))))))
     expr))
 
 ;; The next eight functions are hacked from gdbsrc.el by
@@ -3004,24 +3005,24 @@ Obeying it means displaying in another window the specified file and line."
   (interactive)
   (save-excursion
     (let ((p (point))
-      (expr (gud-innermost-expr))
-      (test-expr (gud-prev-expr)))
+          (expr (gud-innermost-expr))
+          (test-expr (gud-prev-expr)))
       (while (and test-expr (gud-expr-compound test-expr expr))
-    (let ((prev-expr expr))
-      (setq expr (cons (car test-expr) (cdr expr)))
-      (goto-char (car expr))
-      (setq test-expr (gud-prev-expr))
-      ;; If we just pasted on the condition of an if or while,
-      ;; throw it away again.
-      (if (member (buffer-substring (car test-expr) (cdr test-expr))
-              '("if" "while" "for"))
-          (setq test-expr nil
-            expr prev-expr))))
+        (let ((prev-expr expr))
+          (setq expr (cons (car test-expr) (cdr expr)))
+          (goto-char (car expr))
+          (setq test-expr (gud-prev-expr))
+          ;; If we just pasted on the condition of an if or while,
+          ;; throw it away again.
+          (if (member (buffer-substring (car test-expr) (cdr test-expr))
+                      '("if" "while" "for"))
+              (setq test-expr nil
+                    expr prev-expr))))
       (goto-char p)
       (setq test-expr (gud-next-expr))
       (while (gud-expr-compound expr test-expr)
-    (setq expr (cons (car expr) (cdr test-expr)))
-    (setq test-expr (gud-next-expr)))
+        (setq expr (cons (car expr) (cdr test-expr)))
+        (setq test-expr (gud-next-expr)))
       (buffer-substring (car expr) (cdr expr)))))
 
 (defun gud-innermost-expr ()
@@ -3035,11 +3036,11 @@ the character after the end of the expr."
     (gud-forward-sexp)
     (setq end (point))
     (if (>= p end)
-    (progn
-     (setq begin p)
-     (goto-char p)
-     (gud-forward-sexp)
-     (setq end (point)))
+        (progn
+          (setq begin p)
+          (goto-char p)
+          (gud-forward-sexp)
+          (setq end (point)))
       )
     (goto-char begin)
     (cons begin end)))
@@ -3053,7 +3054,7 @@ the character after the end of the expr."
 (defun gud-forward-sexp ()
   "Version of `forward-sexp' that catches errors."
   (condition-case nil
-     (forward-sexp)
+      (forward-sexp)
     (error t)))
 
 (defun gud-prev-expr ()
@@ -3088,19 +3089,19 @@ If `->' is found, return `?.'.  If `.' is found, return `?.'.
 If any other punctuation is found, return `??'.
 If no punctuation is found, return `? '."
   (let ((result ?\s)
-    (syntax))
+        (syntax))
     (while (< span-start span-end)
       (setq syntax (char-syntax (char-after span-start)))
       (cond
        ((= syntax ?\s) t)
        ((= syntax ?.) (setq syntax (char-after span-start))
-    (cond
-     ((= syntax ?.) (setq result ?.))
-     ((and (= syntax ?-) (= (char-after (+ span-start 1)) ?>))
-      (setq result ?.)
-      (setq span-start (+ span-start 1)))
-     (t (setq span-start span-end)
-        (setq result ??)))))
+        (cond
+         ((= syntax ?.) (setq result ?.))
+         ((and (= syntax ?-) (= (char-after (+ span-start 1)) ?>))
+          (setq result ?.)
+          (setq span-start (+ span-start 1)))
+         (t (setq span-start span-end)
+            (setq result ??)))))
       (setq span-start (+ span-start 1)))
     result))
 
@@ -3117,8 +3118,8 @@ Link exprs of the form:
       (Expr) Expr
       [Expr] Expr"
   (let ((span-start (cdr first))
-    (span-end (car second))
-    (syntax))
+        (span-end (car second))
+        (syntax))
     (setq syntax (gud-expr-compound-sep span-start span-end))
     (cond
      ((= (car first) (car second)) nil)
@@ -3163,9 +3164,9 @@ class of the file (using s to separate nested class ids)."
           (while (and cplist (not class-found))
             (if (string-match (car cplist) f)
                 (setq class-found
-              (mapconcat 'identity
+                      (mapconcat 'identity
                                  (split-string
-                                   (substring f (+ (match-end 0) 1))
+                                  (substring f (+ (match-end 0) 1))
                                   "/") ".")))
             (setq cplist (cdr cplist)))
           ;; if f is visited by a java(cc-mode) buffer, walk up the
@@ -3213,9 +3214,9 @@ class of the file (using s to separate nested class ids)."
     ;; Not using classpath - try class/source association list
     (let ((class-found (rassoc f gud-jdb-class-source-alist)))
       (if class-found
-      (car class-found)
-    (message "gud-find-class: class for file %s not found in gud-jdb-class-source-alist!" f)
-    nil))))
+          (car class-found)
+        (message "gud-find-class: class for file %s not found in gud-jdb-class-source-alist!" f)
+        nil))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3265,7 +3266,7 @@ class of the file (using s to separate nested class ids)."
 (defun gdb-script-skip-to-head ()
   "We're just in front of an `end' and we need to go to its head."
   (while (and (re-search-backward "^\\s-*\\(\\(end\\)\\|define\\|document\\|if\\|while\\|commands\\)\\>" nil 'move)
-          (match-end 2))
+              (match-end 2))
     (gdb-script-skip-to-head)))
 
 (defun gdb-script-calculate-indentation ()
@@ -3275,7 +3276,7 @@ class of the file (using s to separate nested class ids)."
     (current-indentation))
    ((looking-at "else\\>")
     (while (and (re-search-backward "^\\s-*\\(if\\|\\(end\\)\\)\\>" nil 'move)
-        (match-end 2))
+                (match-end 2))
       (gdb-script-skip-to-head))
     (current-indentation))
    (t
@@ -3284,28 +3285,28 @@ class of the file (using s to separate nested class ids)."
     (skip-chars-forward " \t")
     (+ (current-indentation)
        (if (looking-at "\\(if\\|while\\|define\\|else\\|commands\\)\\>")
-       gdb-script-basic-indent 0)))))
+           gdb-script-basic-indent 0)))))
 
 (defun gdb-script-indent-line ()
   "Indent current line of GDB script."
   (interactive)
   (if (and (eq (get-text-property (point) 'face) font-lock-doc-face)
-       (save-excursion
-         (forward-line 0)
-         (skip-chars-forward " \t")
-         (not (looking-at "end\\>"))))
-      'noindent
-    (let* ((savep (point))
-       (indent (condition-case nil
-               (save-excursion
+           (save-excursion
              (forward-line 0)
              (skip-chars-forward " \t")
-             (if (>= (point) savep) (setq savep nil))
-             (max (gdb-script-calculate-indentation) 0))
-             (error 0))))
+             (not (looking-at "end\\>"))))
+      'noindent
+    (let* ((savep (point))
+           (indent (condition-case nil
+                       (save-excursion
+                         (forward-line 0)
+                         (skip-chars-forward " \t")
+                         (if (>= (point) savep) (setq savep nil))
+                         (max (gdb-script-calculate-indentation) 0))
+                     (error 0))))
       (if savep
-      (save-excursion (indent-line-to indent))
-    (indent-line-to indent)))))
+          (save-excursion (indent-line-to indent))
+        (indent-line-to indent)))))
 
 ;; Derived from cfengine.el.
 (defun gdb-script-beginning-of-defun ()
@@ -3350,10 +3351,10 @@ Treats actions as defuns."
        #'gdb-script-end-of-defun)
   (set (make-local-variable 'font-lock-defaults)
        '(gdb-script-font-lock-keywords nil nil ((?_ . "w")) nil
-     (font-lock-syntactic-keywords
-      . gdb-script-font-lock-syntactic-keywords)
-     (font-lock-syntactic-face-function
-      . gdb-script-font-lock-syntactic-face))))
+                                       (font-lock-syntactic-keywords
+                                        . gdb-script-font-lock-syntactic-keywords)
+                                       (font-lock-syntactic-face-function
+                                        . gdb-script-font-lock-syntactic-face))))
 
 
 ;;; tooltips for GUD
@@ -3368,36 +3369,36 @@ Treats actions as defuns."
   (require 'tooltip)
   (if gud-tooltip-mode
       (progn
-    (add-hook 'change-major-mode-hook 'gud-tooltip-change-major-mode)
-    (add-hook 'pre-command-hook 'tooltip-hide)
-    (add-hook 'tooltip-hook 'gud-tooltip-tips)
-    (define-key global-map [mouse-movement] 'gud-tooltip-mouse-motion))
+        (add-hook 'change-major-mode-hook 'gud-tooltip-change-major-mode)
+        (add-hook 'pre-command-hook 'tooltip-hide)
+        (add-hook 'tooltip-hook 'gud-tooltip-tips)
+        (define-key global-map [mouse-movement] 'gud-tooltip-mouse-motion))
     (unless tooltip-mode (remove-hook 'pre-command-hook 'tooltip-hide)
-    (remove-hook 'change-major-mode-hook 'gud-tooltip-change-major-mode)
-    (remove-hook 'tooltip-hook 'gud-tooltip-tips)
-    (define-key global-map [mouse-movement] 'ignore)))
+            (remove-hook 'change-major-mode-hook 'gud-tooltip-change-major-mode)
+            (remove-hook 'tooltip-hook 'gud-tooltip-tips)
+            (define-key global-map [mouse-movement] 'ignore)))
   (gud-tooltip-activate-mouse-motions-if-enabled)
   (if (and gud-comint-buffer
-       (buffer-name gud-comint-buffer); gud-comint-buffer might be killed
-       (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
-         '(gdbmi gdba)))
+           (buffer-name gud-comint-buffer); gud-comint-buffer might be killed
+           (memq (buffer-local-value 'gud-minor-mode gud-comint-buffer)
+                 '(gdbmi gdba)))
       (if gud-tooltip-mode
-      (progn
-        (dolist (buffer (buffer-list))
-          (unless (eq buffer gud-comint-buffer)
-        (with-current-buffer buffer
-          (when (and (memq gud-minor-mode '(gdbmi gdba))
-                 (not (string-match "\\`\\*.+\\*\\'"
-                        (buffer-name))))
-            (make-local-variable 'gdb-define-alist)
-            (gdb-create-define-alist)
-            (add-hook 'after-save-hook
-                  'gdb-create-define-alist nil t))))))
-    (kill-local-variable 'gdb-define-alist)
-    (remove-hook 'after-save-hook 'gdb-create-define-alist t))))
+          (progn
+            (dolist (buffer (buffer-list))
+              (unless (eq buffer gud-comint-buffer)
+                (with-current-buffer buffer
+                  (when (and (memq gud-minor-mode '(gdbmi gdba))
+                             (not (string-match "\\`\\*.+\\*\\'"
+                                                (buffer-name))))
+                    (make-local-variable 'gdb-define-alist)
+                    (gdb-create-define-alist)
+                    (add-hook 'after-save-hook
+                              'gdb-create-define-alist nil t))))))
+        (kill-local-variable 'gdb-define-alist)
+        (remove-hook 'after-save-hook 'gdb-create-define-alist t))))
 
 (defcustom gud-tooltip-modes '(gud-mode c-mode c++-mode fortran-mode
-                    python-mode)
+                                        python-mode)
   "List of modes for which to enable GUD tooltips."
   :type 'sexp
   :group 'gud
@@ -3405,7 +3406,7 @@ Treats actions as defuns."
 
 (defcustom gud-tooltip-display
   '((eq (tooltip-event-buffer gud-tooltip-event)
-    (marker-buffer gud-overlay-arrow-position)))
+        (marker-buffer gud-overlay-arrow-position)))
   "List of forms determining where GUD tooltips are displayed.
 
 Forms in the list are combined with AND.  The default is to display
@@ -3421,9 +3422,9 @@ only tooltips in the buffer containing the overlay arrow."
   :group 'tooltip)
 
 (define-obsolete-variable-alias 'tooltip-gud-modes
-                                'gud-tooltip-modes "22.1")
+  'gud-tooltip-modes "22.1")
 (define-obsolete-variable-alias 'tooltip-gud-display
-                                'gud-tooltip-display "22.1")
+  'gud-tooltip-display "22.1")
 
 ;;; Reacting on mouse movements
 
@@ -3434,14 +3435,14 @@ only tooltips in the buffer containing the overlay arrow."
 (defun gud-tooltip-activate-mouse-motions-if-enabled ()
   "Reconsider for all buffers whether mouse motion events are desired."
   (remove-hook 'post-command-hook
-           'gud-tooltip-activate-mouse-motions-if-enabled)
+               'gud-tooltip-activate-mouse-motions-if-enabled)
   (dolist (buffer (buffer-list))
     (save-excursion
       (set-buffer buffer)
       (if (and gud-tooltip-mode
-           (memq major-mode gud-tooltip-modes))
-      (gud-tooltip-activate-mouse-motions t)
-    (gud-tooltip-activate-mouse-motions nil)))))
+               (memq major-mode gud-tooltip-modes))
+          (gud-tooltip-activate-mouse-motions t)
+        (gud-tooltip-activate-mouse-motions nil)))))
 
 (defvar gud-tooltip-mouse-motions-active nil
   "Locally t in a buffer if tooltip processing of mouse motion is enabled.")
@@ -3457,10 +3458,10 @@ only tooltips in the buffer containing the overlay arrow."
 ACTIVATEP non-nil means activate mouse motion events."
   (if activatep
       (progn
-    (make-local-variable 'gud-tooltip-mouse-motions-active)
-    (setq gud-tooltip-mouse-motions-active t)
-    (make-local-variable 'track-mouse)
-    (setq track-mouse t))
+        (make-local-variable 'gud-tooltip-mouse-motions-active)
+        (setq gud-tooltip-mouse-motions-active t)
+        (make-local-variable 'track-mouse)
+        (setq track-mouse t))
     (when gud-tooltip-mouse-motions-active
       (kill-local-variable 'gud-tooltip-mouse-motions-active)
       (kill-local-variable 'track-mouse))))
@@ -3489,34 +3490,34 @@ This event can be examined by forms in `gud-tooltip-display'.")
 (defun gud-tooltip-dereference (&optional arg)
   "Toggle whether tooltips should show `* expr' or `expr'.
 With arg, dereference expr if ARG is positive, otherwise do not derereference."
- (interactive "P")
+  (interactive "P")
   (setq gud-tooltip-dereference
-    (if (null arg)
-        (not gud-tooltip-dereference)
-      (> (prefix-numeric-value arg) 0)))
+        (if (null arg)
+            (not gud-tooltip-dereference)
+          (> (prefix-numeric-value arg) 0)))
   (message "Dereferencing is now %s."
-       (if gud-tooltip-dereference "on" "off")))
+           (if gud-tooltip-dereference "on" "off")))
 
 (define-obsolete-function-alias 'tooltip-gud-toggle-dereference
-                                'gud-tooltip-dereference "22.1")
+  'gud-tooltip-dereference "22.1")
 
-; This will only display data that comes in one chunk.
-; Larger arrays (say 400 elements) are displayed in
-; the tooltip incompletely and spill over into the gud buffer.
-; Switching the process-filter creates timing problems and
-; it may be difficult to do better. Using annotations as in
-; gdb-ui.el gets round this problem.
+                                        ; This will only display data that comes in one chunk.
+                                        ; Larger arrays (say 400 elements) are displayed in
+                                        ; the tooltip incompletely and spill over into the gud buffer.
+                                        ; Switching the process-filter creates timing problems and
+                                        ; it may be difficult to do better. Using annotations as in
+                                        ; gdb-ui.el gets round this problem.
 (defun gud-tooltip-process-output (process output)
   "Process debugger output and show it in a tooltip window."
   (set-process-filter process gud-tooltip-original-filter)
   (tooltip-show (tooltip-strip-prompt process output)
-        (or gud-tooltip-echo-area tooltip-use-echo-area)))
+                (or gud-tooltip-echo-area tooltip-use-echo-area)))
 
 (defun gud-tooltip-print-command (expr)
   "Return a suitable command to print the expression EXPR."
   (case gud-minor-mode
-        ; '-o' to print the objc object description if available
-        (lldb (concat "expression -o -- " expr))
+                                        ; '-o' to print the objc object description if available
+    (lldb (concat "expression -o -- " expr))
     (gdba (concat "server print " expr))
     ((dbx gdbmi) (concat "print " expr))
     ((xdb pdb) (concat "p " expr))
@@ -3533,47 +3534,47 @@ not executing.
 This function must return nil if it doesn't handle EVENT."
   (let (process)
     (when (and (eventp event)
-           gud-tooltip-mode
-           gud-comint-buffer
-           (buffer-name gud-comint-buffer); might be killed
-           (setq process (get-buffer-process gud-comint-buffer))
-           (posn-point (event-end event))
-           (or (and (eq gud-minor-mode 'gdba) (not gdb-active-process))
-           (progn (setq gud-tooltip-event event)
-              (eval (cons 'and gud-tooltip-display)))))
+               gud-tooltip-mode
+               gud-comint-buffer
+               (buffer-name gud-comint-buffer); might be killed
+               (setq process (get-buffer-process gud-comint-buffer))
+               (posn-point (event-end event))
+               (or (and (eq gud-minor-mode 'gdba) (not gdb-active-process))
+                   (progn (setq gud-tooltip-event event)
+                          (eval (cons 'and gud-tooltip-display)))))
       (let ((expr (tooltip-expr-to-print event)))
-    (when expr
-      (if (and (eq gud-minor-mode 'gdba)
-           (not gdb-active-process))
-          (progn
-        (with-current-buffer (tooltip-event-buffer event)
-          (let ((define-elt (assoc expr gdb-define-alist)))
-            (unless (null define-elt)
-              (tooltip-show
-               (cdr define-elt)
-               (or gud-tooltip-echo-area tooltip-use-echo-area))
-              expr))))
-        (when gud-tooltip-dereference
-          (setq expr (concat "*" expr)))
-        (let ((cmd (gud-tooltip-print-command expr)))
-          (when (and gud-tooltip-mode (eq gud-minor-mode 'gdb))
-        (gud-tooltip-mode -1)
-        (message-box "Using GUD tooltips in this mode is unsafe\n\
+        (when expr
+          (if (and (eq gud-minor-mode 'gdba)
+                   (not gdb-active-process))
+              (progn
+                (with-current-buffer (tooltip-event-buffer event)
+                  (let ((define-elt (assoc expr gdb-define-alist)))
+                    (unless (null define-elt)
+                      (tooltip-show
+                       (cdr define-elt)
+                       (or gud-tooltip-echo-area tooltip-use-echo-area))
+                      expr))))
+            (when gud-tooltip-dereference
+              (setq expr (concat "*" expr)))
+            (let ((cmd (gud-tooltip-print-command expr)))
+              (when (and gud-tooltip-mode (eq gud-minor-mode 'gdb))
+                (gud-tooltip-mode -1)
+                (message-box "Using GUD tooltips in this mode is unsafe\n\
 so they have been disabled."))
-          (unless (null cmd) ; CMD can be nil if unknown debugger
-        (if (memq gud-minor-mode '(gdba gdbmi))
-              (if gdb-macro-info
-              (gdb-enqueue-input
-               (list (concat
-                  gdb-server-prefix "macro expand " expr "\n")
-                 `(lambda () (gdb-tooltip-print-1 ,expr))))
-            (gdb-enqueue-input
-             (list  (concat cmd "\n")
-                 `(lambda () (gdb-tooltip-print ,expr)))))
-          (setq gud-tooltip-original-filter (process-filter process))
-          (set-process-filter process 'gud-tooltip-process-output)
-          (gud-basic-call cmd))
-        expr))))))))
+              (unless (null cmd) ; CMD can be nil if unknown debugger
+                (if (memq gud-minor-mode '(gdba gdbmi))
+                    (if gdb-macro-info
+                        (gdb-enqueue-input
+                         (list (concat
+                                gdb-server-prefix "macro expand " expr "\n")
+                               `(lambda () (gdb-tooltip-print-1 ,expr))))
+                      (gdb-enqueue-input
+                       (list  (concat cmd "\n")
+                              `(lambda () (gdb-tooltip-print ,expr)))))
+                  (setq gud-tooltip-original-filter (process-filter process))
+                  (set-process-filter process 'gud-tooltip-process-output)
+                  (gud-basic-call cmd))
+                expr))))))))
 
 (provide 'gud)
 
