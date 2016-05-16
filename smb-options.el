@@ -27,23 +27,18 @@
 ;;;;;;;;
 ;; Indentation
 ;;;;;;;;
-(defun my-c-mode-common-hook ()
-  "My customizations for all c-modes."
-  (c-set-offset 'substatement-open 0)
-  ;; other customizations can go here
+(c-set-offset 'substatement-open 0)
+;; other customizations can go here
 
-  (setq-default c-default-style "stroustrup"
-                c-basic-offset 4
-                c++-tab-always-indent t
-                c-indent-level 4
-                tab-width 4
-                standard-indent 4
-                )
+(setq-default c-default-style "stroustrup"
+              c-basic-offset 4
+              c++-tab-always-indent t
+              c-indent-level 4
+              tab-width 4
+              standard-indent 4
+              )
 
-  (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
-  )
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-common-hook)
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60))
 
 ;;;;;;;;
 ;; Scrolling & Window handling
