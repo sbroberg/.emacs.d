@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;;;;;;;;
-;; START keymapping personalization
+;; keymapping personalization
 ;;;;;;;;
 ;; disable the window-up/window down feature of shift-arrows so that
 ;; shift-selection works with arrow keys.
@@ -13,10 +13,10 @@
 (define-key global-map (kbd "<S-left>") nil)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
-;;;;;;;;
-;; END keymapping personalization
-;;;;;;;;
 
+;;;;;;;;
+;; Whitespace
+;;;;;;;;
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 ;; show unncessary whitespace that can mess up your diff
@@ -24,6 +24,9 @@
 ;; use space to indent by default
 (setq-default indent-tabs-mode nil)
 
+;;;;;;;;
+;; Indentation
+;;;;;;;;
 (defun my-c-mode-common-hook ()
   "My customizations for all c-modes."
   (c-set-offset 'substatement-open 0)
@@ -43,15 +46,20 @@
 (add-hook 'c++-mode-hook 'my-c-mode-common-hook)
 
 ;;;;;;;;
-;; START Extension mode mapping
+;; Scrolling & Window handling
+;;;;;;;;
+(setq-default scroll-conservatively 5)
+
+;;;;;;;;
+;; Extension mode mapping
 ;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.m\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . c++-mode))
-;;;;;;;;
-;; END Extension mode mapping
-;;;;;;;;
 
+;;;;;;;;
+;; Mode replacements
+;;;;;;;;
 ;; Use silver searcher (ag) instead of grep for recursive searching
 (setq grep-command "/usr/local/bin/ag --nogroup ")
 

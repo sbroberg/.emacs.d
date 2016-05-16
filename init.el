@@ -16,7 +16,7 @@
   '(
     ;; Basic OSX sanity
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
-    
+
     ;; ide-code-completion/syntax checking
     cmake-ide            ;; configures flycheck, rtag & others based on current cmake project
     company              ;; auto-complete powered by various backends
@@ -42,7 +42,7 @@
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
-    
+
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
     ;; ggtags
@@ -66,6 +66,8 @@
 ;; END Packages
 ;;;;;;;;
 
+(require 'load-relative)
+
 (load-relative "./config-garbage-collector")
 (load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
@@ -78,6 +80,8 @@
 (load-relative "./config-iedit")
 (load-relative "./config-anzu")
 (load-relative "./config-volatile-highlights")
+(load-relative "./config-ws-butler")
+(load-relative "./config-helm")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")
@@ -101,3 +105,4 @@
 ;;; init.el ends here
 
 (put 'narrow-to-region 'disabled nil)
+
