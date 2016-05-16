@@ -5,7 +5,10 @@
 ;; Melpa
 (require 'package)
 (add-to-list 'package-archives
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 (package-initialize)
 ;; END Melpa
 
@@ -42,6 +45,7 @@
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
+    magit                ;; git integration
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -83,6 +87,7 @@
 (load-relative "./config-volatile-highlights")
 (load-relative "./config-ws-butler")
 (load-relative "./config-helm")
+(load-relative "./config-magit")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")

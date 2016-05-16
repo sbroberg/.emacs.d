@@ -43,3 +43,7 @@ For OSX:
             </dict>
           </dict>
         </plist>
+
+4.  Install silver-searcher
+
+    `brew install ag`
