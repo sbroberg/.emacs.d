@@ -26,6 +26,10 @@
   (function rtags-find-symbol-at-point))
 (define-key c-mode-base-map (kbd "M-,")
   (function rtags-find-references-at-point))
+(define-key c-mode-base-map (kbd "<s-right>")
+  (function rtags-location-stack-forward))
+(define-key c-mode-base-map (kbd "<s-left>")
+  (function rtags-location-stack-back))
 
 ;; comment this out if you don't have or don't use helm
 (setq rtags-use-helm t)
