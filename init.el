@@ -24,6 +24,7 @@
     cmake-ide            ;; configures flycheck, rtag & others based on current cmake project
     company              ;; auto-complete powered by various backends
     flycheck             ;; syntax checking powered by various backends
+    flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
 
     ;; Project-stuff
@@ -31,6 +32,7 @@
     helm                 ;; fancy-pants results searching - used in many contexts
     helm-projectile      ;; integration with helm & projectile
     helm-swoop           ;; interactive search result browsing
+    magit                ;; git integration
 
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
