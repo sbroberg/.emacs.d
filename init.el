@@ -33,6 +33,7 @@
     helm-projectile      ;; integration with helm & projectile
     helm-swoop           ;; interactive search result browsing
     magit                ;; git integration
+    cmake-mode           ;; for CMakeLists.txt files
 
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
