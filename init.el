@@ -89,6 +89,7 @@
 (load-relative "./config-ws-butler")
 (load-relative "./config-helm")
 (load-relative "./config-magit")
+(load-relative "./config-helm-swoop")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")
