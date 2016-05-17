@@ -4,9 +4,6 @@
 
 ;; helm from https://github.com/emacs-helm/helm
 (require 'helm)
-
-;; Locate the helm-swoop folder to your path
-(add-to-list 'load-path "~/.emacs.d/elisp/helm-swoop")
 (require 'helm-swoop)
 
 ;; Change the keybinds to whatever you like :)
