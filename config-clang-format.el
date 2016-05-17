@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;
-;; Code reformatter
-;;;;;;;;;;;;;;;;;
 (defun code-style (tool args)
   "Enforce code style for TOOL given ARGS."
   (let ((position (point)))
@@ -44,41 +41,16 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-settings)
 (add-hook 'python-mode-hook 'my-python-settings)
 (add-hook 'js-mode-hook 'my-js-settings)
-;;;;;;;;;;;;;;;;;
-;; End Code Reformatter
-;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;
 ;; clang-format-on-save
-;;;;;;;;;;;;;;;;;
-;; Hook function
 (defun clang-format-before-save ()
-  "Add this to .emacs to clang-format on save (add-hook 'before-save-hook 'clang-format-before-save)."
+  "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
   (message "In before-hook")
-  (when (eq major-mode 'c++-mode) (clang-format-buffer)))
-
-(defun clang-format-after-save ()
-  "Add this to .emacs to clang-format after save (add-hook 'after-save-hook 'clang-format-after-save)."
-
-  (interactive)
-  (message "In after-hook")
-  (when (eq major-mode 'c++-mode)
-    (let ((position (point)))
-      (message (format "Reloading file %s"  buffer-file-name))
-      (find-alternate-file buffer-file-name)
-      (goto-char position)
-      (message (format "Moved to position %s"  position))
-      )
-    )
+  (when (eq major-mode 'c++-mode) (clang-format-buffer))
   )
 
-;; Install hook to use clang-format on save
 (add-hook 'before-save-hook 'clang-format-before-save)
-(add-hook 'after-save-hook 'clang-format-after-save)
-;;;;;;;;;;;;;;;;;
-;; End clang-format-on-save
-;;;;;;;;;;;;;;;;;
 
 ;;; config-clang-format ends here

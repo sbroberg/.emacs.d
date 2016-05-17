@@ -31,18 +31,23 @@
 (define-key c-mode-base-map (kbd "<s-left>")
   (function rtags-location-stack-back))
 
-;; comment this out if you don't have or don't use helm
-(setq rtags-use-helm t)
+(when (require 'helm nil :noerror)
+  (setq rtags-use-helm t)
+  )
 
 ;; flycheck integration
+(require 'flycheck)
+
 (require 'flycheck-rtags)
 (defun my-flycheck-rtags-setup ()
   "Flycheck integration."
   (interactive)
   (flycheck-select-checker 'rtags)
-   ;; RTags creates more accurate overlays.
+  ;; RTags creates more accurate overlays.
   (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil))
+  (setq-local flycheck-check-syntax-automatically nil)
+  (setq-local rtags-periodic-reparse-timeout 1)
+  )
 ;; c-mode-common-hook is also called by c++-mode
 (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
