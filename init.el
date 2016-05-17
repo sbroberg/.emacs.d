@@ -47,7 +47,6 @@
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
-    magit                ;; git integration
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags

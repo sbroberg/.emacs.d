@@ -1,7 +1,7 @@
 # .emacs.d
 My emacs configuration
 
-Features include:
+## Major Features
 
 * cmake-ide: works automaticallly to configure other modes to work correctly when dealing with files in cmake projects.  Enables correct class/function navigation features for rtags, code completion with company, etc.
 
@@ -14,6 +14,7 @@ Features include:
 * rtags: A service-based tool that compiles your c/cpp with clang and provides results to a number of other emacs modes.  Has features that don't even exist in graphical IDEs.  Browse the key bindings in a c++ file to see all the features, but the major stuff:
 
   * All symbol navigation/reference understanding overloading (!)n
+  * rtags-reparse-file fixes most errors that might occur if rtags starts acting weird (usually due to a series of edits & undos that confuse its database)
   * M-. : jump to definition (jumps to declaration if already at defition)
   * M-, : list all references to that symbol (using helm to filter results)
   * <Apple>-<arrow> : Move back & forward through your jumping via M-. (mapped in smb-options.el)
@@ -22,6 +23,33 @@ Features include:
   * rtags-rename-symbol : Does what it says on the tin.  Project-wide replace.
   * rtags-display-summary : tooltip showing definition & header comments
   * rtags-print-class-hierarchy : Shows descendants of class(es) in current buffer
+  * rtags-create-doxygen-comment : creates a doxygen template for a function in a header
+
+  * NOTE: some functions may be broken, such as rtags-make-member
+
+* projectile: project-centric searching and navigation; some overlap with rtags
+
+* helm: A replacement for dealing with browsable lists produced by many modes.  Basic idea is that you can type regexp directly in the buffer, or space-separated search conditions (where each item is and-ed with the others).  Replaces the idea of tab-completion in find-file; instead would use space instead of tab (and tab once you see that the item you want is at the top).  Many online promotional videos praising its functions.
+
+* helm-swoop: like M-x occur, only with dynamic reduction of scope.  When using interactive search (C-s), M-i converts your searching into a swoop session.
+
+* magit: git interface.  Pretty good.
+
+* clang-format: Format your code with clang, using M-i.  Current config auto-formats code on save.
+
+## Minor Features
+
+* anzu: Displays n/m values in interactive searches
+
+* comment-dwim: repeately hit M-; to toggle through commenting/uncommenting modes.
+
+* ws-butler: cleans up whitespace issues as you type
+
+* iedit: Hit C-; on a symbol, will then allow you to interactively change all uses of it within the current function.
+
+* volatile-highlights: briefly colors changes after cut/pastes/undo
+
+* helm-ag: use the better grep tool ag with helm
 
 ## Prerequisites:
 
