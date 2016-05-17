@@ -17,7 +17,7 @@ My emacs configuration
   * rtags-reparse-file fixes most errors that might occur if rtags starts acting weird (usually due to a series of edits & undos that confuse its database)
   * M-. : jump to definition (jumps to declaration if already at defition)
   * M-, : list all references to that symbol (using helm to filter results)
-  * <Apple>-<arrow> : Move back & forward through your jumping via M-. (mapped in smb-options.el)
+  * \<Apple\>-\<arrow\> : Move back & forward through your jumping via M-. (mapped in smb-options.el)
   * rtags-compile-file : compiles current file only
   * rtags-preprocess-file : runs preprocessor on file or REGION (!)
   * rtags-rename-symbol : Does what it says on the tin.  Project-wide replace.
