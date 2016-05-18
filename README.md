@@ -9,7 +9,7 @@ My emacs configuration
 
 * yasnippet: similar to company, but instantiates templates from a library when tabbing off keywords.  e.g., type "switch" in a c/c++ file & hit <tab> - will expand to a switch statement with placeholders.  Tab between the placeholders & type actual values.
 
-* flycheck: interactive syntax checker.  Works by default with a variety of languages; set up here to use rtags for the c++ validation (more sophistacted results than using the default c++ checker provided with flycheck).
+* flycheck: interactive syntax checker.  Works by default with a variety of languages; set up here to use rtags for the c++ validation (more sophistacted results than using the default c++ checker provided with flycheck).  For other languages, you may need to install an external tool to do the checking.  For example, there are at least three checkers that work with Python that use pylint, pflakes, or pycompile.  You need one of these in your path for these checkers to work.
 
 * rtags: A service-based tool that compiles your c/cpp with clang and provides results to a number of other emacs modes.  Has features that don't even exist in graphical IDEs.  Browse the key bindings in a c++ file to see all the features, but the major stuff:
 
