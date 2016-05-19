@@ -35,6 +35,9 @@
     magit                ;; git integration
     cmake-mode           ;; for CMakeLists.txt files
 
+    ;; Languages
+    python-mode          ;; for python
+    
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
     comment-dwim-2       ;; Better options for commenting using M-;
@@ -92,6 +95,7 @@
 (load-relative "./config-helm")
 (load-relative "./config-magit")
 (load-relative "./config-helm-swoop")
+(load-relative "./config-python-mode")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")
