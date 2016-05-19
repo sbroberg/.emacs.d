@@ -37,7 +37,7 @@
 
     ;; Languages
     python-mode          ;; for python
-    
+
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
     comment-dwim-2       ;; Better options for commenting using M-;
