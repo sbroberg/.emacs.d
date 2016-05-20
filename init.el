@@ -47,6 +47,7 @@
     clang-format         ;; Formats code using clang-format.  Requires installation of binary
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
+    expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
 
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching
@@ -96,6 +97,7 @@
 (load-relative "./config-magit")
 (load-relative "./config-helm-swoop")
 (load-relative "./config-python-mode")
+(load-relative "./config-expand-region")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")
