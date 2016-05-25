@@ -15,6 +15,12 @@
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 (define-key global-map (kbd "<f12>") 'rtags-fix-fixit-at-point)
 
+(require 'gud)
+
+(global-set-key [(f10)] 'gud-next)
+(global-set-key [(f11)] 'gud-step)
+(global-set-key [(shift f11)] 'gud-finish)
+
 ;;;;;;;;
 ;; Whitespace
 ;;;;;;;;
