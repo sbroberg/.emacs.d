@@ -13,6 +13,7 @@
 (define-key global-map (kbd "<S-left>") nil)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
+(define-key global-map (kbd "<f12>") 'rtags-fix-fixit-at-point)
 
 ;;;;;;;;
 ;; Whitespace
