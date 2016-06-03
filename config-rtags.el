@@ -45,8 +45,10 @@
   (flycheck-select-checker 'rtags)
   ;; RTags creates more accurate overlays.
   (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil)
-  (setq-local rtags-periodic-reparse-timeout 1)
+
+  ;; (setq rtags-enable-unsaved-reparsing t)
+  ;; (setq-local flycheck-check-syntax-automatically nil)
+  ;; (setq-local rtags-periodic-reparse-timeout 1)
   )
 ;; c-mode-common-hook is also called by c++-mode
 (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
