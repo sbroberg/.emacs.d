@@ -36,7 +36,11 @@
     cmake-mode           ;; for CMakeLists.txt files
 
     ;; Languages
-    python-mode          ;; for python
+    ;; python-mode          ;; for python
+    ivy                  ;; for elpy
+    elpy                 ;; for python - run "sudo pip3 install rope jedi importmagic autopep8 yapf flake8 jupyter"
+    py-autopep8          ;; for pep8 enforcement
+    ein                  ;; for Jupyter
 
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
@@ -53,6 +57,8 @@
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
+;;    better-defaults
+    material-theme
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -96,7 +102,7 @@
 (load-relative "./config-helm")
 (load-relative "./config-magit")
 (load-relative "./config-helm-swoop")
-(load-relative "./config-python-mode")
+(load-relative "./config-python")
 (load-relative "./config-expand-region")
 
 ;; (load "config-autocomplete")
@@ -113,14 +119,21 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(safe-local-variable-values
    (quote
-    ((cmake-ide-dir . "/Users/stebro/carbonite/daemon")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
+    ((eval setq cmake-ide-flags-c++
+           (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
+     (eval message "Project directory set to `%s'." my-project-path)
+     (eval set
+           (make-local-variable
+            (quote my-project-path))
+           (file-name-directory
+            (let
+                ((d
+                  (dir-locals-find-file ".")))
+              (if
+                  (stringp d)
+                  d
+                (car d)))))
+     (cmake-ide-dir . "/Users/stebro/carbonite/daemon")))))
 ;;; init.el ends here
 
 (put 'narrow-to-region 'disabled nil)
