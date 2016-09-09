@@ -86,6 +86,36 @@
 
 (require 'load-relative)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
+ '(safe-local-variable-values
+   (quote
+    ((eval setq cmake-ide-flags-c++
+           (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
+     (eval message "Project directory set to `%s'." my-project-path)
+     (eval set
+           (make-local-variable
+            (quote my-project-path))
+           (file-name-directory
+            (let
+                ((d
+                  (dir-locals-find-file ".")))
+              (if
+                  (stringp d)
+                  d
+                (car d)))))
+     (cmake-ide-dir . "/Users/stebro/carbonite/daemon"))))
+ '(tool-bar-mode nil))
+
+
+;;; init.el ends here
 (load-relative "./config-garbage-collector")
 (load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
@@ -111,30 +141,11 @@
 (load-relative "./gud")
 (load-relative "./smb-options")
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
+(put 'narrow-to-region 'disabled nil)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (tango-dark)))
- '(safe-local-variable-values
-   (quote
-    ((eval setq cmake-ide-flags-c++
-           (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
-     (eval message "Project directory set to `%s'." my-project-path)
-     (eval set
-           (make-local-variable
-            (quote my-project-path))
-           (file-name-directory
-            (let
-                ((d
-                  (dir-locals-find-file ".")))
-              (if
-                  (stringp d)
-                  d
-                (car d)))))
-     (cmake-ide-dir . "/Users/stebro/carbonite/daemon")))))
-;;; init.el ends here
-
-(put 'narrow-to-region 'disabled nil)
-
+ '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))

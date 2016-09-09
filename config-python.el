@@ -8,7 +8,13 @@
 (require 'elpy)
 ;; (require 'python-mode)
 
-(setq elpy-rpc-python-command "/usr/local/bin/python3.5")
+
+(if (eq system-type 'darwin)
+    (setq elpy-rpc-python-command "/usr/local/bin/python3.5")
+  )
+(if (eq system-type 'windows-nt)
+    (setq elpy-rpc-python-command "C:\\Python35\\python.exe")
+)
 
 (elpy-enable)
 (elpy-use-ipython)
@@ -22,7 +28,9 @@
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-(exec-path-from-shell-copy-env "PYTHONPATH")
+(if (eq system-type 'darwin)
+    (exec-path-from-shell-copy-env "PYTHONPATH")
+  )
 
 ;; (defvar py-shell-switch-buffers-on-execute-p)
 ;; (defvar py-split-windows-on-execute-p)
