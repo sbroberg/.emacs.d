@@ -36,7 +36,6 @@
     cmake-mode           ;; for CMakeLists.txt files
 
     ;; Languages
-    ;; python-mode          ;; for python
     ivy                  ;; for elpy
     elpy                 ;; for python - run "sudo pip3 install rope jedi importmagic autopep8 yapf flake8 jupyter"
     py-autopep8          ;; for pep8 enforcement
@@ -58,7 +57,7 @@
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
 ;;    better-defaults
-    material-theme
+;;    material-theme
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -119,7 +118,13 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(safe-local-variable-values
    (quote
-    ((eval setq cmake-ide-flags-c++
+    ((eval setq cmake-ide-project-dir
+           (locate-dominating-file buffer-file-name ".dir-locals.el"))
+     (eval setq cmake-ide-build-dir
+           (concat
+            (locate-dominating-file buffer-file-name ".dir-locals.el")
+            "cbuild"))
+     (eval setq cmake-ide-flags-c++
            (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
      (eval message "Project directory set to `%s'." my-project-path)
      (eval set
@@ -133,8 +138,20 @@
                   (stringp d)
                   d
                 (car d)))))
-     (cmake-ide-dir . "/Users/stebro/carbonite/daemon")))))
+     (cmake-ide-dir . "/Users/stebro/carbonite/daemon"))))
+ '(sql-postgres-login-params
+   (quote
+    ((user :default "root")
+     password
+     (server :default "10.128.102.78")
+     (database :default "recorddb")))))
 ;;; init.el ends here
 
 (put 'narrow-to-region 'disabled nil)
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
