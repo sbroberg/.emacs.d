@@ -36,7 +36,6 @@
     cmake-mode           ;; for CMakeLists.txt files
 
     ;; Languages
-    ;; python-mode          ;; for python
     ivy                  ;; for elpy
     elpy                 ;; for python - run "sudo pip3 install rope jedi importmagic autopep8 yapf flake8 jupyter"
     py-autopep8          ;; for pep8 enforcement
@@ -58,7 +57,7 @@
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
 ;;    better-defaults
-    material-theme
+;;    material-theme
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -97,7 +96,13 @@
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
  '(safe-local-variable-values
    (quote
-    ((eval setq cmake-ide-flags-c++
+    ((eval setq cmake-ide-project-dir
+           (locate-dominating-file buffer-file-name ".dir-locals.el"))
+     (eval setq cmake-ide-build-dir
+           (concat
+            (locate-dominating-file buffer-file-name ".dir-locals.el")
+            "cbuild"))
+     (eval setq cmake-ide-flags-c++
            (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
      (eval message "Project directory set to `%s'." my-project-path)
      (eval set
@@ -112,10 +117,13 @@
                   d
                 (car d)))))
      (cmake-ide-dir . "/Users/stebro/carbonite/daemon"))))
- '(tool-bar-mode nil))
+ '(sql-postgres-login-params
+   (quote
+    ((user :default "root")
+     password
+     (server :default "10.128.102.78")
+     (database :default "recorddb")))))
 
-
-;;; init.el ends here
 (load-relative "./config-garbage-collector")
 (load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
@@ -141,11 +149,15 @@
 (load-relative "./gud")
 (load-relative "./smb-options")
 
+;;; init.el ends here
+
 (put 'narrow-to-region 'disabled nil)
 
+(if (eq system-type 'windows-nt)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
+ '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
+)

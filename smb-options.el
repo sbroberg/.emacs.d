@@ -51,6 +51,7 @@
 ;; Scrolling & Window handling
 ;;;;;;;;
 (setq-default scroll-conservatively 5)
+(setq-default truncate-lines 1)
 
 ;;;;;;;;
 ;; Extension mode mapping
