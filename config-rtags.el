@@ -10,6 +10,7 @@
            (defvar c-mode-base-map)
            (defvar rtags-use-helm)
 
+           (require 'rtags-helm)
            (rtags-enable-standard-keybindings)
 
            (setq rtags-autostart-diagnostics t)

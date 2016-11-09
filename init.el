@@ -94,9 +94,22 @@
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
+ '(package-selected-packages
+   (quote
+    (ws-butler volatile-highlights rtags py-autopep8 material-theme magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format better-defaults anzu ag)))
  '(safe-local-variable-values
    (quote
-    ((eval setq cmake-ide-project-dir
+    ((eval condition-case nil
+           (setq cmake-ide-project-dir
+                 (locate-dominating-file buffer-file-name ".dir-locals.el"))
+           (error nil))
+     (eval condition-case nil
+           (setq cmake-ide-build-dir
+                 (concat
+                  (locate-dominating-file buffer-file-name ".dir-locals.el")
+                  "cbuild"))
+           (error nil))
+     (eval setq cmake-ide-project-dir
            (locate-dominating-file buffer-file-name ".dir-locals.el"))
      (eval setq cmake-ide-build-dir
            (concat
@@ -161,3 +174,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
 )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
