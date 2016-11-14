@@ -66,6 +66,7 @@
 ;; Use silver searcher (ag) instead of grep for recursive searching
 (if (eq system-type 'darwin)
     (setq grep-command "/usr/local/bin/ag --nogroup ")
+    (setq grep-command "grep ")
 )
 
 (setq inhibit-startup-message t) ;; hide the startup message

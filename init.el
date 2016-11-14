@@ -41,6 +41,11 @@
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
 
+    ;; omnisharp is disabled as we're loading from a local branch
+    ;; omnisharp            ;; c# ide server 
+    shut-up              ;; for omnisharp-emacs
+    csharp-mode          ;; c#
+
     ;; Text-Editing Stuff
     anzu                 ;; Displays n/m for interactive searches in status bar
     comment-dwim-2       ;; Better options for commenting using M-;
@@ -56,6 +61,7 @@
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
+    use-package          ;; easier package configuration
 ;;    better-defaults
 ;;    material-theme
 
@@ -94,6 +100,10 @@
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
+ '(package-selected-packages
+   (quote
+    (csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag f
+lycheck-tip expand-region exec-path-from-shell elpy ein comment-dwim-2 cmake-mode cmake-ide clang-format anzu ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-project-dir
@@ -117,12 +127,15 @@
                   d
                 (car d)))))
      (cmake-ide-dir . "/Users/stebro/carbonite/daemon"))))
+ '(show-paren-mode t)
  '(sql-postgres-login-params
    (quote
     ((user :default "root")
      password
      (server :default "10.128.102.78")
-     (database :default "recorddb")))))
+     (database :default "recorddb"))))
+ '(tool-bar-mode nil))
+
 
 (load-relative "./config-garbage-collector")
 (load-relative "./config-cmake-ide")
@@ -142,6 +155,7 @@
 (load-relative "./config-helm-swoop")
 (load-relative "./config-python")
 (load-relative "./config-expand-region")
+(load-relative "./config-csharp")
 
 ;; (load "config-autocomplete")
 ;; (load "config-irony")
@@ -161,3 +175,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
 )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
