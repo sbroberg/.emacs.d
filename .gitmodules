@@ -1,0 +1,3 @@
+[submodule "omnisharp-emacs"]
+	path = omnisharp-emacs
+	url = https://github.com/OmniSharp/omnisharp-emacs.git
