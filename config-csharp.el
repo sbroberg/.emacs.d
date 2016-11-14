@@ -1,7 +1,6 @@
 (require 'company)
 (require 'csharp-mode)
-(add-to-list 'load-path (expand-file-name "~/omnisharp-emacs"))
-(load "omnisharp.el")
+(load-relative "omnisharp-emacs/omnisharp.el")
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
 
 (setq omnisharp-server-executable-path "c:\\Users\\developer\\omnisharp-roslyn\\artifacts\\publish\\OmniSharp\\default\\netcoreapp1.0\\OmniSharp.exe")
