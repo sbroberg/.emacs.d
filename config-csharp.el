@@ -6,16 +6,11 @@
 (use-package company :ensure t :defer t
   :config
   (progn
-   ;; (add-to-list 'company-backends 'company-anaconda)
-   ;; (add-to-list 'company-backends 'company-ansible)
    (add-to-list 'company-backends 'company-omnisharp)))
 
 (defconst my-location (file-name-directory load-file-name))
 (setq omnisharp-server-executable-path
       (expand-file-name "omnisharp-roslyn/artifacts/publish/OmniSharp/default/netcoreapp1.0/OmniSharp.exe"
                         my-location))
-
-;; (setq omnisharp-server-executable-path
-;;       (expand-file-name "../omnisharp-roslyn/artifacts/publish/OmniSharp/default/netcoreapp1.0/OmniSharp.exe"))
 
 ;; (setq omnisharp-debug t)
