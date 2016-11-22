@@ -5,9 +5,9 @@
 ;; Melpa
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 ;; END Melpa
@@ -23,6 +23,7 @@
     ;; ide-code-completion/syntax checking
     cmake-ide            ;; configures flycheck, rtag & others based on current cmake project
     company              ;; auto-complete powered by various backends
+
     flycheck             ;; syntax checking powered by various backends
     flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
@@ -62,8 +63,8 @@
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
     use-package          ;; easier package configuration
-;;    better-defaults
-;;    material-theme
+    ;;    better-defaults
+    ;;    material-theme
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -177,10 +178,10 @@
 (put 'narrow-to-region 'disabled nil)
 
 (if (eq system-type 'windows-nt)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
-)
+    (custom-set-faces
+     ;; custom-set-faces was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 100 :width normal)))))
+  )

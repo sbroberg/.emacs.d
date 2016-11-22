@@ -13,7 +13,11 @@
 (define-key global-map (kbd "<S-left>") nil)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
-(define-key global-map (kbd "<f12>") 'rtags-fix-fixit-at-point)
+(if (not (eq system-type 'windows-nt))
+    (define-key global-map (kbd "<f12>") 'rtags-fix-fixit-at-point)
+  )
+
+(global-set-key [(f6)] 'next-error)
 
 (require 'gud)
 
@@ -52,6 +56,7 @@
 ;;;;;;;;
 (setq-default scroll-conservatively 5)
 (setq-default truncate-lines 1)
+(setq-default split-height-threshold 1) ;; Make windows always split vertically
 
 ;;;;;;;;
 ;; Extension mode mapping
@@ -66,8 +71,8 @@
 ;; Use silver searcher (ag) instead of grep for recursive searching
 (if (eq system-type 'darwin)
     (setq grep-command "/usr/local/bin/ag --nogroup ")
-    (setq grep-command "grep ")
-)
+  (setq grep-command "grep ")
+  )
 
 (setq inhibit-startup-message t) ;; hide the startup message
 ;; (load-theme 'material t) ;; load material theme
