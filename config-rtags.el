@@ -10,7 +10,7 @@
            (defvar c-mode-base-map)
            (defvar rtags-use-helm)
 
-           (require 'rtags-helm)
+           (require 'helm-rtags)
            (rtags-enable-standard-keybindings)
 
            (setq rtags-autostart-diagnostics t)
@@ -21,6 +21,7 @@
            (require 'company)
            (push 'company-rtags company-backends)
            (global-company-mode)
+           (delete 'company-backends 'company-clang)
 
            ;; nice keyboard shortcuts
            (define-key c-mode-base-map (kbd "<M-tab>")
@@ -49,9 +50,9 @@
              ;; RTags creates more accurate overlays.
              (setq-local flycheck-highlighting-mode nil)
 
-             ;; (setq rtags-enable-unsaved-reparsing t)
-             ;; (setq-local flycheck-check-syntax-automatically nil)
-             ;; (setq-local rtags-periodic-reparse-timeout 1)
+             (setq rtags-enable-unsaved-reparsing nil)
+             (setq-local flycheck-check-syntax-automatically t)
+             (setq-local rtags-periodic-reparse-timeout 1)
              )
            ;; c-mode-common-hook is also called by c++-mode
            (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)

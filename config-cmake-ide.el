@@ -2,9 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
-(if (not (eq system-type 'windows-nt))
-(require 'rtags) ;; optional, must have rtags installed
-)
+;; (if (not (eq system-type 'windows-nt))
+;; (require 'rtags) ;; optional, must have rtags installed
+;; )
 (require 'cmake-ide)
 (cmake-ide-setup)
 

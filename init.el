@@ -27,6 +27,8 @@
     flycheck             ;; syntax checking powered by various backends
     flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
+    helm-rtags
+    flycheck-rtags
 
     ;; Project-stuff
     projectile           ;; project-based navigation & searching
@@ -168,7 +170,7 @@
 (load-relative "./config-csharp")
 
 ;; (load "config-autocomplete")
-;; (load "config-irony")
+;; (load-relative "config-irony")
 
 (load-relative "./gud")
 (load-relative "./smb-options")
@@ -185,3 +187,5 @@
      ;; If there is more than one, they won't work right.
      '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 100 :width normal)))))
   )
+;;; garbage
+;;; garbage
