@@ -6,7 +6,8 @@
 (setq iedit-toggle-key-default nil)
 (require 'iedit)
 
-
+;; invert the behavior of passing an arg to iedit - by default, it limits scope to
+;; function, and is only global if you precede it with M-0
 (defun iedit-dwim (arg)
   "If ARG, start iedit, using \\[narrow-to-defun] to limit its scope."
   (interactive "P")
