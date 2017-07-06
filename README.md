@@ -62,7 +62,7 @@ For OSX:
 2.  Install [rtags](https://github.com/Andersbakken/rtags):
 3.  
         cd ~
-        git clone https://github.com/Andersbakken/rtags.git
+        git clone https://github.com/Andersbakken/rtags.git --recursive
         cd rtags
         mkdir build
         cd build
