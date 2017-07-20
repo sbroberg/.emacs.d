@@ -37,6 +37,7 @@
     helm-swoop           ;; interactive search result browsing
     magit                ;; git integration
     cmake-mode           ;; for CMakeLists.txt files
+    git-timemachine      ;; browse git history
 
     ;; Languages
     ivy                  ;; for elpy
@@ -45,7 +46,7 @@
     ein                  ;; for Jupyter
 
     ;; omnisharp is disabled as we're loading from a local branch
-    ;; omnisharp            ;; c# ide server 
+    ;; omnisharp            ;; c# ide server
     shut-up              ;; for omnisharp-emacs
     csharp-mode          ;; c#
 
@@ -64,8 +65,7 @@
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
     use-package          ;; easier package configuration
-    ;;    better-defaults
-    ;;    material-theme
+    which-key            ;; adds help completion for compound
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -104,7 +104,7 @@
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
  '(package-selected-packages
    (quote
-    (csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format  ag)))
+    (csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
     ((eval condition-case nil
@@ -166,6 +166,8 @@
 (load-relative "./config-python")
 (load-relative "./config-expand-region")
 (load-relative "./config-csharp")
+(load-relative "./config-which-key")
+(load-relative "./config-git-timemachine")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")
@@ -187,3 +189,9 @@
   )
 ;;; garbage
 ;;; garbage
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

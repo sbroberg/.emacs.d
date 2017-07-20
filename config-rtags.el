@@ -9,7 +9,12 @@
            (defvar company-backends)
            (defvar c-mode-base-map)
            (defvar rtags-use-helm)
-
+           (defvar rtags-display-result-backend)
+           (defvar rtags-enable-unsaved-reparsing)
+           (defvar flycheck-highlighting-mode)
+           (defvar rtags-periodic-reparse-timeout)
+           (defvar flycheck-check-syntax-automatically)
+           
            (require 'helm-rtags)
            (rtags-enable-standard-keybindings)
 
@@ -42,6 +47,9 @@
            ;; flycheck integration
            (require 'flycheck)
 
+           ;; helm integration
+           (setq rtags-display-result-backend 'helm)
+
            (require 'flycheck-rtags)
            (defun my-flycheck-rtags-setup ()
              "Flycheck integration."
@@ -49,10 +57,11 @@
              (flycheck-select-checker 'rtags)
              ;; RTags creates more accurate overlays.
              (setq-local flycheck-highlighting-mode nil)
-
-             (setq rtags-enable-unsaved-reparsing nil)
-             ;; (setq-local flycheck-check-syntax-automatically t)
+             (setq-local flycheck-check-syntax-automatically nil)
+             
              (setq-local rtags-periodic-reparse-timeout 1)
+             (setq rtags-enable-unsaved-reparsing nil)
+
              )
            ;; c-mode-common-hook is also called by c++-mode
            (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
