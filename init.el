@@ -46,7 +46,7 @@
     ein                  ;; for Jupyter
 
     ;; omnisharp is disabled as we're loading from a local branch
-    ;; omnisharp            ;; c# ide server
+    omnisharp            ;; c# ide server
     shut-up              ;; for omnisharp-emacs
     csharp-mode          ;; c#
 

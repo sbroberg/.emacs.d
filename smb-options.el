@@ -69,8 +69,8 @@
 ;; Mode replacements
 ;;;;;;;;
 ;; Use silver searcher (ag) instead of grep for recursive searching
-(if (eq system-type 'darwin)
-    (setq grep-command "/usr/local/bin/ag --nogroup ")
+(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
+    (setq grep-command "ag --nogroup ")
   (setq grep-command "grep ")
   )
 

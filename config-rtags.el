@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-(if (eq system-type 'darwin)
+(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
     (progn (defvar rtags-autostart-diagnostics)
            (defvar rtags-completions-enabled)
            (defvar company-backends)
