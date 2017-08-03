@@ -39,8 +39,6 @@ My emacs configuration
 
 ## Minor Features
 
-* anzu: Displays n/m values in interactive searches
-
 * comment-dwim: repeately hit M-; to toggle through commenting/uncommenting modes.
 
 * ws-butler: cleans up whitespace issues as you type
@@ -62,7 +60,7 @@ For OSX:
 2.  Install [rtags](https://github.com/Andersbakken/rtags):
 3.  
         cd ~
-        git clone https://github.com/Andersbakken/rtags.git
+        git clone https://github.com/Andersbakken/rtags.git --recursive
         cd rtags
         mkdir build
         cd build
@@ -98,3 +96,27 @@ For OSX:
 4.  Install silver-searcher
 
     `brew install ag`
+
+For Linux:
+
+1.  Install misc tools
+        sudo apt install silversearcher-ag
+        
+1.  Get the necessary libraries for rtags:
+
+        sudo apt install llvm
+        sudo apt install clang
+        sudo apt install cmake
+        sudo apt install libclang-dev
+        sudo apt install zlib-dev
+        sudo apt install libssl-dev
+
+2.  Build rtags:
+        cd ~
+        git clone https://github.com/Andersbakken/rtags.git --recursive
+        cd rtags
+        mkdir build
+        cd build
+        cmake ..
+        make
+        make install

@@ -6,22 +6,14 @@
 (setq iedit-toggle-key-default nil)
 (require 'iedit)
 
-
+;; invert the behavior of passing an arg to iedit - by default, it limits scope to
+;; function, and is only global if you precede it with M-0
 (defun iedit-dwim (arg)
   "If ARG, start iedit, using \\[narrow-to-defun] to limit its scope."
   (interactive "P")
   (if arg
       (iedit-mode)
-    (save-excursion
-      (save-restriction
-        (widen)
-        ;; this function determines the scope of `iedit-start'.
-        (if iedit-mode
-            (iedit-done)
-          ;; `current-word' can of course be replaced by other
-          ;; functions.
-          (narrow-to-defun)
-          (iedit-start (current-word) (point-min) (point-max)))))))
+    (iedit-mode 0)))
 
 (global-set-key (kbd "C-;") 'iedit-dwim)
 

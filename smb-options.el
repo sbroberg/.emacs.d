@@ -56,7 +56,7 @@
 ;;;;;;;;
 (setq-default scroll-conservatively 5)
 (setq-default truncate-lines 1)
-(setq-default split-height-threshold 1) ;; Make windows always split vertically
+(setq-default split-height-threshold 500) ;; Make windows always split vertically
 
 ;;;;;;;;
 ;; Extension mode mapping
@@ -69,13 +69,12 @@
 ;; Mode replacements
 ;;;;;;;;
 ;; Use silver searcher (ag) instead of grep for recursive searching
-(if (eq system-type 'darwin)
-    (setq grep-command "/usr/local/bin/ag --nogroup ")
+(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
+    (setq grep-command "ag --nogroup ")
   (setq grep-command "grep ")
   )
 
 (setq inhibit-startup-message t) ;; hide the startup message
-;; (load-theme 'material t) ;; load material theme
 ;; (global-linum-mode t) ;; enable line numbers globally
 
 ;; needed to suppress stupid "unsafe directory" messages when
@@ -83,4 +82,66 @@
 (require 'server)
  (and (>= emacs-major-version 23)
      (defun server-ensure-safe-dir (dir) "Noop" t))
+
+;;;;;;;;
+;; Custom functions
+;;;;;;;;
+
+(require 'iedit)
+
+(defun smb-make-named-parms ()
+  "Convert a bindParam from ordered to using substitution variable."
+  (interactive)
+  (progn
+    (iedit-quit)
+    (search-forward-regexp "bindParam([^\"]")
+    (left-char 1)
+    (search-forward-regexp "[a-zA-Z]")
+    (left-char 1)
+    (set-mark-command nil)
+    (search-forward-regexp "[^a-zA-Z]")
+    (left-char 1)
+    (copy-region-as-kill 1 1 1)
+    (search-backward "(")
+    (right-char 1)
+    (insert "\"@")
+    (yank)
+    (insert "\", ")
+    (goto-char 0)
+    (search-forward "?")
+    (delete-char -1)
+    (insert "@")
+    (yank)
+    (set-mark-command nil)
+    (search-backward "@")
+    (iedit-mode 0)
+    (right-word)
+    (recenter)
+    )
+  )
+(global-set-key [(f8)] 'smb-make-named-parms)
+
+
+;;;;;;;;;
+;; Major mode key binding overrides
+;;;;;;;;;
+(defvar my-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-x v l") 'magit-log-buffer-file)
+    map)
+  "Keymap for my-keys-minor-mode.")
+
+(define-minor-mode my-keys-minor-mode
+  "A minor mode so that my key settings override annoying major modes."
+  :init-value t
+  :lighter " my-keys")
+
+(my-keys-minor-mode 1)
+
+(defun my-minibuffer-setup-hook ()
+  "Hook for deactivating my minibuffer-setup."
+  (my-keys-minor-mode 0))
+
+(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+
 ;;; smb-options ends here

@@ -7,6 +7,9 @@
 (require 'flycheck)
 (require 'elpy)
 
+(if (eq system-type 'gnu/linux)
+    (setq elpy-rpc-python-command "/usr/bin/python3")
+  )
 (if (eq system-type 'darwin)
     (setq elpy-rpc-python-command "/usr/local/bin/python3.5")
   )
