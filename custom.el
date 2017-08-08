@@ -9,25 +9,23 @@
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
  '(package-selected-packages
    (quote
-    (which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir
-	   (concat my-project-path "build"))
-     (eval setq cmake-ide-build-dir
-	   (concat my-project-path "build-make"))
+           (concat my-project-path "build-make"))
      (cmake-ide-project-dir . my-project-path)
      (eval set
-	   (make-local-variable
-	    (quote my-project-path))
-	   (file-name-directory
-	    (let
-		((d
-		  (dir-locals-find-file ".")))
-	      (if
-		  (stringp d)
-		  d
-		(car d))))))))
+           (make-local-variable
+            (quote my-project-path))
+           (file-name-directory
+            (let
+                ((d
+                  (dir-locals-find-file ".")))
+              (if
+                  (stringp d)
+                  d
+                (car d))))))))
  '(show-paren-mode t)
  '(sql-postgres-login-params
    (quote

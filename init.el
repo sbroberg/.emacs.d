@@ -69,6 +69,8 @@
     ag                   ;; needed by other modes that use ag (silver searcher)
     use-package          ;; easier package configuration
     which-key            ;; adds help completion for compound
+    json-mode            ;; for Json files
+    yafolding            ;; code-folding for a variety of formats
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
@@ -99,9 +101,9 @@
 (load-relative "./config-garbage-collector")
 (load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
-(load-relative "./config-flycheck")
 (load-relative "./config-company")
 (load-relative "./config-rtags")
+(load-relative "./config-flycheck")
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")
 (load-relative "./config-projectile")
