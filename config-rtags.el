@@ -59,8 +59,8 @@
              (setq-local flycheck-highlighting-mode nil)
              (setq-local flycheck-check-syntax-automatically nil)
              
-             (setq-local rtags-periodic-reparse-timeout 1)
-             (setq rtags-enable-unsaved-reparsing nil)
+             (setq-local rtags-periodic-reparse-timeout 10)
+             (setq rtags-enable-unsaved-reparsing t)
 
              )
            ;; c-mode-common-hook is also called by c++-mode

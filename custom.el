@@ -9,28 +9,12 @@
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
  '(package-selected-packages
    (quote
-    (csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
-    ((eval condition-case nil
-           (setq cmake-ide-project-dir
-                 (locate-dominating-file buffer-file-name ".dir-locals.el"))
-           (error nil))
-     (eval condition-case nil
-           (setq cmake-ide-build-dir
-                 (concat
-                  (locate-dominating-file buffer-file-name ".dir-locals.el")
-                  "cbuild"))
-           (error nil))
-     (eval setq cmake-ide-project-dir
-           (locate-dominating-file buffer-file-name ".dir-locals.el"))
-     (eval setq cmake-ide-build-dir
-           (concat
-            (locate-dominating-file buffer-file-name ".dir-locals.el")
-            "cbuild"))
-     (eval setq cmake-ide-flags-c++
-           (concat "-I" my-project-path "build/lib/Debug/include -I" my-project-path "build/Daemon/SessionClient"))
-     (eval message "Project directory set to `%s'." my-project-path)
+    ((eval setq cmake-ide-build-dir
+           (concat my-project-path "build-make"))
+     (cmake-ide-project-dir . my-project-path)
      (eval set
            (make-local-variable
             (quote my-project-path))
@@ -41,8 +25,7 @@
               (if
                   (stringp d)
                   d
-                (car d)))))
-     (cmake-ide-dir . "/Users/stebro/carbonite/daemon"))))
+                (car d))))))))
  '(show-paren-mode t)
  '(sql-postgres-login-params
    (quote
