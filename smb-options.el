@@ -21,9 +21,11 @@
 
 (require 'gud)
 
+(global-set-key [(f9)] 'rtags-compile-file)
 (global-set-key [(f10)] 'gud-next)
 (global-set-key [(f11)] 'gud-step)
 (global-set-key [(shift f11)] 'gud-finish)
+(global-set-key (kbd "s-f") 'helm-projectile-find-file)
 
 ;;;;;;;;
 ;; Whitespace
@@ -152,5 +154,8 @@
   (my-keys-minor-mode 0))
 
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+
+(add-to-list 'load-path "/Users/stebro/.emacs.d/my-packages")
+(load "carb")
 
 ;;; smb-options ends here

@@ -7,12 +7,36 @@
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
+ '(exec-path-from-shell-variables
+   (quote
+    ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir
+           (concat
+            (projectile-project-root)
+            "/build_debug"))
+     (eval setq cmake-ide-build-dir
+           (concat
+            (projectile-project-root)
+            "/build-make"))
+     (eval setq cmake-ide-build-dir
+           (projectile-project-root))
+     (eval setq cmake-ide-build-dir
+           (quote
+            (projectile-project-root)))
+     (eval cmake-ide-build-dir
+           (quote
+            (projectile-project-root)))
+     (cmake-ide-build-dir \,@ projectile-project-root)
+     (require projectile)
+     (cmake-ide-build-dir . projectile-project-root)
+     (cmake-ide-build-dir projectile-project-root)
+     (cmake-ide-build-dir . /Users/stebro/headless-client/build-make)
+     (eval setq cmake-ide-build-dir
            (concat my-project-path "build-make"))
      (cmake-ide-project-dir . my-project-path)
      (eval set
