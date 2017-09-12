@@ -3,16 +3,17 @@
 ;; Created: 01 September 2017
 ;; Version: 0.1
 ;; Package-Version: 20170901.0001
-;; Package-Requires: (request xml)
+;; Package-Requires: (request xml sgml-mode)
 ;;; Commentary:
 ;;; Code:
 
 (require 'request)
 (require 'xml)
+(require 'sgml-mode)
 
 (defconst carb-environment "Staging")
 (defvar carb-homeservers '((Staging . "home.shmi.beta.carbonite.com")
-		       (Dev . "jabba.carbonite.com")))
+                           (Dev . "jabba.carbonite.com")))
 
 (defun carb-toggle-environment ()
   "Switch between environments used by Carbonite test utils."
@@ -53,7 +54,29 @@
 		      (Computer (car (xml-get-children Computers 'Computer)))
 		      (Reguid (car (xml-get-children Computer 'ComputerRegID)))
 		      (Reguid-Val (car (cddr Reguid))))
-		 (insert Reguid-Val))))))
+             (insert Reguid-Val))))))
+
+(defun carb-create-account ()
+  "Return a new, valid registration Guid from the current environment."
+  (interactive)
+  (request
+   "http://account-generator.carboniteinc.com/Generator/AutomationHelper"
+   :params `(("xmlPath" . "/AccountTypes/Personal/Trial/*")
+             ("bundleName" . "Personal Trial")
+             ("prefix" . "crbtest_")
+             ("subscriber_email" . ,
+              (concat (getenv "USER") "-" (number-to-string (abs (random))) "@" (system-name)))
+             ("env" . ,carb-environment))
+   :parser 'buffer-string
+   :success   (cl-function (lambda (&key data &allow-other-keys)
+                             (when data
+                               (with-current-buffer (get-buffer-create "*AutomationHelper-Output*")
+                                 (erase-buffer)
+                                 (insert data)
+                                 (sgml-mode)
+                                 (sgml-pretty-print (point-min) (point-max))
+                                 (goto-char (point-min))
+                                 (pop-to-buffer (current-buffer))))))))
 
 (global-set-key (kbd "C-<return> C-e") 'carb-toggle-environment)
 (global-set-key (kbd "C-<return> C-h") 'carb-insert-homeserver)
