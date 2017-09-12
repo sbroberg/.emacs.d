@@ -40,11 +40,7 @@
 	     ("bundleName" . "Personal Trial")
 	     ("prefix" . "crbtest_")
 	     ("subscriber_email" . ,
-          (replace-regexp-in-string
-           "\\."
-           "-"
-           (concat (getenv "USER")
-                   "-" (system-name) (number-to-string (random)))))
+          (concat (getenv "USER") "-" (number-to-string (abs (random))) "@" (system-name)))
 	     ("env" . ,carb-environment))
    :parser  (lambda () (xml-parse-region (point-min) (point-max)))
    :success (cl-function

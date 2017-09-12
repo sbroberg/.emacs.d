@@ -155,7 +155,7 @@
 
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
-(add-to-list 'load-path "/Users/stebro/.emacs.d/my-packages")
+(add-to-list 'load-path "~/.emacs.d/my-packages")
 (load "carb")
 
 ;;; smb-options ends here
