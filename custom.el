@@ -12,10 +12,48 @@
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
-    ((eval setq cmake-ide-build-dir
+    ((eval setq jedi:server-args
+           (list "--sys-path"
+                 (concat
+                  (projectile-project-root)
+                  "automation")))
+     (eval setq jedi:server-args
+           (cons "--sys-path"
+                 (concat
+                  (projectile-project-root)
+                  "automation")))
+     (eval setq jedi:server-args
+           (quote
+            ("--sys-path"
+             (concat
+              (projectile-project-root)
+              "automation"))))
+     (eval setq jedi:server-args
+           (("--sys-path"
+             (concat
+              (projectile-project-root)
+              "automation"))))
+     (eval setq jedi:server-args
+           ("--sys-path"
+            (concat
+             (projectile-project-root)
+             "automation")))
+     (eval setq jedi:server-args
+           (concat
+            (projectile-project-root)
+            "automation"))
+     (eval setq cmake-ide-build-dir
+           (concat
+            (projectile-project-root)
+            "build_debug"))
+     (eval setq jedi:server-args
+           (concat
+            (projectile-project-root)
+            "/automation"))
+     (eval setq cmake-ide-build-dir
            (concat
             (projectile-project-root)
             "/build_debug"))

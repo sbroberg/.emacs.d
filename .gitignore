@@ -3,6 +3,8 @@ bookmarks
 elpa/
 projectile-bookmarks.eld
 recentf
+.python-environments
+ac-comphist.dat
 *~
 /places
 /server
