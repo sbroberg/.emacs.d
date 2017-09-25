@@ -43,8 +43,6 @@
     git-timemachine      ;; browse git history
 
     ;; Languages
-    ;; ivy                  ;; for elpy
-    ;; elpy                 ;; for python - run "sudo pip3 install rope jedi importmagic autopep8 yapf flake8 jupyter"
     jedi                 ;; python environment
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
