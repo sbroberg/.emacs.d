@@ -1,4 +1,4 @@
-;;; package --- Summary
+`;;; package --- Summary
 ;;; Commentary:
 ;;; Code:
 
@@ -157,5 +157,37 @@
 
 (add-to-list 'load-path "~/.emacs.d/my-packages")
 (load "carb")
+
+;;;;;;;;
+;; Open sqlite files with ebdi
+;;;;;;;;
+
+;; (defun smb-open-sqlite-hook ()
+;;   "An open hook that will invoke ebdi when opening sqlite files."
+;;   (let ((sql-database buffer-file-truename))
+;;     (when (and  (stringp sql-database)
+;;                 (or    (string-match "\\.sqlite$" sql-database)
+;;                        (string-match "\\.db$" sql-database)))
+;;       (message (concat "opening " sql-database " using ebdi-sqlite"))
+;;       (kill-buffer)
+;;      ;; (sql-sqlite sql-database)
+;;       (edbi-sqlite sql-database)
+;;       )))
+
+;; (add-hook 'find-file-hook 'smb-open-sqlite-hook)
+
+(defun sqlite-handler (operation &rest args)
+  "An open hook that will invoke ebdi when opening sqlite files."
+  (let ((sql-database (car args)))
+    ;; (edbi-sqlite sql-database)
+    (kill-buffer nil)
+    (sql-sqlite sql-database)
+    )
+  )
+
+(put 'sqlite-handler 'operations '(insert-file-contents))
+
+(add-to-list 'file-name-handler-alist
+             '("\\.sqlite\\|\\.db\\'" . sqlite-handler))
 
 ;;; smb-options ends here

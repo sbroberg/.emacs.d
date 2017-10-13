@@ -2,6 +2,7 @@ auto-save-list/
 bookmarks
 elpa/
 projectile-bookmarks.eld
+.edbi-ds-history
 recentf
 .python-environments
 ac-comphist.dat

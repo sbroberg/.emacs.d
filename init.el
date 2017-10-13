@@ -18,13 +18,48 @@
 ;;;;;;;;
 ;; START Packages
 ;;;;;;;;
+
+;; External requirements:
+
+;; Python:
+;; sudo pip2.7 install flake8
+;; sudo pip2.7 install jedi
+;; sudo pip2.7 install epc
+
+;; rtags:
+;; brew install rtags
+;; or
+;; apt-get install rtags
+
+;; go
+;; # go-mode
+;; go get github.com/rogpeppe/godef
+;; # go-autocomplete
+;; go get -u github.com/nsf/gocode
+;; # go-imports
+;; go get golang.org/x/tools/cmd/goimports
+;; # go-guru
+;; go get golang.org/x/tools/cmd/guru
+;;
+;; Add to .bashrc:
+;; export GOROOT=/usr/local/go
+;; export GOPATH=~/gocode
+;; export PATH=$PATH:$GOROOT/bin
+;; export PATH=$PATH:$GOPATH/bin
+
+;; ebdi:
+;;     cpan RPC::EPC::Service DBI DBD::SQLite DBD::Pg DBD::mysql
+;; Add to .bashrc:
+;;    source ~/perl5/perlbrew/etc/bashrc
+;;    export PERL5LIB=/Users/stebro/perl5/lib/perl5
+
 (defconst my-installed-packages
   '(
     ;; Basic OSX sanity
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
 
     ;; ide-code-completion/syntax checking
-    cmake-ide            ;; configures flycheck, rtag & others based on current cmake project
+    cmake-ide            ;; configures flycheck, rtags & others based on current cmake project
     company              ;; auto-complete powered by various backends
 
     flycheck             ;; syntax checking powered by various backends
@@ -42,10 +77,19 @@
     cmake-mode           ;; for CMakeLists.txt files
     git-timemachine      ;; browse git history
 
-    ;; Languages
+    ;; Python
     jedi                 ;; python environment
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
+
+    ;; Go
+    go-mode
+    go-autocomplete
+
+    ;; Db
+    edbi-sqlite
+    company-edbi
+    edbi                 ;; more graphical version of db explorer
 
     ;; omnisharp is disabled as we're loading from a local branch
     omnisharp            ;; c# ide server
@@ -117,6 +161,9 @@
 (load-relative "./config-csharp")
 (load-relative "./config-which-key")
 (load-relative "./config-git-timemachine")
+(load-relative "./config-perl")
+(load-relative "./config-sql")
+(load-relative "./config-go")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")

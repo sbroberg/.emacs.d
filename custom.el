@@ -5,7 +5,12 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes (quote (tango-dark)))
+ '(custom-safe-themes
+   (quote
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
@@ -14,7 +19,7 @@
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (go-autocomplete go-mode company-edbi edbi edbi-sqlite jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args
