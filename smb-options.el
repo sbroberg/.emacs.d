@@ -11,6 +11,7 @@
 (define-key global-map (kbd "<S-up>") nil)
 (define-key global-map (kbd "<S-right>") nil)
 (define-key global-map (kbd "<S-left>") nil)
+(setq-default mac-option-modifier 'meta)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 (if (not (eq system-type 'windows-nt))
