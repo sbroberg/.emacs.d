@@ -39,6 +39,8 @@
              (function rtags-location-stack-forward))
            (define-key c-mode-base-map (kbd "<s-left>")
              (function rtags-location-stack-back))
+           (define-key c-mode-base-map (kbd "s-.")
+             (function rtags-location-stack-back))
 
            (when (require 'helm nil :noerror)
              (setq rtags-use-helm t)

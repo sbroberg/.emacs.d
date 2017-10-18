@@ -5,13 +5,19 @@
 ;;;;;;;;
 ;; keymapping personalization
 ;;;;;;;;
+
 ;; disable the window-up/window down feature of shift-arrows so that
 ;; shift-selection works with arrow keys.
 (define-key global-map (kbd "<S-down>") nil)
 (define-key global-map (kbd "<S-up>") nil)
 (define-key global-map (kbd "<S-right>") nil)
 (define-key global-map (kbd "<S-left>") nil)
+
+;; Stuff to map common Mac keystrokes to emacs operations
+(setq-default mac-command-modifier 'super)
 (setq-default mac-option-modifier 'meta)
+(define-key global-map (kbd "s-a") 'mark-whole-buffer)
+(define-key global-map (kbd "s-c") 'ns-copy-including-secondary)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 (if (not (eq system-type 'windows-nt))
@@ -20,13 +26,16 @@
 
 (global-set-key [(f6)] 'next-error)
 
-(require 'gud)
 
+;; Code navigation & debugging key maps
+(require 'gud)
 (global-set-key [(f9)] 'rtags-compile-file)
 (global-set-key [(f10)] 'gud-next)
 (global-set-key [(f11)] 'gud-step)
 (global-set-key [(shift f11)] 'gud-finish)
 (global-set-key (kbd "s-f") 'helm-projectile-find-file)
+(global-set-key (kbd "<S-left>") 'xref-pop-marker-stack)
+(global-set-key (kbd "s-.") 'xref-pop-marker-stack)
 
 ;;;;;;;;
 ;; Whitespace
