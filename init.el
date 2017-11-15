@@ -106,6 +106,9 @@
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
 
+    ;; file-type modes
+    flymd
+
     ;; Other improvements
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
@@ -164,6 +167,7 @@
 (load-relative "./config-perl")
 (load-relative "./config-sql")
 (load-relative "./config-go")
+(load-relative "./config-org")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")
