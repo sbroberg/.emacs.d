@@ -18,6 +18,7 @@
 (setq-default mac-option-modifier 'meta)
 (define-key global-map (kbd "s-a") 'mark-whole-buffer)
 (define-key global-map (kbd "s-c") 'ns-copy-including-secondary)
+;; (define-key global-map (kbd "C-s") 'helm-swoop)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 (if (not (eq system-type 'windows-nt))

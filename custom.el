@@ -19,7 +19,7 @@
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (flycheck-clang-tidy flymd go-autocomplete go-mode company-edbi edbi edbi-sqlite jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode cmake-ide clang-format ag)))
+    (swiper-helm cmake-ide el-get flycheck-clang-tidy flymd go-autocomplete go-mode company-edbi edbi edbi-sqlite jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode clang-format ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args

@@ -117,6 +117,7 @@
     which-key            ;; adds help completion for compound
     json-mode            ;; for Json files
     yafolding            ;; code-folding for a variety of formats
+    el-get               ;; Get historical versions of elpa packages
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; helm-gtags
