@@ -67,7 +67,8 @@
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
     helm-rtags
     flycheck-rtags
-
+    dumb-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
+    
     ;; Project-stuff
     projectile           ;; project-based navigation & searching
     helm                 ;; fancy-pants results searching - used in many contexts
@@ -169,6 +170,7 @@
 (load-relative "./config-sql")
 (load-relative "./config-go")
 (load-relative "./config-org")
+(load-relative "./config-dumb-jump")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")
