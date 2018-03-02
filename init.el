@@ -1,7 +1,7 @@
 ;;; package --- Summary
 ;;; Commentary:
 ;;; Code:
-
+;; (setq debug-on-quit t)
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -12,7 +12,10 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(package-initialize)
+;; Do not activate initialized packages until all the loading is done below,
+;; in order to allow missing packages to be loaded before activating dependents
+(package-initialize t)
+
 ;; END Melpa
 
 ;;;;;;;;
@@ -59,7 +62,6 @@
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
 
     ;; ide-code-completion/syntax checking
-    cmake-ide            ;; configures flycheck, rtags & others based on current cmake project
     company              ;; auto-complete powered by various backends
 
     flycheck             ;; syntax checking powered by various backends
@@ -68,7 +70,7 @@
     helm-rtags
     flycheck-rtags
     dumb-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
-    
+
     ;; Project-stuff
     projectile           ;; project-based navigation & searching
     helm                 ;; fancy-pants results searching - used in many contexts
@@ -121,6 +123,11 @@
     el-get               ;; Get historical versions of elpa packages
 
     ;; These are an alternative to rtags - use for non-clang platforms
+    ;; cmake-ide disabled because of extreme slowness; rtags now self-configures,
+    ;; as long as we generate a compile_commands.json file and run "rc -J ." in
+    ;; the build dir
+    ;; cmake-ide            ;; configures flycheck, rtags & others based on current cmake project
+    ;;
     ;; helm-gtags
     ;; ggtags
     ;; irony
@@ -140,6 +147,9 @@
 
 (install-packages)
 
+;; Now it is okay to activate the packages
+(package-initialize)
+
 ;;;;;;;;
 ;; END Packages
 ;;;;;;;;
@@ -147,7 +157,7 @@
 (require 'load-relative)
 
 (load-relative "./config-garbage-collector")
-(load-relative "./config-cmake-ide")
+;;(load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
 (load-relative "./config-rtags")

@@ -14,4 +14,6 @@
 (setq-default cmake-ide-header-search-other-file nil)
 (setq-default cmake-ide-header-search-first-including nil)
 
+(setq-default gc-cons-threshold 100000000)
+
 ;;; config-cmake-ide ends here

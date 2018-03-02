@@ -67,5 +67,37 @@
              )
            ;; c-mode-common-hook is also called by c++-mode
            (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
+
+           ;; Register the rdm server as a LaunchAgent to be used on-demand
+           (with-temp-file
+               "~/Library/LaunchAgents/com.andersbakken.rtags.agent.plist"
+             (progn
+               (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+               (insert "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
+               (insert "<plist version=\"1.0\">\n")
+               (insert "  <dict>\n")
+               (insert "    <key>Label</key>\n")
+               (insert "    <string>com.andersbakken.rtags.agent</string>\n")
+               (insert "    <key>ProgramArguments</key>\n")
+               (insert "    <array>\n")
+               (insert "      <string>sh</string>\n")
+               (insert "      <string>-c</string>\n")
+               (insert (concat "      <string>" (rtags-executable-find "rdm") " -v --launchd --inactivity-timeout 300 --log-file ~/Library/Logs/rtags.launchd.log</string>\n"))
+               (insert "    </array>\n")
+               (insert "    <key>Sockets</key>\n")
+               (insert "    <dict>\n")
+               (insert "      <key>Listener</key>\n")
+               (insert "      <dict>\n")
+               (insert "    <key>SockPathName</key>\n")
+               (insert (concat "    <string>" (concat (car (directory-files "~" 1 "\.")) "rdm") "</string>\n"))
+               (insert "      </dict>\n")
+               (insert "    </dict>\n")
+               (insert "  </dict>\n")
+               (insert "</plist>\n")
+               (insert "\n")
+               (insert "\n")
+               ))
+
+           (shell-command "launchctl load ~/Library/LaunchAgents/com.andersbakken.rtags.agent.plist" (get-buffer "*Messages") (get-buffer "*Messages"))
            ))
 ;;; config-rtags ends here

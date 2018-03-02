@@ -11,6 +11,7 @@
  '(custom-safe-themes
    (quote
     ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-sane-defaults)))
@@ -19,7 +20,7 @@
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (swiper-helm cmake-ide el-get flycheck-clang-tidy flymd go-autocomplete go-mode company-edbi edbi edbi-sqlite jedi carb company-rtags yafolding json-mode which-key use-package omnisharp ivy git-timemachine projectile flycheck-rtags helm-rtags flycheck company csharp-mode ws-butler volatile-highlights rtags py-autopep8 magit load-relative iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag flycheck-tip expand-region exec-path-from-shell elpy ein dtrt-indent comment-dwim-2 cmake-mode clang-format ag)))
+    (rtags yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-rtags helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip flycheck-rtags expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-rtags company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args
