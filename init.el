@@ -108,6 +108,7 @@
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
+    itail                ;; Tail changing files
 
     ;; file-type modes
     flymd

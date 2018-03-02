@@ -24,6 +24,46 @@
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args
+           (if
+               (fboundp
+                (quote projectile-project-root-xxx))
+               (list "--sys-path"
+                     (concat
+                      (projectile-project-root-xxx)
+                      "automation")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root-xxx)
+                      "automation/tools/framework_installer/automation_framework")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root-xxx)
+                      "automation/tools/framework_installer/report_util")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root-xxx)
+                      "automation/tools/framework_installer/suite_util"))))
+     (eval setq jedi:server-args
+           (if
+               (fboundp
+                (quote projectile-project-root))
+               (list "--sys-path"
+                     (concat
+                      (projectile-project-root)
+                      "automation")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root)
+                      "automation/tools/framework_installer/automation_framework")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root)
+                      "automation/tools/framework_installer/report_util")
+                     "--sys-path"
+                     (concat
+                      (projectile-project-root)
+                      "automation/tools/framework_installer/suite_util"))))
+     (eval setq jedi:server-args
            (list "--sys-path"
                  (concat
                   (projectile-project-root)
