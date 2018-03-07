@@ -2,6 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-quit t)
+
+;; strip down default memory/fileio settings for fast startup
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6)
+(defvar smb-orig--file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
+;; Keeps customizations out of init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -188,5 +196,11 @@
 
 (load-relative "./gud")
 (load-relative "./smb-options")
+
+;; Restore default memory/fileio settings
+(setq gc-cons-threshold 16777216
+      gc-cons-percentage 0.1)
+
+(setq file-name-handler-alist smb-orig--file-name-handler-alist)
 
 ;;; init.el ends here

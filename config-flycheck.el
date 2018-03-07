@@ -9,5 +9,7 @@
 ;; in status area/minibuffer
 (require 'flycheck-tip)
 (setq error-tip-notify-keep-messages t)
+(setq flycheck-display-errors-delay 0.2)
+
 
 ;;; config-flycheck ends here
