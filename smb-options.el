@@ -190,8 +190,8 @@
 (defun sqlite-handler (operation &rest args)
   "An open hook that will invoke ebdi when opening sqlite files."
   (let ((sql-database (car args)))
-    ;; (edbi-sqlite sql-database)
     (kill-buffer nil)
+    ;; (edbi-sqlite sql-database)
     (sql-sqlite sql-database)
     )
   )

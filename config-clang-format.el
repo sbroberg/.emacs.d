@@ -2,6 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
+(defcustom clang-format-enabled t
+  "If t, run clang-format on mm/c/cpp buffers upon saving."
+  :group 'clang-format
+  :type 'boolean
+  :safe 'booleanp)
+
 (defun code-style (tool args)
   "Enforce code style for TOOL given ARGS."
   (let ((position (point)))
@@ -17,7 +23,7 @@
 (defun clang-format-buffer()
   "clang-format buffer"
   (interactive)
-  (code-style "clang-format" ""))
+  (code-style "clang-format" (concat "-assume-filename=" buffer-file-name)))
 
 (defun pep8-buffer()
   "pep-8 style on the buffer"
@@ -47,8 +53,9 @@
   "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
-  (message "In before-hook")
-  (when (eq major-mode 'c++-mode) (clang-format-buffer))
+  (if clang-format-enabled
+      (when (eq major-mode 'c++-mode) (clang-format-buffer))
+    (message "clang-format-enabled is false"))
   )
 
 (add-hook 'before-save-hook 'clang-format-before-save)
