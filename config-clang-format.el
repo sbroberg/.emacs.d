@@ -2,13 +2,15 @@
 ;;; Commentary:
 ;;; Code:
 
-(defcustom clang-format-enabled t
+(require 'clang-format)
+
+(defcustom my-clang-format-enabled t
   "If t, run clang-format on mm/c/cpp buffers upon saving."
   :group 'clang-format
   :type 'boolean
   :safe 'booleanp)
 
-(defun code-style (tool args)
+(defun my-code-style (tool args)
   "Enforce code style for TOOL given ARGS."
   (let ((position (point)))
     (progn
@@ -20,28 +22,24 @@
         (message (format "can't find %s"  tool))))
     (goto-char position)))
 ;; invoker for style tools
-(defun clang-format-buffer()
-  "clang-format buffer"
-  (interactive)
-  (code-style "clang-format" (concat "-assume-filename=" buffer-file-name)))
 
-(defun pep8-buffer()
+(defun my-pep8-buffer()
   "pep-8 style on the buffer"
   (interactive)
-  (code-style "autopep8" "-a --max-line-length=99 -"))
+  (my-code-style "autopep8" "-a --max-line-length=99 -"))
 
-(defun jsbeautify-buffer()
+(defun my-jsbeautify-buffer()
   "beautify the js buffer."
   (interactive)
-  (code-style "js-beautify" "-i -s2 -j"))
+  (my-code-style "js-beautify" "-i -s2 -j"))
 
 ;; hook functions for modes
 (defun my-python-settings()
-  (local-set-key (kbd "M-i") 'pep8-buffer))
+  (local-set-key (kbd "M-i") 'my-pep8-buffer))
 (defun my-c-mode-settings()
   (local-set-key (kbd "M-i") 'clang-format-buffer))
 (defun my-js-settings()
-  (local-set-key (kbd "M-i") 'jsbeautify-buffer))
+  (local-set-key (kbd "M-i") 'my-jsbeautify-buffer))
 
 ;; register the hooks
 (add-hook 'c-mode-common-hook 'my-c-mode-settings)
@@ -49,15 +47,15 @@
 (add-hook 'js-mode-hook 'my-js-settings)
 
 ;; clang-format-on-save
-(defun clang-format-before-save ()
+(defun my-clang-format-before-save ()
   "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
-  (if clang-format-enabled
+  (if my-clang-format-enabled
       (when (eq major-mode 'c++-mode) (clang-format-buffer))
-    (message "clang-format-enabled is false"))
+    (message "my-clang-format-enabled is false"))
   )
 
-(add-hook 'before-save-hook 'clang-format-before-save)
+(add-hook 'before-save-hook 'my-clang-format-before-save)
 
 ;;; config-clang-format ends here
