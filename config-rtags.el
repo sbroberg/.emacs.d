@@ -24,6 +24,7 @@
 
            ;; company integration
            (require 'company)
+           (require 'company-rtags)
            (global-company-mode)
            (push 'company-rtags company-backends)
            (delete 'company-clang company-backends)

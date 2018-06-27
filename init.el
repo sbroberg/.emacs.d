@@ -73,8 +73,9 @@
     flycheck             ;; syntax checking powered by various backends
     flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
-    helm-rtags
-    flycheck-rtags
+      helm-rtags
+      flycheck-rtags
+      company-rtags
     dumb-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
 
     ;; Project-stuff
