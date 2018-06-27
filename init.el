@@ -18,6 +18,8 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
+(setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
+
 ;; Do not activate initialized packages until all the loading is done below,
 ;; in order to allow missing packages to be loaded before activating dependents
 (package-initialize t)
