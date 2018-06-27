@@ -20,7 +20,7 @@
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
  '(package-selected-packages
    (quote
-    (company-irony-c-headers company-irony rtags yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-rtags helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip flycheck-rtags expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-rtags company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
+    (nlinum flycheck-rtags helm-rtags rtags yasnippet projectile flycheck company company-irony-c-headers company-irony yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-rtags company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args

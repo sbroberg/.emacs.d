@@ -14,9 +14,9 @@
 ;; Melpa
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 ;; Do not activate initialized packages until all the loading is done below,
 ;; in order to allow missing packages to be loaded before activating dependents
@@ -115,6 +115,7 @@
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
     itail                ;; Tail changing files
+    nlinum               ;; line numbers in margins
 
     ;; file-type modes
     flymd
@@ -189,6 +190,7 @@
 (load-relative "./config-go")
 (load-relative "./config-org")
 (load-relative "./config-dumb-jump")
+(load-relative "./config-nlinum")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")

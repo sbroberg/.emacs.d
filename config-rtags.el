@@ -24,9 +24,9 @@
 
            ;; company integration
            (require 'company)
-           (push 'company-rtags company-backends)
            (global-company-mode)
-           (delete 'company-backends 'company-clang)
+           (push 'company-rtags company-backends)
+           (delete 'company-clang company-backends)
 
            ;; nice keyboard shortcuts
            (define-key c-mode-base-map (kbd "<M-tab>")
