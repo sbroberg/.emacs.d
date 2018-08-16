@@ -18,7 +18,7 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
-(setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
+;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
 
 ;; Do not activate initialized packages until all the loading is done below,
 ;; in order to allow missing packages to be loaded before activating dependents
@@ -132,6 +132,7 @@
     json-mode            ;; for Json files
     yafolding            ;; code-folding for a variety of formats
     el-get               ;; Get historical versions of elpa packages
+    neotree              ;; Display a sidebar for file navigation
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; cmake-ide disabled because of extreme slowness; rtags now self-configures,
@@ -194,6 +195,8 @@
 (load-relative "./config-org")
 (load-relative "./config-dumb-jump")
 (load-relative "./config-nlinum")
+(load-relative "./config-flymd")
+(load-relative "./config-neotree")
 
 ;; (load "config-autocomplete")
 ;; (load-relative "config-irony")

@@ -199,6 +199,6 @@
 (put 'sqlite-handler 'operations '(insert-file-contents))
 
 (add-to-list 'file-name-handler-alist
-             '("\\.sqlite\\|\\.db\\'" . sqlite-handler))
+             '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
 
 ;;; smb-options ends here
