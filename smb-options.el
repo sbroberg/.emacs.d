@@ -141,7 +141,7 @@
     (recenter)
     )
   )
-(global-set-key [(f8)] 'smb-make-named-parms)
+;;(global-set-key [(f8)] 'smb-make-named-parms)
 
 
 ;;;;;;;;;

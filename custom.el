@@ -18,9 +18,10 @@
  '(exec-path-from-shell-variables
    (quote
     ("PATH" "MANPATH" "TERM" "TOOLCHAIN_ROOT" "CC" "CXX" "OSX_DEPLOYMENT_TARGET" "OSX_SDK" "OSX_CFLAGS" "OSX_LDFLAGS" "CFLAGS" "CXXFLAGS" "LDFLAGS" "VERSION")))
+ '(helm-source-names-using-follow (quote ("RTags Helm")))
  '(package-selected-packages
    (quote
-    (neotree company-rtags flycheck-rtags helm-rtags rtags nlinum yasnippet projectile flycheck company company-irony-c-headers company-irony yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
+    (counsel-projectile ivy-rtags neotree company-rtags flycheck-rtags helm-rtags rtags nlinum yasnippet projectile flycheck company company-irony-c-headers company-irony yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args
