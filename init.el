@@ -5,6 +5,13 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
+;; Turn down the garbage collector during the loading of this file in case use-package
+;; has do some compiling. Set it back when done with init.
+(setq gc-cons-threshold 64000000)
+(add-hook 'after-init-hook #'(lambda ()
+                               ;; restore after startup
+                               (setq gc-cons-threshold 800000)))
+
 ;; Melpa
 (require 'package)
 (add-to-list 'package-archives
@@ -48,8 +55,8 @@
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
 
-    ;; omnisharp is disabled as we're loading from a local branch
-    omnisharp            ;; c# ide server
+    ;; c-sharp
+    omnisharp-emacs            ;; c# ide server
     shut-up              ;; for omnisharp-emacs
     csharp-mode          ;; c#
 
