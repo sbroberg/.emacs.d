@@ -48,6 +48,6 @@
 (setq helm-swoop-use-line-number-face t)
 
 ;; If you prefer fuzzy matching
-(setq helm-swoop-use-fuzzy-match t)
+;; (setq helm-swoop-use-fuzzy-match t)
 
 ;;; config-helm-swoop ends here

@@ -5,12 +5,20 @@
 ;;;;;;;;
 ;; keymapping personalization
 ;;;;;;;;
+
 ;; disable the window-up/window down feature of shift-arrows so that
 ;; shift-selection works with arrow keys.
 (define-key global-map (kbd "<S-down>") nil)
 (define-key global-map (kbd "<S-up>") nil)
 (define-key global-map (kbd "<S-right>") nil)
 (define-key global-map (kbd "<S-left>") nil)
+
+;; Stuff to map common Mac keystrokes to emacs operations
+(setq-default mac-command-modifier 'super)
+(setq-default mac-option-modifier 'meta)
+(define-key global-map (kbd "s-a") 'mark-whole-buffer)
+(define-key global-map (kbd "s-c") 'ns-copy-including-secondary)
+;; (define-key global-map (kbd "C-s") 'helm-swoop)
 
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 (if (not (eq system-type 'windows-nt))
@@ -19,11 +27,16 @@
 
 (global-set-key [(f6)] 'next-error)
 
-(require 'gud)
 
+;; Code navigation & debugging key maps
+(require 'gud)
+(global-set-key [(f9)] 'rtags-compile-file)
 (global-set-key [(f10)] 'gud-next)
 (global-set-key [(f11)] 'gud-step)
 (global-set-key [(shift f11)] 'gud-finish)
+(global-set-key (kbd "s-f") 'helm-projectile-find-file)
+(global-set-key (kbd "<S-left>") 'xref-pop-marker-stack)
+(global-set-key (kbd "s-.") 'xref-pop-marker-stack)
 
 ;;;;;;;;
 ;; Whitespace
@@ -128,7 +141,7 @@
     (recenter)
     )
   )
-(global-set-key [(f8)] 'smb-make-named-parms)
+;;(global-set-key [(f8)] 'smb-make-named-parms)
 
 
 ;;;;;;;;;
@@ -152,5 +165,40 @@
   (my-keys-minor-mode 0))
 
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+
+(add-to-list 'load-path "~/.emacs.d/my-packages")
+(load "carb")
+
+;;;;;;;;
+;; Open sqlite files with ebdi
+;;;;;;;;
+
+;; (defun smb-open-sqlite-hook ()
+;;   "An open hook that will invoke ebdi when opening sqlite files."
+;;   (let ((sql-database buffer-file-truename))
+;;     (when (and  (stringp sql-database)
+;;                 (or    (string-match "\\.sqlite$" sql-database)
+;;                        (string-match "\\.db$" sql-database)))
+;;       (message (concat "opening " sql-database " using ebdi-sqlite"))
+;;       (kill-buffer)
+;;      ;; (sql-sqlite sql-database)
+;;       (edbi-sqlite sql-database)
+;;       )))
+
+;; (add-hook 'find-file-hook 'smb-open-sqlite-hook)
+
+(defun sqlite-handler (operation &rest args)
+  "An open hook that will invoke ebdi when opening sqlite files."
+  (let ((sql-database (car args)))
+    (kill-buffer nil)
+    ;; (edbi-sqlite sql-database)
+    (sql-sqlite sql-database)
+    )
+  )
+
+(put 'sqlite-handler 'operations '(insert-file-contents))
+
+(add-to-list 'file-name-handler-alist
+             '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
 
 ;;; smb-options ends here

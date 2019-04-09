@@ -409,7 +409,7 @@ we're in the GUD buffer)."
 
 ;; ======================================================================
 ;; speedbar support functions and variables.
-(eval-when-compile (require 'speedbar))	;For speedbar-with-attached-buffer.
+(eval-when-compile (require 'speedbar))	;For dframe-with-attached-buffer.
 
 (defvar gud-last-speedbar-stackframe nil
   "Description of the currently displayed GUD stack.
@@ -846,7 +846,7 @@ It is passed through FILTER before we look at it."
 
 (defun gud-gdb-goto-stackframe (text token indent)
   "Goto the stackframe described by TEXT, TOKEN, and INDENT."
-  (speedbar-with-attached-buffer
+  (dframe-with-attached-buffer
    (gud-basic-call (concat "server frame " (nth 1 token)))
    (sit-for 1)))
 
