@@ -21,141 +21,141 @@
  '(helm-source-names-using-follow (quote ("RTags Helm")))
  '(package-selected-packages
    (quote
-    (counsel-projectile ivy-rtags neotree company-rtags flycheck-rtags helm-rtags rtags nlinum yasnippet projectile flycheck company company-irony-c-headers company-irony yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
+    (omnisharp-emacs counsel-projectile ivy-rtags neotree company-rtags flycheck-rtags helm-rtags rtags nlinum yasnippet projectile flycheck company company-irony-c-headers company-irony yafolding ws-butler which-key volatile-highlights use-package swiper-helm py-autopep8 omnisharp magit load-relative json-mode jedi itail iedit helm-swoop helm-projectile helm-c-yasnippet helm-ag go-mode go-autocomplete git-timemachine flymd flycheck-tip expand-region exec-path-from-shell elpy el-get ein edbi-sqlite dumb-jump company-edbi comment-dwim-2 cmake-mode cmake-ide clang-format carb ag)))
  '(safe-local-variable-values
    (quote
     ((eval setq jedi:server-args
-           (if
-               (fboundp
-                (quote projectile-project-root-xxx))
-               (list "--sys-path"
-                     (concat
-                      (projectile-project-root-xxx)
-                      "automation")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root-xxx)
-                      "automation/tools/framework_installer/automation_framework")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root-xxx)
-                      "automation/tools/framework_installer/report_util")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root-xxx)
-                      "automation/tools/framework_installer/suite_util"))))
+	   (if
+	       (fboundp
+		(quote projectile-project-root-xxx))
+	       (list "--sys-path"
+		     (concat
+		      (projectile-project-root-xxx)
+		      "automation")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root-xxx)
+		      "automation/tools/framework_installer/automation_framework")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root-xxx)
+		      "automation/tools/framework_installer/report_util")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root-xxx)
+		      "automation/tools/framework_installer/suite_util"))))
      (eval setq jedi:server-args
-           (if
-               (fboundp
-                (quote projectile-project-root))
-               (list "--sys-path"
-                     (concat
-                      (projectile-project-root)
-                      "automation")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root)
-                      "automation/tools/framework_installer/automation_framework")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root)
-                      "automation/tools/framework_installer/report_util")
-                     "--sys-path"
-                     (concat
-                      (projectile-project-root)
-                      "automation/tools/framework_installer/suite_util"))))
+	   (if
+	       (fboundp
+		(quote projectile-project-root))
+	       (list "--sys-path"
+		     (concat
+		      (projectile-project-root)
+		      "automation")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root)
+		      "automation/tools/framework_installer/automation_framework")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root)
+		      "automation/tools/framework_installer/report_util")
+		     "--sys-path"
+		     (concat
+		      (projectile-project-root)
+		      "automation/tools/framework_installer/suite_util"))))
      (eval setq jedi:server-args
-           (list "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation")
-                 "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation/tools/framework_installer/automation_framework")
-                 "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation/tools/framework_installer/report_util")
-                 "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation/tools/framework_installer/suite_util")))
+	   (list "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation")
+		 "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation/tools/framework_installer/automation_framework")
+		 "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation/tools/framework_installer/report_util")
+		 "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation/tools/framework_installer/suite_util")))
      (eval setq jedi:server-args
-           (list "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation")
-                 "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation/tools/framework_installer")))
+	   (list "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation")
+		 "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation/tools/framework_installer")))
      (eval setq jedi:server-args
-           (list "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation/tools/framework_installer")))
+	   (list "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation/tools/framework_installer")))
      (eval setq jedi:server-args
-           (list "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation")))
+	   (list "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation")))
      (eval setq jedi:server-args
-           (cons "--sys-path"
-                 (concat
-                  (projectile-project-root)
-                  "automation")))
+	   (cons "--sys-path"
+		 (concat
+		  (projectile-project-root)
+		  "automation")))
      (eval setq jedi:server-args
-           (quote
-            ("--sys-path"
-             (concat
-              (projectile-project-root)
-              "automation"))))
+	   (quote
+	    ("--sys-path"
+	     (concat
+	      (projectile-project-root)
+	      "automation"))))
      (eval setq jedi:server-args
-           (("--sys-path"
-             (concat
-              (projectile-project-root)
-              "automation"))))
+	   (("--sys-path"
+	     (concat
+	      (projectile-project-root)
+	      "automation"))))
      (eval setq jedi:server-args
-           ("--sys-path"
-            (concat
-             (projectile-project-root)
-             "automation")))
+	   ("--sys-path"
+	    (concat
+	     (projectile-project-root)
+	     "automation")))
      (eval setq jedi:server-args
-           (concat
-            (projectile-project-root)
-            "automation"))
+	   (concat
+	    (projectile-project-root)
+	    "automation"))
      (eval setq cmake-ide-build-dir
-           (concat
-            (projectile-project-root)
-            "build_debug"))
+	   (concat
+	    (projectile-project-root)
+	    "build_debug"))
      (eval setq jedi:server-args
-           (concat
-            (projectile-project-root)
-            "/automation"))
+	   (concat
+	    (projectile-project-root)
+	    "/automation"))
      (eval setq cmake-ide-build-dir
-           (concat
-            (projectile-project-root)
-            "/build_debug"))
+	   (concat
+	    (projectile-project-root)
+	    "/build_debug"))
      (eval setq cmake-ide-build-dir
-           (concat
-            (projectile-project-root)
-            "/build-make"))
+	   (concat
+	    (projectile-project-root)
+	    "/build-make"))
      (eval setq cmake-ide-build-dir
-           (projectile-project-root))
+	   (projectile-project-root))
      (eval setq cmake-ide-build-dir
-           (quote
-            (projectile-project-root)))
+	   (quote
+	    (projectile-project-root)))
      (eval cmake-ide-build-dir
-           (quote
-            (projectile-project-root)))
+	   (quote
+	    (projectile-project-root)))
      (cmake-ide-build-dir \,@ projectile-project-root)
      (require projectile)
      (cmake-ide-build-dir . projectile-project-root)
      (cmake-ide-build-dir projectile-project-root)
      (cmake-ide-build-dir . /Users/stebro/headless-client/build-make)
      (eval setq cmake-ide-build-dir
-           (concat my-project-path "build-make"))
+	   (concat my-project-path "build-make"))
      (cmake-ide-project-dir . my-project-path)
      (eval set
 	   (make-local-variable
@@ -195,4 +195,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 98 :width normal)))))
+ '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 100 :width normal)))))
