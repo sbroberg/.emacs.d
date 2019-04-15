@@ -17,10 +17,12 @@
     (setq eshell-path-env path-from-shell) ; for eshell users
     (setq exec-path (split-string path-from-shell path-separator))))
 
-(when window-system (set-exec-path-from-shell-PATH))
-
-(setenv "GOPATH" (expand-file-name "~/gocode"))
-(add-to-list 'exec-path (expand-file-name "~/gocode/bin"))
+(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
+    (progn
+      (set-exec-path-from-shell-PATH)
+      (setenv "GOPATH" (expand-file-name "~/gocode"))
+      (add-to-list 'exec-path (expand-file-name "~/gocode/bin"))
+      ))
 
 (defun my-go-mode-hook ()
   "Enable go mode features."

@@ -180,7 +180,7 @@
 (byte-recompile-directory (relative-expand-file-name "."))
 
 (load-relative "./config-garbage-collector")
-;;(load-relative "./config-cmake-ide")
+(load-relative "./config-cmake-ide")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
 (load-relative "./config-rtags")
@@ -208,7 +208,6 @@
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
 
-;; (load "config-autocomplete")
 ;; (load-relative "config-irony")
 
 (load-relative "./gud")
