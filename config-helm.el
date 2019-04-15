@@ -24,6 +24,7 @@
    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
    (setq
+    helm-follow-mode-persistent t
     helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
     helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
     helm-split-window-in-side-p t ;; open helm buffer inside current window, not occupy whole other window
