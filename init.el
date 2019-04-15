@@ -102,7 +102,7 @@
     ein                  ;; for Jupyter
 
     ;; c-sharp
-    omnisharp-emacs            ;; c# ide server
+    ;; omnisharp-emacs            ;; c# ide server
 
     ;; Go
     go-mode
