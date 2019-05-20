@@ -4,6 +4,7 @@ elpa/
 projectile-bookmarks.eld
 .edbi-ds-history
 recentf
+custom.el
 .python-environments
 ac-comphist.dat
 *~
