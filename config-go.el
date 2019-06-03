@@ -19,7 +19,8 @@
 
 (if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
     (progn
-      (set-exec-path-from-shell-PATH)
+      (if (eq system-type 'darwin)
+	  (set-exec-path-from-shell-PATH))
       (setenv "GOPATH" (expand-file-name "~/gocode"))
       (add-to-list 'exec-path (expand-file-name "~/gocode/bin"))
       ))
