@@ -90,11 +90,11 @@
 (setq inhibit-startup-message t) ;; hide the startup message
 ;; (global-linum-mode t) ;; enable line numbers globally
 
-;; needed to suppress stupid "unsafe directory" messages when
-;; using magit
-(require 'server)
- (and (>= emacs-major-version 23)
-     (defun server-ensure-safe-dir (dir) "Noop" t))
+;; ;; needed to suppress stupid "unsafe directory" messages when
+;; ;; using magit
+;; (require 'server)
+;;  (and (>= emacs-major-version 23)
+;;      (defun server-ensure-safe-dir (dir) "Noop" t))
 
 
 ;;;;;;;;
