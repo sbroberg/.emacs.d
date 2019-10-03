@@ -9,7 +9,7 @@
 
 ;; Keeps customizations out of init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(write-region "" nil custom-file)
+(write-region "" nil custom-file 1)
 (load custom-file)
 
 ;; Turn down the garbage collector during the loading of this file in case use-package
