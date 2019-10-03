@@ -9,6 +9,7 @@
 
 ;; Keeps customizations out of init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(write-region "" nil custom-file)
 (load custom-file)
 
 ;; Turn down the garbage collector during the loading of this file in case use-package
@@ -177,7 +178,7 @@
 ;;;;;;;;
 
 (require 'load-relative)
-(byte-recompile-directory (relative-expand-file-name "."))
+;; (byte-recompile-directory (relative-expand-file-name "."))
 
 (load-relative "./config-garbage-collector")
 ;; (load-relative "./config-cmake-ide")
