@@ -129,7 +129,6 @@
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
     itail                ;; Tail changing files
-    nlinum               ;; line numbers in margins
 
     ;; file-type modes
     flymd
@@ -205,7 +204,6 @@
 (load-relative "./config-go")
 (load-relative "./config-org")
 (load-relative "./config-dumb-jump")
-(load-relative "./config-nlinum")
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
 
