@@ -1,10 +1,13 @@
 auto-save-list/
+transient
+.DS_Store
 bookmarks
 elpa/
+transient/
 projectile-bookmarks.eld
 .edbi-ds-history
 recentf
-/custom.el
+custom.el
 .python-environments
 ac-comphist.dat
 *~
