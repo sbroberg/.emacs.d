@@ -212,4 +212,5 @@
 (add-to-list 'file-name-handler-alist
              '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
 
+(global-subword-mode)
 ;;; smb-options ends here

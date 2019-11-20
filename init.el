@@ -94,6 +94,7 @@
     helm-projectile      ;; integration with helm & projectile
     helm-swoop           ;; interactive search result browsing
     magit                ;; git integration
+    git-messenger        ;; fancy git quality-of-life stuff
     cmake-mode           ;; for CMakeLists.txt files
     git-timemachine      ;; browse git history
 
@@ -134,6 +135,7 @@
     flymd
 
     ;; Other improvements
+    groovy-mode
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
     ag                   ;; needed by other modes that use ag (silver searcher)
@@ -192,6 +194,7 @@
 (load-relative "./config-ws-butler")
 (load-relative "./config-helm")
 (load-relative "./config-magit")
+(load-relative "./config-git-messenger")
 (load-relative "./config-helm-swoop")
 (load-relative "./config-python")
 (load-relative "./config-expand-region")
