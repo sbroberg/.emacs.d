@@ -9,7 +9,7 @@
 
 ;; Use magit-show-commit for showing status/diff commands
 (custom-set-variables
- (setq git-messenger:show-detail t)
+ '(git-messenger:show-detail t)
  '(git-messenger:use-magit-popup t))
 
 (provide 'config-git-messenger)
