@@ -127,6 +127,7 @@
     volatile-highlights  ;; highlights changes from undo/replace/etc until keystroke
     clang-format         ;; Formats code using clang-format.  Requires installation of binary
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
+    yasnippet-snippets   ;; the actual snippets
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
     itail                ;; Tail changing files
