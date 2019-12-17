@@ -61,16 +61,19 @@
 ;; go get golang.org/x/tools/cmd/guru
 ;;
 ;; Add to .bashrc:
-;; export GOROOT=/usr/local/go
-;; export GOPATH=~/gocode
+;; export GOROOT=/usr/local/opt/go/libexec
+;; export GOPATH=~/go-workspace
 ;; export PATH=$PATH:$GOROOT/bin
 ;; export PATH=$PATH:$GOPATH/bin
 
-;; ebdi:
+;; edbi:
+;;     brew install perl
+;;     brew install mysql
+;;     brew install mysql-connector-c
 ;;     cpan RPC::EPC::Service DBI DBD::SQLite DBD::Pg DBD::mysql
 ;; Add to .bashrc:
 ;;    source ~/perl5/perlbrew/etc/bashrc
-;;    export PERL5LIB=/Users/stebro/perl5/lib/perl5
+;;    export PERL5LIB=~/perl5/lib/perl5
 
 (defconst my-installed-packages
   '(
@@ -185,7 +188,7 @@
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
-(load-relative "./config-rtags")
+;; (load-relative "./config-rtags")
 (load-relative "./config-flycheck")
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")
