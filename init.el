@@ -188,7 +188,7 @@
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
-;; (load-relative "./config-rtags")
+(load-relative "./config-rtags")
 (load-relative "./config-flycheck")
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")
