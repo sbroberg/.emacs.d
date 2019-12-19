@@ -3,6 +3,7 @@
 ;;; Code:
 
 (require 'clang-format)
+(require 'projectile)
 
 (defcustom my-clang-format-enabled t
   "If t, run clang-format on mm/c/cpp buffers upon saving."
@@ -51,7 +52,7 @@
   "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
-  (if my-clang-format-enabled
+  (if (and my-clang-format-enabled (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
       (when (eq major-mode 'c++-mode) (clang-format-buffer))
     (message "my-clang-format-enabled is false"))
   )
