@@ -218,7 +218,7 @@
 
 ;; (load-relative "config-irony")
 
-(load-relative "./gud")
+;; (load-relative "./gud")
 (load-relative "./smb-options")
 
 ;; Restore default memory/fileio settings

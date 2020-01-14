@@ -213,4 +213,10 @@
              '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
 
 (global-subword-mode)
+
+(defun python3 ()
+    "Start python3."
+  (interactive)
+  (run-python "python3" 1 0)
+  )
 ;;; smb-options ends here
