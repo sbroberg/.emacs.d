@@ -128,7 +128,6 @@
     ws-butler            ;; smartly removes trailing whitespace
     iedit                ;; Hit C-; to highlight & edit all occurrences of symbol
     volatile-highlights  ;; highlights changes from undo/replace/etc until keystroke
-    ;; disabled due to not working on MacOS catalina; using included clang-format, below
     clang-format         ;; Formats code using clang-format.  Requires installation of binary
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
     yasnippet-snippets   ;; the actual snippets
@@ -185,10 +184,6 @@
 
 (require 'load-relative)
 ;; (byte-recompile-directory (relative-expand-file-name "."))
-
-(if (eq system-type 'darwin)
-    (load-relative "./clang-format")
-  )
 
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
