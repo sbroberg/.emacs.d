@@ -13,4 +13,7 @@
  '(git-messenger:use-magit-popup t))
 
 (provide 'config-git-messenger)
+(setq git-messenger:show-detail t)
+(setq git-messenger:use-magit-popup t)
+
 ;;; config-git-messenger.el ends here
