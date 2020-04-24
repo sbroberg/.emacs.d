@@ -235,4 +235,10 @@
 ;;;;;;
 (setq-default gdb-display-io-nopopup 1)
 
+(defun python3 ()
+    "Start python3."
+  (interactive)
+  (run-python "python3" 1 0)
+  )
+
 ;;; smb-options ends here
