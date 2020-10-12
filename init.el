@@ -20,11 +20,11 @@
                                (setq gc-cons-threshold 800000)))
 
 ;; Melpa
+(setq package-check-signature nil)
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 ;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
 
@@ -75,11 +75,15 @@
 ;;    source ~/perl5/perlbrew/etc/bashrc
 ;;    export PERL5LIB=~/perl5/lib/perl5
 
-(defconst my-installed-packages
+(defconst osx-isntalled-packages
   '(
     ;; Basic OSX sanity
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
+    )
+  )
 
+(defconst my-installed-packages
+  '(
     ;; ide-code-completion/syntax checking
     company              ;; auto-complete powered by various backends
 
@@ -114,8 +118,6 @@
     go-autocomplete
 
     ;; Db
-    edbi-sqlite
-    company-edbi
     edbi                 ;; more graphical version of db explorer
 
     ;; omnisharp is disabled as we're loading from a local branch
@@ -172,7 +174,13 @@
     (package-refresh-contents))
   (dolist (package my-installed-packages)
     (unless (package-installed-p package)
-      (package-install package))))
+      (package-install package)))
+  (if (eq system-type 'darwin)
+      (dolist (package my-installed-packages)
+	(unless (package-installed-p package)
+	  (package-install package)))
+    )
+  )
 
 (install-packages)
 
