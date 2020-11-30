@@ -75,7 +75,7 @@
 ;;    source ~/perl5/perlbrew/etc/bashrc
 ;;    export PERL5LIB=~/perl5/lib/perl5
 
-(defconst osx-isntalled-packages
+(defconst osx-installed-packages
   '(
     ;; Basic OSX sanity
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
@@ -176,7 +176,7 @@
     (unless (package-installed-p package)
       (package-install package)))
   (if (eq system-type 'darwin)
-      (dolist (package my-installed-packages)
+      (dolist (package osx-installed-packages)
 	(unless (package-installed-p package)
 	  (package-install package)))
     )
