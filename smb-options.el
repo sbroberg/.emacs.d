@@ -6,6 +6,10 @@
 ;; keymapping personalization
 ;;;;;;;;
 
+(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
+    (set-face-attribute 'default nil :height 220)
+  )
+
 ;; disable the window-up/window down feature of shift-arrows so that
 ;; shift-selection works with arrow keys.
 (define-key global-map (kbd "<S-down>") nil)
