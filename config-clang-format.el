@@ -52,7 +52,7 @@
   "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
-  (if (and my-clang-format-enabled (f-exists? (expand-file-name ".clang-format" (projectile-project-root))))
+  (if (and my-clang-format-enabled (file-exists-p (expand-file-name ".clang-format" (projectile-project-root))))
       (when (eq major-mode 'c++-mode) (clang-format-buffer))
     (message "my-clang-format-enabled is false"))
   )
