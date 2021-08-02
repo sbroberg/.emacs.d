@@ -22,9 +22,8 @@
 ;; Melpa
 (setq package-check-signature nil)
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
 
 ;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
 
@@ -75,7 +74,7 @@
 ;;    source ~/perl5/perlbrew/etc/bashrc
 ;;    export PERL5LIB=~/perl5/lib/perl5
 
-(defconst osx-isntalled-packages
+(defconst osx-installed-packages
   '(
     ;; Basic OSX sanity
     exec-path-from-shell ;; Copies OSX exec environment into .app version of Emacs
@@ -130,7 +129,6 @@
     ws-butler            ;; smartly removes trailing whitespace
     iedit                ;; Hit C-; to highlight & edit all occurrences of symbol
     volatile-highlights  ;; highlights changes from undo/replace/etc until keystroke
-    ;; disabled due to not working on MacOS catalina; using included clang-format, below
     clang-format         ;; Formats code using clang-format.  Requires installation of binary
     yasnippet            ;; Snippet shortcuts. yas-describe-tables for list
     yasnippet-snippets   ;; the actual snippets
@@ -176,7 +174,7 @@
     (unless (package-installed-p package)
       (package-install package)))
   (if (eq system-type 'darwin)
-      (dolist (package my-installed-packages)
+      (dolist (package osx-installed-packages)
 	(unless (package-installed-p package)
 	  (package-install package)))
     )
@@ -193,10 +191,6 @@
 
 (require 'load-relative)
 ;; (byte-recompile-directory (relative-expand-file-name "."))
-
-(if (eq system-type 'darwin)
-    (load-relative "./clang-format")
-  )
 
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
