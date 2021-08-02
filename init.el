@@ -30,7 +30,7 @@
 
 ;; Do not activate initialized packages until all the loading is done below,
 ;; in order to allow missing packages to be loaded before activating dependents
-(package-initialize t)
+;; (package-initialize t)
 
 ;; END Melpa
 
@@ -239,3 +239,4 @@
       gc-cons-percentage 0.1)
 
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)

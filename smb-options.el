@@ -70,7 +70,8 @@
 ;;;;;;;;
 (setq-default scroll-conservatively 5)
 (setq-default truncate-lines 1)
-(setq-default split-height-threshold 500) ;; Make windows always split vertically
+(setq-default split-height-threshold 0) ;; Make windows always split vertically
+(setq-default split-width-threshold nil) ;; Make windows always split vertically
 
 ;;;;;;;;
 ;; Extension mode mapping

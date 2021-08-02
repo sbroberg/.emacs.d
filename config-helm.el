@@ -6,6 +6,9 @@
 (require 'helm-config)
 (require 'helm-grep)
 
+;;; needed to avoid UI slowness
+(setq x-wait-for-event-timeout nil)
+
 ;;; Do not turn on helm-mode here - for some reason doing it as an init
 ;;; step causes tab-autocomplete to not work in find-file
 ;;; (helm-mode 1)
