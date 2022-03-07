@@ -29,7 +29,7 @@
 
 ;; Do not activate initialized packages until all the loading is done below,
 ;; in order to allow missing packages to be loaded before activating dependents
-;; (package-initialize t)
+(package-initialize t)
 
 ;; END Melpa
 
@@ -150,6 +150,7 @@
     yafolding            ;; code-folding for a variety of formats
     el-get               ;; Get historical versions of elpa packages
     neotree              ;; Display a sidebar for file navigation
+    string-inflection    ;; cycle between capitalization conventions
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; cmake-ide disabled because of extreme slowness; rtags now self-configures,
@@ -191,7 +192,9 @@
 
 (require 'load-relative)
 ;; (byte-recompile-directory (relative-expand-file-name "."))
+(add-to-list 'load-path "~/.emacs.d/my-packages")
 
+(load-relative "./config-iedit")
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
@@ -200,7 +203,6 @@
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")
 (load-relative "./config-projectile")
-(load-relative "./config-iedit")
 (load-relative "./config-volatile-highlights")
 (load-relative "./config-ws-butler")
 (load-relative "./config-helm")
@@ -219,6 +221,8 @@
 (load-relative "./config-dumb-jump")
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
+(load-relative "./config-string-inflection")
+;; (load-relative "./config-ligature")
 
 ;; (load-relative "config-irony")
 

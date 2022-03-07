@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(when (memq window-system '(mac ns x))
+(when (memq window-system '(mac ns))
   (progn  (defvar exec-path-from-shell-check-startup-files)
           (defvar exec-path-from-shell-variables)
           (setq exec-path-from-shell-check-startup-files nil)
