@@ -27,10 +27,6 @@
 
 ;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
 
-;; Do not activate initialized packages until all the loading is done below,
-;; in order to allow missing packages to be loaded before activating dependents
-(package-initialize t)
-
 ;; END Melpa
 
 ;;;;;;;;
@@ -193,7 +189,9 @@
 ;; (byte-recompile-directory (relative-expand-file-name "."))
 
 (load-relative "./config-garbage-collector")
-(load-relative "./config-exec-path-from-shell")
+(if (eq system-type 'darwin)
+    (load-relative "./config-exec-path-from-shell")
+)
 (load-relative "./config-company")
 (load-relative "./config-rtags")
 (load-relative "./config-flycheck")
