@@ -25,4 +25,6 @@ With a prefix arg refresh the database in each project."
                  (user-error "No projects found, please setup `helm-locate-project-list'"))))
            ))
 
+(helm-projectile-on)
+
 ;;; config-projectile ends here

@@ -146,6 +146,7 @@
     yafolding            ;; code-folding for a variety of formats
     el-get               ;; Get historical versions of elpa packages
     neotree              ;; Display a sidebar for file navigation
+    string-inflection    ;; cycle between capitalization conventions
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; cmake-ide disabled because of extreme slowness; rtags now self-configures,
@@ -187,7 +188,9 @@
 
 (require 'load-relative)
 ;; (byte-recompile-directory (relative-expand-file-name "."))
+(add-to-list 'load-path "~/.emacs.d/my-packages")
 
+(load-relative "./config-iedit")
 (load-relative "./config-garbage-collector")
 (if (eq system-type 'darwin)
     (load-relative "./config-exec-path-from-shell")
@@ -198,7 +201,6 @@
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")
 (load-relative "./config-projectile")
-(load-relative "./config-iedit")
 (load-relative "./config-volatile-highlights")
 (load-relative "./config-ws-butler")
 (load-relative "./config-helm")
@@ -217,6 +219,8 @@
 (load-relative "./config-dumb-jump")
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
+(load-relative "./config-string-inflection")
+;; (load-relative "./config-ligature")
 
 ;; (load-relative "config-irony")
 
@@ -231,3 +235,4 @@
       gc-cons-percentage 0.1)
 
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)
