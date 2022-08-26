@@ -7,7 +7,7 @@
 ;;;;;;;;
 
 (if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
-    (set-face-attribute 'default nil :height 120)
+    (set-face-attribute 'default nil :height 220)
   )
 
 ;; disable the window-up/window down feature of shift-arrows so that
