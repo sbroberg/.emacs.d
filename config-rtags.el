@@ -40,6 +40,10 @@
              (function rtags-location-stack-forward))
            (define-key c-mode-base-map (kbd "<s-left>")
              (function rtags-location-stack-back))
+           (define-key c-mode-base-map (kbd "<M-right>")
+             (function rtags-location-stack-forward))
+           (define-key c-mode-base-map (kbd "<M-left>")
+             (function rtags-location-stack-back))
            (define-key c-mode-base-map (kbd "s-.")
              (function rtags-location-stack-back))
 
