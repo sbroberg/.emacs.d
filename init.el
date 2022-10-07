@@ -23,7 +23,7 @@
 (setq package-check-signature nil)
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 
 ;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
 
@@ -43,11 +43,15 @@
 ;; sudo pip2.7 install flake8
 ;; sudo pip2.7 install jedi
 ;; sudo pip2.7 install epc
+;; sudo snap install pyright --classic
 
 ;; rtags:
 ;; brew install rtags
 ;; or
 ;; apt-get install rtags
+
+;; cmake:
+;; pip3 install cmake-language-server
 
 ;; go
 ;; # go-mode
@@ -102,10 +106,12 @@
     magit                ;; git integration
     git-messenger        ;; fancy git quality-of-life stuff
     cmake-mode           ;; for CMakeLists.txt files
+    cmake-format         ;; for CMakeLists.txt files
     git-timemachine      ;; browse git history
 
     ;; Python
-    jedi                 ;; python environment
+    blacken              ;; code formatter
+    poetry               ;; environment management
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
 
