@@ -106,7 +106,6 @@
     magit                ;; git integration
     git-messenger        ;; fancy git quality-of-life stuff
     cmake-mode           ;; for CMakeLists.txt files
-    cmake-format         ;; for CMakeLists.txt files
     git-timemachine      ;; browse git history
 
     ;; Python

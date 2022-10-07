@@ -37,7 +37,7 @@
   :custom
   (blacken-allow-py36 t)
   (blacken-skip-string-normalization t)
-  :hook (python-mode-hook . blacken-mode))
+  :hook (python-mode . blacken-mode))
 
 ;; <OPTIONAL> Numpy style docstring for Python.  See:
 ;; https://github.com/douglasdavis/numpydoc.el.  There are other packages
