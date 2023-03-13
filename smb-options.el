@@ -31,6 +31,7 @@
   )
 
 (global-set-key [(f6)] 'next-error)
+(global-set-key [(f5)] 'recompile)
 
 
 ;; Code navigation & debugging key maps
@@ -88,23 +89,21 @@
 ;; Mode replacements
 ;;;;;;;;
 ;; Use silver searcher (ag) instead of grep for recursive searching
-(if (or (eq system-type 'gnu/linux) (eq system-type 'darwin))
-    (setq grep-command "ag --nogroup ")
-  (setq grep-command "grep ")
-  )
+(setq grep-command "ag --vimgrep --literal --group --line-number --column --smart-case --stats --")
 
 (setq inhibit-startup-message t) ;; hide the startup message
 ;; (global-linum-mode t) ;; enable line numbers globally
 
 ;; ;; needed to suppress stupid "unsafe directory" messages when
 ;; ;; using magit
-(require 'server)
-(when (and (>= emacs-major-version 23)
-           (equal window-system 'w32))
-  (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
-                                                 ; ~/.emacs.d/server is unsafe"
-                                                 ; on windows.
-(server-start)
+;; (require 'server)
+;; (when (and (>= emacs-major-version 23)
+;;            (equal window-system 'w32))
+;;   (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory
+;;                                                  ; ~/.emacs.d/server is unsafe"
+;;                                                  ; on windows.
+;; (server-start)
+
 ;; (require 'server)
 ;;  (and (>= emacs-major-version 23)
 ;;      (defun server-ensure-safe-dir (dir) "Noop" t))
@@ -246,5 +245,12 @@
   )
 
 (setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(defun run-bash ()
+      (interactive)
+      (let ((shell-file-name "c:/Users/brobesx/AppData/Local/Programs/Git/bin/bash.exe"))
+            (shell "*bash*")))
+
+(setq visible-bell t)
 
 ;;; smb-options ends here

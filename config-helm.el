@@ -4,7 +4,6 @@
 
 (require 'helm-mode)
 (require 'helm)
-(require 'helm-config)
 (require 'helm-grep)
 
 ;; ;;; needed to avoid UI slowness

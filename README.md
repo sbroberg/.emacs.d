@@ -3,8 +3,6 @@ My emacs configuration
 
 ## Major Features
 
-* cmake-ide: works automaticallly to configure other modes to work correctly when dealing with files in cmake projects.  Enables correct class/function navigation features for rtags, code completion with company, etc.
-
 * company: auto-complete used in a variety of contexts.  Default mapping is <tab>
 
 * yasnippet: similar to company, but instantiates templates from a library when tabbing off keywords.  e.g., type "switch" in a c/c++ file & hit <tab> - will expand to a switch statement with placeholders.  Tab between the placeholders & type actual values.

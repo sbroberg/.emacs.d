@@ -188,9 +188,6 @@
 
 (install-packages)
 
-;; Now it is okay to activate the packages
-(package-initialize)
-
 ;;;;;;;;
 ;; END Packages
 ;;;;;;;;

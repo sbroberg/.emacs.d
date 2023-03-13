@@ -77,15 +77,15 @@
     :hook ((text-mode . company-mode)
            (prog-mode . company-mode)))
 
-;;; <EGLOT> configuration, pick this or the LSP configuration but not both.
-;; Using Eglot with Pyright, a language server for Python.
-;; See: https://github.com/joaotavora/eglot.
-(use-package eglot
-  :ensure t
-  :defer t
-  :hook
-  (python-mode . eglot-ensure)
-  (cmake-mode . eglot-ensure))
+;; ;;; <EGLOT> configuration, pick this or the LSP configuration but not both.
+;; ;; Using Eglot with Pyright, a language server for Python.
+;; ;; See: https://github.com/joaotavora/eglot.
+;; (use-package eglot
+;;   :ensure t
+;;   :defer t
+;;   :hook
+;;   (python-mode . eglot-ensure)
+;;   (cmake-mode . eglot-ensure))
 
 ;;; <LSP> configuration, pick this or the Eglot configuration, but not both.
 

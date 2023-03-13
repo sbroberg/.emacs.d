@@ -40,7 +40,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ; for case macro
+;; (eval-when-compile (require 'cl)) ; for case macro
 
 (require 'comint)
 

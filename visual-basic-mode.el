@@ -201,7 +201,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+;; (eval-when-compile (require 'cl))
 
 (defvar visual-basic-xemacs-p (string-match "XEmacs\\|Lucid" (emacs-version)))
 (defvar visual-basic-winemacs-p (string-match "Win-Emacs" (emacs-version)))
