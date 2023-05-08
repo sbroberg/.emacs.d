@@ -47,12 +47,26 @@
 (add-hook 'python-mode-hook 'my-python-settings)
 (add-hook 'js-mode-hook 'my-js-settings)
 
+(defun file-search-upward (directory file)
+  "Search DIRECTORY for FILE and return its full path if found, or NIL if not.
+
+If FILE is not found in DIRECTORY, the parent of DIRECTORY will be searched."
+  (let ((parent-dir (file-truename (concat (file-name-directory directory) "../")))
+        (current-path (if (not (string= (substring directory (- (length directory) 1)) "/"))
+                         (concat directory "/" file)
+                         (concat directory file))))
+    (if (file-exists-p current-path)
+        current-path
+        (when (and (not (string= (file-truename directory) parent-dir))
+                   (< (length parent-dir) (length (file-truename directory))))
+          (file-search-upward parent-dir file)))))
+
 ;; clang-format-on-save
 (defun my-clang-format-before-save ()
   "Usage: (add-hook 'before-save-hook 'clang-format-before-save)."
 
   (interactive)
-  (if (and my-clang-format-enabled (file-exists-p (expand-file-name ".clang-format" (projectile-project-root))))
+  (if (and my-clang-format-enabled (file-search-upward "." ".clang-format"))
       (when (eq major-mode 'c++-mode) (clang-format-buffer))
     (message "my-clang-format-enabled is false"))
   )

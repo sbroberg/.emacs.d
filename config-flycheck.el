@@ -11,5 +11,7 @@
 (setq error-tip-notify-keep-messages t)
 (setq flycheck-display-errors-delay 0.2)
 
+;; .cc files (from google) are c++ files.
+(add-to-list 'auto-mode-alist '("\\.cc\\'" . c++-mode))
 
 ;;; config-flycheck ends here

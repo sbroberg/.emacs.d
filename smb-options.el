@@ -89,8 +89,7 @@
 ;; Mode replacements
 ;;;;;;;;
 ;; Use silver searcher (ag) instead of grep for recursive searching
-(setq grep-command "ag --vimgrep --literal --group --line-number --column --smart-case --stats --")
-
+(setq grep-command "ag --vimgrep --group --line-number --column --smart-case --stats -- ")
 (setq inhibit-startup-message t) ;; hide the startup message
 ;; (global-linum-mode t) ;; enable line numbers globally
 

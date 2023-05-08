@@ -238,5 +238,7 @@
 (setq gc-cons-threshold 16777216
       gc-cons-percentage 0.1)
 
+(set-language-environment "UTF-8")
+
 ;;; init.el ends here
 (put 'narrow-to-region 'disabled nil)
