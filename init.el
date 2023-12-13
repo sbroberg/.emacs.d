@@ -127,7 +127,6 @@
     ;; omnisharp is disabled as we're loading from a local branch
     omnisharp            ;; c# ide server
     shut-up              ;; for omnisharp-emacs
-    csharp-mode          ;; c#
 
     ;; Text-Editing Stuff
     comment-dwim-2       ;; Better options for commenting using M-;
