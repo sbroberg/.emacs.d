@@ -122,12 +122,11 @@
     go-autocomplete
 
     ;; Db
-    edbi                 ;; more graphical version of db explorer
+    ;; edbi                 ;; more graphical version of db explorer
 
     ;; omnisharp is disabled as we're loading from a local branch
     omnisharp            ;; c# ide server
     shut-up              ;; for omnisharp-emacs
-    csharp-mode          ;; c#
 
     ;; Text-Editing Stuff
     comment-dwim-2       ;; Better options for commenting using M-;
@@ -156,6 +155,7 @@
     el-get               ;; Get historical versions of elpa packages
     neotree              ;; Display a sidebar for file navigation
     string-inflection    ;; cycle between capitalization conventions
+    ligature             ;; font ligature support
 
     ;; These are an alternative to rtags - use for non-clang platforms
     ;; cmake-ide disabled because of extreme slowness; rtags now self-configures,
@@ -224,7 +224,7 @@
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
-;; (load-relative "./config-ligature")
+(load-relative "./config-ligature")
 
 ;; (load-relative "config-irony")
 

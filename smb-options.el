@@ -216,21 +216,23 @@
 
 ;; (add-hook 'find-file-hook 'smb-open-sqlite-hook)
 
-(defun sqlite-handler (operation &rest args)
-  "An open hook that will invoke ebdi when opening sqlite files."
-  (let ((sql-database (car args)))
-    (kill-buffer nil)
-    ;; (edbi-sqlite sql-database)
-    (sql-sqlite sql-database)
-    )
-  )
+;; (defun sqlite-handler (operation &rest args)
+;;   "An open hook that will invoke ebdi when opening sqlite files."
+;;   (let ((sql-database (car args)))
+;;     (kill-buffer nil)
+;;     (edbi-sqlite sql-database)
+;;     (sql-sqlite sql-database)
+;;     )
+;;   )
 
-(put 'sqlite-handler 'operations '(insert-file-contents))
+;; (put 'sqlite-handler 'operations '(insert-file-contents))
 
-(add-to-list 'file-name-handler-alist
-             '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
+;; (add-to-list 'file-name-handler-alist
+;;              '("\\.sqlite\\|\\.db\\|\\.DB\\'" . sqlite-handler))
 
 (global-subword-mode)
+
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
 ;;;;;;
 ;; Disable display of super-annoying gdb output buffer that forces code into new frame
@@ -251,5 +253,8 @@
             (shell "*bash*")))
 
 (setq visible-bell t)
+
+(global-auto-revert-mode)
+(global-ligature-mode)
 
 ;;; smb-options ends here

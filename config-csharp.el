@@ -1,5 +1,4 @@
 (require 'company)
-(require 'csharp-mode)
 
 ;; (load-relative "omnisharp-emacs/omnisharp.el")
 ;; (add-hook 'csharp-mode-hook 'omnisharp-mode)
