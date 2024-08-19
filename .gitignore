@@ -4,6 +4,7 @@ transient
 bookmarks
 elpa/
 transient/
+projects
 projectile-bookmarks.eld
 .edbi-ds-history
 recentf

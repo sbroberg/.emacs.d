@@ -3,6 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-quit t)
 
+(load-theme 'tango-dark t)
+
 ;; strip down default memory/fileio settings for fast startup
 (setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6)
@@ -165,9 +167,6 @@
     ;;
     ;; helm-gtags
     ;; ggtags
-    ;; irony
-    ;; company-irony-c-headers
-    ;; company-irony
 
     ))
 
@@ -225,8 +224,6 @@
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
 (load-relative "./config-ligature")
-
-;; (load-relative "config-irony")
 
 (if (eq system-type 'darwin)
     (load-relative "./gud")

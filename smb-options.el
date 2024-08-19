@@ -257,4 +257,6 @@
 (global-auto-revert-mode)
 (global-ligature-mode)
 
+
+(setq-default blacken-executable-list '("py" "-m" "black"))
 ;;; smb-options ends here
