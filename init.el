@@ -41,6 +41,9 @@
 
 ;; External requirements:
 
+;; Json:
+;; npm install jsonlint -g
+
 ;; Python:
 ;; sudo pip2.7 install flake8
 ;; sudo pip2.7 install jedi
@@ -93,6 +96,7 @@
     company              ;; auto-complete powered by various backends
 
     flycheck             ;; syntax checking powered by various backends
+    flymake-json         ;; for json
     flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
       helm-rtags
@@ -145,7 +149,15 @@
     ;; file-type modes
     flymd
 
+    ;; llm extensions
+    dash
+    s
+    f
+    editorconfig
+    jsonrpc
+
     ;; Other improvements
+    minions              ;; better organization of minor modes in mode line
     groovy-mode
     helm-ag              ;; use M-x helm-ag for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
@@ -224,6 +236,7 @@
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
 (load-relative "./config-ligature")
+;; (load-relative "./config-llm")
 
 (if (eq system-type 'darwin)
     (load-relative "./gud")

@@ -33,7 +33,6 @@
 (global-set-key [(f6)] 'next-error)
 (global-set-key [(f5)] 'recompile)
 
-
 ;; Code navigation & debugging key maps
 (require 'gud)
 (global-set-key [(f9)] 'rtags-compile-file)
@@ -77,6 +76,10 @@
 (setq-default truncate-lines 1)
 ;; (setq-default split-height-threshold 0) ;; Make windows always split vertically
 ;; (setq-default split-width-threshold nil) ;; Make windows always split vertically
+
+(scroll-bar-mode 0)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
 
 ;;;;;;;;
 ;; Extension mode mapping
@@ -259,4 +262,35 @@
 
 
 (setq-default blacken-executable-list '("py" "-m" "black"))
+
+;;;;;;
+;; Visual Studio enhancements
+;;;;;;
+
+(if (eq system-type 'windows-nt)
+    (progn
+      (defun find-directory-of-file-in-ancestor (extension)
+        "Find a file with the given EXTENSION in an ancestor directory."
+        (locate-dominating-file default-directory
+                                           (lambda (dir)
+                                             (directory-files dir nil (concat ".*\\." extension "$")))))
+
+      (defun find-file-in-ancestor (extension)
+        "List all files in DIR with the given EXTENSION."
+         (car (directory-files (find-directory-of-file-in-ancestor extension) t (concat ".*\\." extension "$"))))
+
+      ;; Create a string that is "MSBuild " <find-file-in-ancestor> " /property"
+        (defun visual-studio-build-solution ()
+            (interactive)
+            (let ((solution (find-file-in-ancestor "sln")))
+            (if solution
+                (funcall 'compile (concat "MSBuild \"" solution "\" /property:Configuration=Release /property:Platform=x64 /p:SelectedFiles=m6drv.cpp"))
+                (message "No solution file found in ancestor directories."))))
+
+        (global-set-key (kbd "<C-f5>") 'visual-studio-build-solution)
+      )
+  )
+
+(minions-mode)
 ;;; smb-options ends here
+
