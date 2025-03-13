@@ -159,9 +159,10 @@
     ;; Other improvements
     minions              ;; better organization of minor modes in mode line
     groovy-mode
-    helm-ag              ;; use M-x helm-ag for more powerful searching
+    helm-rg              ;; use M-x helm-rg for more powerful searching
     load-relative        ;; load-relative is like load, only you can use relative paths
-    ag                   ;; needed by other modes that use ag (silver searcher)
+    rg                   ;; needed by other modes that use ag (silver searcher)
+    projectile-ripgrep   ;; more ripgrep
     use-package          ;; easier package configuration
     which-key            ;; adds help completion for compound
     json-mode            ;; for Json files
