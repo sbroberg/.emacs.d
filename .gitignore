@@ -24,3 +24,4 @@ ac-comphist.dat
 /eln-cache/
 /session.*
 /.cache
+.aider*

@@ -238,7 +238,7 @@
 (load-relative "./config-sql")
 (load-relative "./config-go")
 (load-relative "./config-org")
-(load-relative "./config-dumb-jump")
+;; (load-relative "./config-dumb-jump")
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
