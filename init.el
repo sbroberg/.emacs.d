@@ -99,10 +99,15 @@
     flymake-json         ;; for json
     flycheck-tip         ;; show flycheck errors as tooltips
     rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
-      helm-rtags
-      flycheck-rtags
-      company-rtags
-    dumb-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
+    helm-rtags
+    flycheck-rtags
+    company-rtags
+    dumber-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
+
+    ;; aider (ai coding)
+    aider
+    transient
+    markdown-mode
 
     ;; Project-stuff
     projectile           ;; project-based navigation & searching
@@ -131,8 +136,8 @@
     ;; edbi                 ;; more graphical version of db explorer
 
     ;; omnisharp is disabled as we're loading from a local branch
-    omnisharp            ;; c# ide server
-    shut-up              ;; for omnisharp-emacs
+    ;; omnisharp            ;; c# ide server
+    ;; shut-up              ;; for omnisharp-emacs
 
     ;; Text-Editing Stuff
     comment-dwim-2       ;; Better options for commenting using M-;
@@ -145,6 +150,7 @@
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
     itail                ;; Tail changing files
+    csv-mode             ;; For editing & viewing csv
 
     ;; file-type modes
     flymd
@@ -237,6 +243,8 @@
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
 (load-relative "./config-ligature")
+(load-relative "./config-aider")
+
 ;; (load-relative "./config-llm")
 
 (if (eq system-type 'darwin)
@@ -253,3 +261,5 @@
 
 ;;; init.el ends here
 (put 'narrow-to-region 'disabled nil)
+
+(server-start)
