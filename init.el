@@ -125,19 +125,12 @@
     py-autopep8          ;; for pep8 enforcement
     ein                  ;; for Jupyter
 
-    ;; c-sharp
-    ;; omnisharp-emacs            ;; c# ide server
-
     ;; Go
     go-mode
     go-autocomplete
 
     ;; Db
     ;; edbi                 ;; more graphical version of db explorer
-
-    ;; omnisharp is disabled as we're loading from a local branch
-    ;; omnisharp            ;; c# ide server
-    ;; shut-up              ;; for omnisharp-emacs
 
     ;; Text-Editing Stuff
     comment-dwim-2       ;; Better options for commenting using M-;
@@ -231,14 +224,12 @@
 (load-relative "./config-helm-swoop")
 (load-relative "./config-python")
 (load-relative "./config-expand-region")
-(load-relative "./config-csharp")
 (load-relative "./config-which-key")
 (load-relative "./config-git-timemachine")
 (load-relative "./config-perl")
 (load-relative "./config-sql")
 (load-relative "./config-go")
 (load-relative "./config-org")
-;; (load-relative "./config-dumb-jump")
 (load-relative "./config-flymd")
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
