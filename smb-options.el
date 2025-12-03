@@ -74,8 +74,8 @@
 ;;;;;;;;
 (setq-default scroll-conservatively 5)
 (setq-default truncate-lines 1)
-;; (setq-default split-height-threshold 0) ;; Make windows always split vertically
-;; (setq-default split-width-threshold nil) ;; Make windows always split vertically
+(setq-default split-height-threshold 0) ;; Make windows always split vertically
+(setq-default split-width-threshold nil) ;; Make windows always split vertically
 
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
@@ -292,5 +292,104 @@
   )
 
 (minions-mode)
-;;; smb-options ends here
 
+(defun compile-msbuild-file ()
+  "Uses MSBuild to compile current buffer"
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         (dir (file-name-directory current-file))
+         (vcxproj (car (directory-files dir t "\\.vcxproj$")))
+         (file-name (file-name-nondirectory current-file)))
+    (if vcxproj
+        (let ((compile-command
+               (format "MSBuild /v:m \"%s\" /t:ClCompile /property:Configuration=Release /property:Platform=x64 /p:SelectedFiles=\"%s\""
+                       vcxproj file-name)))
+          (compile compile-command))
+      (message "No .vcxproj file found in the current directory."))))
+
+(defun compile-msbuild-project ()
+  "Use MSBuild to compile current project."
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         (dir (file-name-directory current-file))
+         (vcxproj (car (directory-files dir t "\\.vcxproj$")))
+         (file-name (file-name-nondirectory current-file)))
+    (if vcxproj
+        (let ((compile-command
+               (format "MSBuild /v:m \"%s\" /t:ClCompile /property:Configuration=Release /property:Platform=x64 -maxcpucount"
+                       vcxproj file-name)))
+          (compile compile-command))
+      (message "No .vcxproj file found in the current directory."))))
+
+(defun msbuild-project ()
+  "Use MSBuild to compile current project."
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         (dir (file-name-directory current-file))
+         (vcxproj (car (directory-files dir t "\\.vcxproj$")))
+         (file-name (file-name-nondirectory current-file)))
+    (if vcxproj
+        (let ((compile-command
+               (format "MSBuild /v:m \"%s\" /property:Configuration=Release /property:Platform=x64 -maxcpucount"
+                       vcxproj file-name)))
+          (compile compile-command))
+      (message "No .vcxproj file found in the current directory."))))
+
+(global-set-key [(ctrl f7)] 'compile-msbuild-file)
+(global-set-key [(shift f7)] 'compile-msbuild-project)
+(global-set-key [(f7)] 'msbuild-project)
+
+;; Clang for windows error recognition:
+
+;; Define regexp for Clang Windows error format: filepath(line,column): error: message
+
+;; Define regexp for Clang Windows error format: filepath(line,column): error: message
+;; Using separate regexps for errors, warnings, and notes to ensure proper coloring
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(clang-windows-error
+               "^\\([A-Za-z]:[^:()]+\\)(\\([0-9]+\\),\\([0-9]+\\)): \\(fatal \\)?error: \\(.*\\)$"
+               1 2 3 2))  ; 2 = error severity (red)
+
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(clang-windows-warning
+               "^\\([A-Za-z]:[^:()]+\\)(\\([0-9]+\\),\\([0-9]+\\)): warning: \\(.*\\)$"
+               1 2 3 1))  ; 1 = warning severity (orange/yellow)
+
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(clang-windows-note
+               "^\\([A-Za-z]:[^:()]+\\)(\\([0-9]+\\),\\([0-9]+\\)): note: \\(.*\\)$"
+               1 2 3 0))  ; 0 = info severity (blue/green)
+
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(clang-windows-note
+               "^ +\\([A-Za-z]:[^:()]+cpp\\)(\\([0-9]+\\),\\([0-9]+\\)):\\(.*\\)$"
+               1 2 3 0))  ; 0 = info severity (blue/green)
+
+;; Enable the new regexps
+(add-to-list 'compilation-error-regexp-alist 'clang-windows-error)
+(add-to-list 'compilation-error-regexp-alist 'clang-windows-warning)
+(add-to-list 'compilation-error-regexp-alist 'clang-windows-note)
+
+;; Optional: Make compilation more user-friendly
+(setq compilation-scroll-output 'first-error)
+(setq compilation-window-height 15)
+
+
+(defun copy-current-function-name ()
+  "Copy the name of the C++ function at point to the kill ring."
+  (interactive)
+  (let ((fn-name (which-function)))
+    (if fn-name
+        (progn
+          (kill-new fn-name)
+          (message "Copied function name: %s" fn-name))
+      (message "No function name found."))))
+
+
+;; Optional: Ensure proper error face coloring (uncomment if needed)
+;; (custom-set-faces
+;;  '(compilation-error ((t (:foreground "red" :weight bold))))
+;;  '(compilation-warning ((t (:foreground "orange" :weight bold))))
+;;  '(compilation-info ((t (:foreground "blue" :weight bold))))))
+
+;;; smb-options.el ends here
