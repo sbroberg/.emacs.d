@@ -105,9 +105,9 @@
     dumber-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
 
     ;; aider (ai coding)
-    aider
-    transient
-    markdown-mode
+    ;; aider
+    ;; transient
+    ;; markdown-mode
 
     ;; Project-stuff
     projectile           ;; project-based navigation & searching
@@ -234,7 +234,7 @@
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
 (load-relative "./config-ligature")
-(load-relative "./config-aider")
+;; (load-relative "./config-aider")
 
 ;; (load-relative "./config-llm")
 
