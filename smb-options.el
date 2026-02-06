@@ -364,7 +364,7 @@
 
 (add-to-list 'compilation-error-regexp-alist-alist
              '(clang-windows-warning
-               "^\\([A-Za-z]:[^:()]+\\)(\\([0-9]+\\),\\([0-9]+\\)): warning: \\(.*\\)$"
+               "^\\([A-Za-z]:[^:]+\\)(\\([0-9]+\\),\\([0-9]+\\)): warning[ A-Za-z0-9]*: \\(.*\\)$"
                1 2 3 1))  ; 1 = warning severity (orange/yellow)
 
 (add-to-list 'compilation-error-regexp-alist-alist
