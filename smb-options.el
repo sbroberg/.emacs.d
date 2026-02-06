@@ -31,7 +31,19 @@
   )
 
 (global-set-key [(f6)] 'next-error)
-(global-set-key [(f5)] 'recompile)
+
+
+(defun my-switch-to-compilation-and-recompile ()
+  "Switch to the *compilation* buffer and run `recompile`."
+  (interactive)
+  (let ((compilation-buffer (get-buffer "*compilation*")))
+    (if compilation-buffer
+        (progn
+          (switch-to-buffer compilation-buffer)
+          (recompile))
+      (message "No *compilation* buffer found."))))
+;; Bind the function to F5
+(global-set-key (kbd "<f5>") #'my-switch-to-compilation-and-recompile)
 
 ;; Code navigation & debugging key maps
 (require 'gud)
