@@ -3,6 +3,23 @@
 ;;; Code:
 ;; (setq debug-on-quit t)
 
+(require 'package)
+
+;; 1. Use MELPA exclusively since gnu.org is blocked on your network
+(setq package-archives '(("melpa" . "https://melpa.org")))
+
+;; 2. Disable signature lookups to prevent local download verification blocks
+(setq package-check-signature nil)
+
+;; 3. Initialize the package ecosystem
+(package-initialize)
+
+;; 4. THE SELF-HEALER: If your local package database index is missing,
+;;    this forces Emacs to fetch the headers BEFORE running your install loop.
+(unless package-archive-contents
+  (message "Local package database is empty! Fetching headers from MELPA...")
+  (package-refresh-contents))
+
 (load-theme 'tango-dark t)
 
 ;; strip down default memory/fileio settings for fast startup
@@ -20,20 +37,6 @@
 (add-hook 'after-init-hook #'(lambda ()
                                ;; restore after startup
                                (setq gc-cons-threshold 800000)))
-
-;; Melpa
-(setq package-check-signature nil)
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-
-;; (setq package-archive-priorities (quote (("melpa" . 5) ("melpa-stable" . 10))))
-
-;; Do not activate initialized packages until all the loading is done below,
-;; in order to allow missing packages to be loaded before activating dependents
-(package-initialize t)
-
-;; END Melpa
 
 ;;;;;;;;
 ;; START Packages
@@ -113,7 +116,7 @@
     projectile           ;; project-based navigation & searching
     helm                 ;; fancy-pants results searching - used in many contexts
     helm-projectile      ;; integration with helm & projectile
-    helm-swoop           ;; interactive search result browsing
+    ;; helm-swoop           ;; interactive search result browsing - deprecated
     magit                ;; git integration
     git-messenger        ;; fancy git quality-of-life stuff
     cmake-mode           ;; for CMakeLists.txt files
