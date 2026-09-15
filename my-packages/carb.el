@@ -1,4 +1,4 @@
-;;; carb.el --- Utility functions for Carbonite servers.
+;;; carb.el --- Utility functions for Carbonite servers.  -*- lexical-binding: t; -*-
 ;; Author: Gerald Pipes (gpipes@carbonite.com)
 ;; Created: 01 September 2017
 ;; Version: 0.1

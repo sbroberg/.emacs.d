@@ -1,4 +1,4 @@
-;;; gud.el --- Grand Unified Debugger mode for running GDB and other debuggers
+;;; gud.el --- Grand Unified Debugger mode for running GDB and other debuggers  -*- lexical-binding: t; -*-
 
 ;; Author: Eric S. Raymond <esr@snark.thyrsus.com>
 ;; Maintainer: FSF

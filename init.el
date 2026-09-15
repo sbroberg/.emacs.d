@@ -1,24 +1,36 @@
-;;; package --- Summary
+;;; package --- Summary  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-quit t)
 
+;;; package --- Summary  -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Code:
+
 (require 'package)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; 1. Use MELPA exclusively since gnu.org is blocked on your network
-(setq package-archives '(("melpa" . "https://melpa.org")))
-
-;; 2. Disable signature lookups to prevent local download verification blocks
+;; 1. Overwrite exclusively to keep gnu.org blocked
+(setq package-archives '(("melpa-repo" . "https://melpa.org/packages/")))
 (setq package-check-signature nil)
 
-;; 3. Initialize the package ecosystem
+;; 2. Initialize the architecture 
 (package-initialize)
 
-;; 4. THE SELF-HEALER: If your local package database index is missing,
-;;    this forces Emacs to fetch the headers BEFORE running your install loop.
+;; 3. THE HARD FIX FOR MAC MEMORY PHANTOMS: 
+;; If Emacs' built-in parser fails to activate the memory table on startup,
+;; read the downloaded file explicitly from the disk to bypass the loop.
 (unless package-archive-contents
-  (message "Local package database is empty! Fetching headers from MELPA...")
-  (package-refresh-contents))
+  (let ((local-archive-file (expand-file-name "elpa/archives/melpa-repo/archive-contents" user-emacs-directory)))
+    (if (file-exists-p local-archive-file)
+        (with-temp-buffer
+          (insert-file-contents local-archive-file)
+          (goto-char (point-min))
+          ;; Read the file as a raw Lisp expression and bind it to the memory state
+          (setq package-archive-contents (cdr (read (current-buffer)))))
+      ;; Fallback loop if the file gets deleted by an external process
+      (message "Local package database file missing! Syncing...")
+      (package-refresh-contents))))
 
 (load-theme 'tango-dark t)
 
@@ -116,7 +128,6 @@
     projectile           ;; project-based navigation & searching
     helm                 ;; fancy-pants results searching - used in many contexts
     helm-projectile      ;; integration with helm & projectile
-    ;; helm-swoop           ;; interactive search result browsing - deprecated
     magit                ;; git integration
     git-messenger        ;; fancy git quality-of-life stuff
     cmake-mode           ;; for CMakeLists.txt files
@@ -146,7 +157,6 @@
     helm-c-yasnippet     ;; Use helm to navigate available snippets with helm-yas-complete
     expand-region        ;; Use M-m to increase the current selection to the next-largest lexical unit
     itail                ;; Tail changing files
-    csv-mode             ;; For editing & viewing csv
 
     ;; file-type modes
     flymd
@@ -188,6 +198,7 @@
 (defun install-packages ()
   "Install all required packages."
   (interactive)
+  ;; Ensure we have the memory table mapped
   (unless package-archive-contents
     (package-refresh-contents))
   (dolist (package my-installed-packages)
@@ -195,17 +206,19 @@
       (package-install package)))
   (if (eq system-type 'darwin)
       (dolist (package osx-installed-packages)
-	(unless (package-installed-p package)
-	  (package-install package)))
-    )
+        (unless (package-installed-p package)
+          (package-install package))))
   )
 
-;; (install-packages)
+;; 1. RUN THE INSTALL LOOP IMMEDIATELY HERE
+;; This ensures load-relative and your other packages are downloaded onto your Mac's disk
+(install-packages)
 
 ;;;;;;;;
 ;; END Packages
 ;;;;;;;;
 
+;; 2. NOW IT IS SAFE TO REQUIRE AND LOAD THE REST OF YOUR CONFIG FILES
 (require 'load-relative)
 ;; (byte-recompile-directory (relative-expand-file-name "."))
 (add-to-list 'load-path "~/.emacs.d/my-packages")
@@ -224,7 +237,6 @@
 (load-relative "./config-helm")
 (load-relative "./config-magit")
 (load-relative "./config-git-messenger")
-(load-relative "./config-helm-swoop")
 (load-relative "./config-python")
 (load-relative "./config-expand-region")
 (load-relative "./config-which-key")
@@ -237,9 +249,6 @@
 (load-relative "./config-neotree")
 (load-relative "./config-string-inflection")
 (load-relative "./config-ligature")
-;; (load-relative "./config-aider")
-
-;; (load-relative "./config-llm")
 
 (if (eq system-type 'darwin)
     (load-relative "./gud")

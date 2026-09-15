@@ -1,0 +1,214 @@
+;;; el-get --- Manage the external elisp bits and pieces you depend upon -*- lexical-binding: t; -*-
+;;
+;; Copyright (C) 2010-2011 Dimitri Fontaine
+;;
+;; Author: Dimitri Fontaine <dim@tapoueh.org>
+;; URL: http://www.emacswiki.org/emacs/el-get
+;; GIT: https://github.com/dimitri/el-get
+;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
+;;
+;; This file is NOT part of GNU Emacs.
+;;
+;; Install
+;;     Please see the README.md file from the same distribution
+
+(require 'cl-lib)                       ; yes I like loop
+(require 'bytecomp)
+
+;; Note: When called in batch mode with
+;; `el-get-byte-compile-from-stdin', the `load-path' is not set up
+;; until read from stdin, so don't require any non-Emacs things here!
+
+;; Forward decls instead.
+(defvar el-get-byte-compile)
+(defvar el-get-emacs)
+
+(declare-function el-get-as-list "el-get-core")
+(declare-function el-get-package-directory "el-get-core")
+(declare-function el-get-load-path "el-get-core")
+(declare-function el-get-start-process-list "el-get-core")
+(declare-function el-get-build-commands "el-get-build" (package))
+(declare-function el-get-read-package-with-status "el-get-status" (action &rest statuses))
+(declare-function el-get-package-def "el-get-recipes")
+(declare-function el-get-package-method "el-get-recipes")
+
+;; byte-recompile-file:
+;;
+;;  - in Emacs23 will not recompile a file when the source is newer than the
+;;    bytecode (.elc)
+;;
+;;  - in Emacs24 has another different and unhelpful behavior:
+;;
+;;    If the `.elc' file does not exist, normally this function *does not*
+;;    compile FILENAME. If ARG is 0, that means compile the file even if it
+;;    has never been compiled before.
+;;
+;; so we just define our own
+(defun el-get-byte-compile-file (el &optional warnings)
+  "Byte compile the EL file, and skips unnecessary compilation.
+
+Specifically, if the compiled elc file already exists and is
+newer, then compilation is skipped."
+  (let ((elc (concat (file-name-sans-extension el) ".elc"))
+        (byte-compile-warnings warnings)
+        ;; Byte-compile runs emacs-lisp-mode-hook; disable it
+        emacs-lisp-mode-hook)
+    (when (or (not (file-exists-p elc))
+              (not (file-newer-than-file-p elc el)))
+      (when (file-exists-p elc)
+        ;; Delete the old elc to make sure that if the compilation fails to
+        ;; generate a new one, there will be no discrepancy between them.
+        (delete-file elc))
+      (condition-case err
+          (byte-compile-file el)
+        ((debug error) ;; catch-all, allow for debugging
+         (message "%S" (error-message-string err)))))))
+
+(defun el-get-byte-compile-file-or-directory (file)
+  "Byte-compile FILE or all files within it if it is a directory."
+  (let ((byte-compile-warnings nil)
+        ;; Byte-compile runs emacs-lisp-mode-hook; disable it
+        emacs-lisp-mode-hook)
+    (if (file-directory-p file)
+        (byte-recompile-directory file 0)
+      (el-get-byte-compile-file file))))
+
+(defun el-get-assemble-files-for-byte-compilation (package)
+  "Assemble a list of *absolute* paths to byte-compile for PACKAGE."
+  (when el-get-byte-compile
+    (let* ((source   (el-get-package-def package))
+           (comp-prop (plist-get source :compile))
+           (compile (el-get-as-list comp-prop))
+           ;; nocomp is true only if :compile is explicitly set to nil.
+           (explicit-nocomp (and (plist-member source :compile)
+                                 (not comp-prop)))
+           (method   (el-get-package-method source))
+           (pdir     (el-get-package-directory package))
+           (el-path  (el-get-load-path package))
+           (files '()))
+      (cond
+       (compile
+        ;; only byte-compile what's in the :compile property of the recipe
+        (dolist (path compile)
+          (let ((fullpath (expand-file-name path pdir)))
+            (if (file-exists-p fullpath)
+                ;; path is a file/dir, so add it literally
+                (push fullpath files)
+              ;; path is a regexp, so add matching file names in package dir
+              (dolist (file (directory-files pdir t path))
+                (push file files))))))
+
+       ;; If package has (:compile nil), or package has its own build
+       ;; instructions, or package is already pre-compiled by the
+       ;; installation method, then don't compile anything.
+       ((or explicit-nocomp
+            (el-get-build-commands package)
+            (member method '(apt-get fink pacman)))
+        nil)
+
+       ;; Default: compile the package's entire load-path
+       (t
+        (dolist (path el-path)
+          (push path files))))
+      files)))
+
+(defun el-get-clean-stale-compiled-files (dir &optional recursive)
+  "In DIR, delete all elc files older than their corresponding el files.
+
+With optional arg RECURSIVE, do so in all subdirectories as well."
+  ;; Process elc files in this dir
+  (let ((elc-files (directory-files dir 'full "\\.elc$")))
+    (cl-loop for elc in elc-files
+             for el = (concat (file-name-sans-extension elc) ".el")
+             if (and (file-exists-p elc)
+                     (not (file-directory-p elc))
+                     (not (file-newer-than-file-p elc el)))
+             do (progn
+                  (message "el-get-byte-compile: Cleaning stale compiled file %s" elc)
+                  (delete-file elc)))
+    ;; Process subdirectories recursively
+    (when recursive
+      (cl-loop for dir in (directory-files dir 'full)
+               for localdir = (file-name-nondirectory dir)
+               if (file-directory-p dir)
+               unless (member localdir '("." ".."
+                                         ;; This list of dirs to ignore courtesy of ack
+                                         ;; http://betterthangrep.com/
+                                         "autom4te.cache" "blib" "_build"
+                                         ".bzr" ".cdv" "cover_db" "CVS" "_darcs"
+                                         "~.dep" "~.dot" ".git" ".hg" "_MTN"
+                                         "~.nib" ".pc" "~.plst" "RCS" "SCCS"
+                                         "_sgbak" ".svn"))
+               do (el-get-clean-stale-compiled-files dir recursive)))))
+
+(defun el-get-byte-compile-from-stdin ()
+  "byte compile files from stdin.
+
+Standard input must be a property list with properties
+`:load-path' and `:compile-files', each of which should have a
+value that is a list of strings. The variable `load-path' will be
+set from the `:load-path' property, and then all the files listed
+in `:compile-files' will be byte-compiled.
+
+Standard input can also contain a `:clean-directory' property,
+whose value is a directory to be cleared of stale elc files."
+  (cl-assert noninteractive nil
+             "`el-get-byte-compile-from-stdin' is to be used only with -batch")
+  (let* ((input-data (read-minibuffer ""))
+         (files (plist-get input-data :compile-files))
+         (input-load-path (plist-get input-data :load-path))
+         (dir-to-clean (plist-get input-data :clean-directory)))
+    ;; Use setq so that `load-path' stays updated until
+    ;; shutdown. Certain packages (eg w3m) might install shutdown
+    ;; hooks during compilation.
+    (setq load-path (append input-load-path load-path))
+    (unless (or dir-to-clean files)
+      (warn "Did not get a list of files to byte-compile or a directory to clean. The input may have been corrupted."))
+    (when dir-to-clean
+      (cl-assert (stringp dir-to-clean) nil
+                 "The value of `:clean-directory' must be a string.")
+      (message "el-get-byte-compile: Cleaning stale compiled files in %s" dir-to-clean)
+      (el-get-clean-stale-compiled-files dir-to-clean 'recursive))
+    (cl-loop for f in files
+             do (progn
+                  (message "el-get-byte-compile: %s" f)
+                  (el-get-byte-compile-file-or-directory f)))))
+
+(defun el-get-byte-compile-process (package buffer working-dir sync files)
+  "return the `el-get-start-process-list' entry to byte compile PACKAGE"
+  (let* ((input-data
+          (list :load-path (cons "." load-path)
+                :compile-files files
+                :clean-directory (el-get-package-directory package)))
+         (subprocess-function 'el-get-byte-compile-from-stdin)
+         (bytecomp-command
+          `(,el-get-emacs
+            "-Q" "-batch" "-f" "toggle-debug-on-error"
+            "-l" ,(file-name-sans-extension
+                   (symbol-file subprocess-function 'defun))
+            "-f" ,(symbol-name subprocess-function))))
+    (list :command-name "byte-compile"
+          :buffer-name buffer
+          :default-directory working-dir
+          :shell t
+          :stdin input-data
+          :sync sync
+          :program (car bytecomp-command)
+          :args (cdr bytecomp-command)
+          :message (format "el-get-build %s: byte-compile ok." package)
+          :error (format
+                  "el-get could not byte-compile %s" package))))
+
+(defun el-get-byte-compile (package)
+  "byte compile files for given package"
+  (interactive
+   (list (el-get-read-package-with-status "Byte compile" "installed")))
+  (let ((pdir  (el-get-package-directory package))
+        (buf   "*el-get-byte-compile*")
+        (files (el-get-assemble-files-for-byte-compilation package)))
+    (el-get-start-process-list
+     package
+     (list (el-get-byte-compile-process package buf pdir t files))
+     nil)))
+
+(provide 'el-get-byte-compile)
