@@ -89,7 +89,7 @@
 (setq-default split-height-threshold 0) ;; Make windows always split vertically
 (setq-default split-width-threshold nil) ;; Make windows always split vertically
 
-(scroll-bar-mode 0)
+;; (scroll-bar-mode 0)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 
@@ -303,7 +303,8 @@
       )
   )
 
-(minions-mode)
+;; (minions-mode)
+;;; smb-options ends here
 
 (defun compile-msbuild-file ()
   "Uses MSBuild to compile current buffer"
