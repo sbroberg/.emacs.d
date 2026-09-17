@@ -211,8 +211,6 @@
 
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
-(load "carb")
-
 ;;;;;;;;
 ;; Open sqlite files with ebdi
 ;;;;;;;;

@@ -44,12 +44,4 @@
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
-;; autocomplete
-(defun auto-complete-for-go ()
-  "Set up autocomplete."
-  (auto-complete-mode 1))
-(add-hook 'go-mode-hook 'auto-complete-for-go)
-(with-eval-after-load 'go-mode
-   (require 'go-autocomplete))
-
 ;;; config-go.el ends here

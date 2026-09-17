@@ -8,29 +8,21 @@
 ;;; Code:
 
 (require 'package)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; 1. Overwrite exclusively to keep gnu.org blocked
-(setq package-archives '(("melpa-repo" . "https://melpa.org/packages/")))
+(setq package-enable-at-startup nil)
+(require 'package)
 (setq package-check-signature nil)
 
-;; 2. Initialize the architecture 
+;; 1. Use the stable mirrors
+(setq package-archives '(("gnu"          . "https://gnu.org")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")))
+
+;; 2. Standard Emacs 30 core initialize pass
 (package-initialize)
 
-;; 3. THE HARD FIX FOR MAC MEMORY PHANTOMS: 
-;; If Emacs' built-in parser fails to activate the memory table on startup,
-;; read the downloaded file explicitly from the disk to bypass the loop.
+;; 3. Only fetch metadata if the package manager states its memory cache is blank
 (unless package-archive-contents
-  (let ((local-archive-file (expand-file-name "elpa/archives/melpa-repo/archive-contents" user-emacs-directory)))
-    (if (file-exists-p local-archive-file)
-        (with-temp-buffer
-          (insert-file-contents local-archive-file)
-          (goto-char (point-min))
-          ;; Read the file as a raw Lisp expression and bind it to the memory state
-          (setq package-archive-contents (cdr (read (current-buffer)))))
-      ;; Fallback loop if the file gets deleted by an external process
-      (message "Local package database file missing! Syncing...")
-      (package-refresh-contents))))
+  (package-refresh-contents))
 
 (load-theme 'tango-dark t)
 
@@ -113,11 +105,6 @@
     flycheck             ;; syntax checking powered by various backends
     flymake-json         ;; for json
     flycheck-tip         ;; show flycheck errors as tooltips
-    rtags                ;; backend clang-based autocomplete, syntax check & navigation.  Requires installation of binary
-    helm-rtags
-    flycheck-rtags
-    company-rtags
-    dumber-jump            ;; "good enough" code navigation (based on projectile, ag, no config)
 
     ;; aider (ai coding)
     ;; aider
@@ -137,11 +124,9 @@
     blacken              ;; code formatter
     poetry               ;; environment management
     py-autopep8          ;; for pep8 enforcement
-    ein                  ;; for Jupyter
 
     ;; Go
     go-mode
-    go-autocomplete
 
     ;; Db
     ;; edbi                 ;; more graphical version of db explorer
@@ -227,7 +212,6 @@
 (load-relative "./config-garbage-collector")
 (load-relative "./config-exec-path-from-shell")
 (load-relative "./config-company")
-(load-relative "./config-rtags")
 (load-relative "./config-flycheck")
 (load-relative "./config-clang-format")
 (load-relative "./config-yasnippet")

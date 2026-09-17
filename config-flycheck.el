@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'rtags)
 (global-flycheck-mode)
 
 ;; Show errors as tooltips, but also show full multiline error
